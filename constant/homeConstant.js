@@ -14,6 +14,14 @@ export const SIGNUP = {
       placeholder: 'Enter your username',
     },
     {
+      name: 'tel',
+      label: 'Telephone',
+      type: 'text',
+      placeholder: 'Enter your tel',
+    },
+  ],
+  field2: [
+    {
       name: 'password',
       label: 'Password',
       type: 'text',
@@ -26,18 +34,18 @@ export const SIGNUP = {
       placeholder: 'Confirm your password',
     },
   ],
-  field2: [
+  field3: [
+    {
+      name: 'email',
+      label: 'Email',
+      type: 'text',
+      placeholder: 'Enter your email',
+    },
     {
       name: 'country',
       label: 'Country',
       type: 'text',
       placeholder: 'Enter your country',
-    },
-    {
-      name: 'tel',
-      label: 'Telephone',
-      type: 'text',
-      placeholder: 'Enter your tel',
     },
   ],
   btnText: ['Next', 'Finish'],

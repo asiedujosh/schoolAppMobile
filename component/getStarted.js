@@ -1,8 +1,23 @@
+import React, {useContext, useState, useEffect} from 'react';
 import {Text, View, Pressable} from 'react-native';
+import SubmitBtn from './submitBtn';
 import {START} from '../constant/homeConstant';
+// import {AuthApiData} from '../contextApi/auth/authContextApi.js';
 import styles from '../globalStyles/Styles';
 
-const GetStarted = () => {
+const GetStarted = ({change}) => {
+  // const {registerStage, setRegisterStage} = useContext(AuthApiData);
+
+  const handleStageChange = () => {
+    let i = change[0] + 1;
+    if (i > 2) {
+      console.log('We are registering...');
+    } else {
+      // console.log(i);
+      change[1](i);
+    }
+  };
+
   return (
     <View>
       <View style={styles.homeHeadTextContainer}>
@@ -12,14 +27,7 @@ const GetStarted = () => {
         <Text style={styles.homeBodyText}>{START.body}</Text>
       </View>
       <View style={styles.homeBtnContainer}>
-        <Pressable
-          style={({pressed}) => [
-            styles.homeBtn,
-            {backgroundColor: pressed ? '#EFA7EB' : '#D268CC'},
-          ]}
-          onPress={console.log('Was pressed')}>
-          <Text style={styles.homeBtnText}>{START.btnText}</Text>
-        </Pressable>
+        <SubmitBtn btnText={START.btnText} action={handleStageChange} />
       </View>
     </View>
   );

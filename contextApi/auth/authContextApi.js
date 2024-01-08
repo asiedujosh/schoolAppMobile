@@ -5,9 +5,19 @@ export const AuthApiData = createContext();
 
 const AuthApiDataProvider = props => {
   const [alreadyLoggedIn, setAlreadyLoggedIn] = useState(false);
+  const [registerFormData, setRegisterFormData] = useState();
+  const [registerStage, setRegisterStage] = useState(0);
 
   return (
-    <AuthApiData.Provider value={{}}>{props.children}</AuthApiData.Provider>
+    <AuthApiData.Provider
+      value={{
+        registerFormData,
+        setRegisterFormData,
+        registerStage,
+        setRegisterStage,
+      }}>
+      {props.children}
+    </AuthApiData.Provider>
   );
 };
 

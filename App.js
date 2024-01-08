@@ -13,13 +13,14 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen
+        {/* <Stack.Screen
           name="Home"
           component={Home}
           options={{
             header: () => null,
           }}
-        />
+        /> */}
+
         <Stack.Screen
           name="Dashboard"
           component={Dashboard}
@@ -27,6 +28,7 @@ const App = () => {
             header: () => null,
           }}
         />
+
         <Stack.Screen
           name="Quiz"
           component={Quiz}

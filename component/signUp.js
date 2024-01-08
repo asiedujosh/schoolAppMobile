@@ -1,28 +1,63 @@
-import {Text, View, Pressable} from 'react-native';
+import React, {useContext, useState, useEffect} from 'react';
+import {Text, View} from 'react-native';
+import SubSignUpOne from './subSignUpOne';
+import SubSignUpTwo from './subSignUpTwo';
+import SubSignUpThree from './subSignUpThree';
 import {SIGNUP} from '../constant/homeConstant';
+import {AuthApiData} from '../contextApi/auth/authContextApi.js';
 import InputField from './inputField';
 import styles from '../globalStyles/Styles';
+import SubmitBtn from './submitBtn';
 
-const SignUp = () => {
+const SignUp = ({navigation}) => {
+  const {
+    registerStage,
+    setRegisterStage,
+    registerFormData,
+    setRegisterFormData,
+  } = useContext(AuthApiData);
+
   return (
     <View>
       <View style={styles.homeHeadTextContainer}>
         <Text style={styles.textTitle}>{SIGNUP.title}</Text>
       </View>
-      <View style={styles.homeBodyTextContainer}>
-        {SIGNUP.field.map(item => (
-          <InputField title={item.label} />
-        ))}
-      </View>
-      <View style={styles.homeBtnContainer}>
-        <Pressable
-          style={({pressed}) => [
-            styles.homeBtn,
-            {backgroundColor: pressed ? '#EFA7EB' : '#D268CC'},
-          ]}
-          onPress={console.log('Was pressed')}>
-          <Text style={styles.homeBtnText}>{SIGNUP.btnText[0]}</Text>
-        </Pressable>
+      <View>
+        {registerStage == 1 && (
+          <SubSignUpOne
+            signUpdateFunction={[
+              registerStage,
+              setRegisterStage,
+              registerFormData,
+              setRegisterFormData,
+            ]}
+          />
+        )}
+        {registerStage == 2 && (
+          <SubSignUpTwo
+            signUpdateFunction={[
+              registerStage,
+              setRegisterStage,
+              registerFormData,
+              setRegisterFormData,
+            ]}
+          />
+        )}
+
+        {registerStage == 3 && (
+          <SubSignUpThree
+            nav={navigation}
+            signUpdateFunction={[
+              registerStage,
+              setRegisterStage,
+              registerFormData,
+              setRegisterFormData,
+            ]}
+          />
+        )}
+
+        {/* <SubSignUpTwo />
+        <SubSignUpThree /> */}
       </View>
     </View>
   );

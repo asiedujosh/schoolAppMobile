@@ -1,23 +1,32 @@
-import {Image, Text, View, Pressable} from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import React, {useContext} from 'react';
+import {Image, View} from 'react-native';
 import styles from '../globalStyles/Styles';
 import GetStarted from '../component/getStarted';
 import SignUp from '../component/signUp';
+import {AuthApiData} from '../contextApi/auth/authContextApi.js';
+import KeyboardAvoidingContainer from '../component/keyboardAvoidingContainer';
 
 const Home = ({navigation}) => {
+  const {registerStage, setRegisterStage} = useContext(AuthApiData);
+
   return (
-    <SafeAreaView>
-      <View style={styles.container}>
-        <Image
-          source={require('../assets/img/student.jpg')} // Replace with the actual path to your image
-          style={styles.image}
-        />
+    <KeyboardAvoidingContainer>
+      <View style={{flex: 1, padding: 0}}>
+        <View style={styles.container}>
+          <Image
+            source={require('../assets/img/student.jpg')} // Replace with the actual path to your image
+            style={styles.image}
+          />
+        </View>
+
+        <View style={styles.homeCard}>
+          {registerStage == 0 && (
+            <GetStarted change={[registerStage, setRegisterStage]} />
+          )}
+          {registerStage >= 1 && <SignUp navigation={navigation} />}
+        </View>
       </View>
-      <View style={styles.homeCard}>
-        {/** <GetStarted /> **/}
-        <SignUp />
-      </View>
-    </SafeAreaView>
+    </KeyboardAvoidingContainer>
   );
 };
 

@@ -1,7 +1,7 @@
 import {Text, View, TextInput} from 'react-native';
 import styles from '../globalStyles/Styles';
 
-const InputField = ({title, top, value, change, field}) => {
+const NumberField = ({title, top, value, change, field}) => {
   const handleInputChange = value => {
     change(value, field);
   };
@@ -13,9 +13,7 @@ const InputField = ({title, top, value, change, field}) => {
         style={styles.textInput}
         placeholderTextColor="white"
         selectionColor="white"
-        secureTextEntry={
-          field == 'password' || field == 'confirmPassword' ? true : false
-        }
+        keyboardType="numeric"
         onChangeText={value => {
           handleInputChange(value);
         }}
@@ -24,4 +22,4 @@ const InputField = ({title, top, value, change, field}) => {
   );
 };
 
-export default InputField;
+export default NumberField;
