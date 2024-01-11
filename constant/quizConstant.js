@@ -26,8 +26,20 @@ export const QUIZOPTIONS = {
       ],
     },
     {
+      name: 'questionStyle',
+      label: 'Question Style',
+      type: 'select',
+      options: ['Random', 'Straight'],
+    },
+    {
       name: 'questionNos',
       label: 'Number of questions',
+      type: 'number',
+      placeholder: '',
+    },
+    {
+      name: 'timer',
+      label: 'Add time (Seconds)',
       type: 'number',
       placeholder: '',
     },

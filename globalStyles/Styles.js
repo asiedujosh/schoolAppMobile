@@ -3,6 +3,11 @@ import {Dimensions} from 'react-native';
 
 const {width, height} = Dimensions.get('window');
 
+const whiteColor = '#ffffff';
+const blackColor = '#2C444E';
+const black = '#000000';
+const purpleColor = '#894284';
+
 export default StyleSheet.create({
   /***** Styles For Home  *****/
   container: {
@@ -14,11 +19,15 @@ export default StyleSheet.create({
     height: height, // Set the height as needed
     resizeMode: 'contain', // 'cover' or 'contain' or 'stretch' or 'repeat' or 'center'
   },
+  errMsg: {
+    color: whiteColor,
+    fontSize: 10,
+  },
   textTitle: {
     fontSize: 30,
     fontWeight: 'bold',
     marginTop: 20,
-    color: '#ffffff',
+    color: whiteColor,
     textAlign: 'center',
   },
   keyboardContainer: {
@@ -27,7 +36,7 @@ export default StyleSheet.create({
   },
   homeCard: {
     marginTop: '-60%',
-    backgroundColor: '#2C444E',
+    backgroundColor: blackColor,
     borderTopLeftRadius: 35,
     borderTopRightRadius: 35,
     padding: 16,
@@ -44,7 +53,7 @@ export default StyleSheet.create({
   },
   homeBodyText: {
     fontSize: 15,
-    color: '#ffffff',
+    color: whiteColor,
     textAlign: 'center',
   },
 
@@ -65,12 +74,12 @@ export default StyleSheet.create({
 
   homeBtnText: {
     fontSize: 19,
-    color: '#ffffff',
+    color: whiteColor,
   },
 
   textLabel: {
     fontSize: 15,
-    color: '#ffffff',
+    color: whiteColor,
     marginBottom: 5,
   },
 
@@ -79,17 +88,36 @@ export default StyleSheet.create({
     height: 50,
     borderWidth: 1,
     borderRadius: 20,
-    borderColor: '#ffffff',
-    color: '#ffffff',
+    borderColor: whiteColor,
+    color: whiteColor,
     fontSize: 20,
     paddingLeft: 15,
+  },
+
+  /** Sign up options separator*/
+  separateContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  separator: {
+    flex: 1,
+    height: StyleSheet.hairlineWidth,
+    backgroundColor: whiteColor, // Separator color
+    marginHorizontal: 10, // Adjust the margin as needed
+  },
+  orText: {
+    marginHorizontal: 10, // Adjust the margin as needed
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: whiteColor,
   },
 
   /** Dashboard Styles */
   dashboardHeadCard: {
     flex: 1,
     marginTop: 0,
-    backgroundColor: '#894284',
+    backgroundColor: purpleColor,
     borderBottomLeftRadius: 35,
     padding: 16,
     height: 0.3 * height,
@@ -110,12 +138,12 @@ export default StyleSheet.create({
     opacity: 0.8,
   },
   dashboardHeadTitle: {
-    color: '#ffffff',
+    color: whiteColor,
     fontSize: 35,
     fontWeight: 'bold',
   },
   dashboardHeadBody: {
-    color: '#ffffff',
+    color: whiteColor,
     fontSize: 22,
   },
   dashboardCardContainer: {
@@ -147,12 +175,12 @@ export default StyleSheet.create({
   },
   dashboardOverlay: {
     flex: 1, // Takes 1/4 of the card's height
-    backgroundColor: '#894284',
+    backgroundColor: purpleColor,
     justifyContent: 'center',
     alignItems: 'center',
   },
   dashboardOverlayText: {
-    color: '#ffffff',
+    color: whiteColor,
     fontSize: 20,
   },
 
@@ -166,12 +194,119 @@ export default StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#894284',
-    height: height * 0.95,
+    backgroundColor: purpleColor,
+    height: height,
     width: width * 0.95,
     margin: 20,
     borderTopRightRadius: 30,
     borderTopLeftRadius: 30,
     borderBottomLeftRadius: 30,
+    overflow: 'hidden',
+  },
+
+  quizScrollContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: '5%',
+  },
+
+  /**Game board */
+  gameBoard: {
+    height: height,
+  },
+
+  scoreTimerBoard: {
+    flex: 0.3,
+    flexDirection: 'row',
+  },
+
+  gameOptionsContainer: {
+    flex: 0.7,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  subject: {
+    color: whiteColor,
+    fontSize: 15,
+    textTransform: 'uppercase',
+  },
+
+  quizType: {
+    color: whiteColor,
+    fontSize: 18,
+    textTransform: 'uppercase',
+  },
+
+  quizQues: {
+    color: whiteColor,
+    fontSize: 15,
+  },
+
+  timerContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    paddingLeft: '5%',
+  },
+
+  quesNoContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    paddingLeft: '50%',
+  },
+
+  timerScoreText: {
+    color: whiteColor,
+    fontSize: 17,
+  },
+
+  questionContainerBoard: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    overflow: 'hidden',
+    height: height * 0.5,
+  },
+
+  gameboardQuestionScrollView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  question: {
+    color: whiteColor,
+    fontSize: 22,
+    fontWeight: 'bold',
+    padding: 20,
+    textAlign: 'center',
+  },
+
+  optionContainer: {
+    flex: 2,
+    overflow: 'hidden',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: '5%',
+  },
+
+  optionItemContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    paddingTop: 15,
+    paddingBottom: 15,
+    width: width * 0.9,
+    borderRadius: 10,
+    backgroundColor: whiteColor,
+    paddingLeft: 20,
+    paddingRight: 20,
+    marginTop: 5,
+    marginBottom: 5,
+  },
+
+  optionItem: {
+    color: black,
+    fontSize: 18,
   },
 });

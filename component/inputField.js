@@ -1,7 +1,7 @@
 import {Text, View, TextInput} from 'react-native';
 import styles from '../globalStyles/Styles';
 
-const InputField = ({title, top, value, change, field}) => {
+const InputField = ({title, top, value, change, field, err}) => {
   const handleInputChange = value => {
     change(value, field);
   };
@@ -20,6 +20,9 @@ const InputField = ({title, top, value, change, field}) => {
           handleInputChange(value);
         }}
       />
+      {err && err[0].errName === field && (
+        <Text style={styles.errMsg}>{err[0].errMsg}</Text>
+      )}
     </View>
   );
 };

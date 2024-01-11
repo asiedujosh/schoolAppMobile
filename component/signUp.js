@@ -23,7 +23,7 @@ const SignUp = ({navigation}) => {
         <Text style={styles.textTitle}>{SIGNUP.title}</Text>
       </View>
       <View>
-        {registerStage == 1 && (
+        {registerStage == 3 && (
           <SubSignUpOne
             signUpdateFunction={[
               registerStage,
@@ -33,7 +33,7 @@ const SignUp = ({navigation}) => {
             ]}
           />
         )}
-        {registerStage == 2 && (
+        {registerStage == 4 && (
           <SubSignUpTwo
             signUpdateFunction={[
               registerStage,
@@ -44,7 +44,7 @@ const SignUp = ({navigation}) => {
           />
         )}
 
-        {registerStage == 3 && (
+        {registerStage == 5 && (
           <SubSignUpThree
             nav={navigation}
             signUpdateFunction={[

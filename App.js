@@ -4,6 +4,8 @@ import Home from './screens/home';
 import Dashboard from './screens/dashboard';
 import Quiz from './screens/quiz';
 import QuizInput from './screens/quizInput';
+import GameBoard from './screens/gameBoard';
+import GameResult from './screens/gameResult';
 import {createStackNavigator} from '@react-navigation/stack';
 import React from 'react';
 
@@ -13,13 +15,29 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        {/* <Stack.Screen
+        <Stack.Screen
           name="Home"
           component={Home}
           options={{
             header: () => null,
           }}
-        /> */}
+        />
+
+        <Stack.Screen
+          name="GameResult"
+          component={GameResult}
+          options={{
+            header: () => null,
+          }}
+        />
+
+        <Stack.Screen
+          name="GameBoard"
+          component={GameBoard}
+          options={{
+            header: () => null,
+          }}
+        />
 
         <Stack.Screen
           name="Dashboard"
@@ -36,6 +54,7 @@ const App = () => {
             header: () => null,
           }}
         />
+
         <Stack.Screen
           name="QuizInput"
           component={QuizInput}

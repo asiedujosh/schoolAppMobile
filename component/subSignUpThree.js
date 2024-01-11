@@ -1,23 +1,38 @@
 import {View} from 'react-native';
 import {SIGNUP} from '../constant/homeConstant';
 import CountrySelect from './selectCountry';
+import {AuthApiData} from '../contextApi/auth/authContextApi.js';
 import InputField from './inputField';
 import styles from '../globalStyles/Styles';
 import SubmitBtn from './submitBtn';
 
 const SubSignUpThree = ({nav, signUpdateFunction}) => {
+  const {} = useContext(AuthApiData);
   const handleInputChange = (data, field) => {
     signUpdateFunction[3]({...signUpdateFunction[2], [field]: data});
   };
 
   const handleStageChange = () => {
-    let i = signUpdateFunction[0] + 1;
-    if (i > 3) {
-      //console.log(signUpdateFunction[2]);
-      nav.navigate('Dashboard');
+    //Check If its filled in
+    let err = [];
+    SIGNUP.field.map((item, index) => {
+      if (!signUpdateFunction[2] || !signUpdateFunction[2][item.name]) {
+        let errData = {
+          errName: item.name,
+          errMsg: `* ${item.label} cannot be empty`,
+        };
+        err.push(errData);
+      }
+    });
+
+    if (err.length !== 0) {
+      setError(err);
     } else {
-      console.log(i);
-      signUpdateFunction[1](i);
+      let i = signUpdateFunction[0] + 1;
+      if (i > 5) {
+        //console.log(signUpdateFunction[2]);
+        nav.navigate('Dashboard');
+      }
     }
   };
 

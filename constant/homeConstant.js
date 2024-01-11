@@ -4,6 +4,30 @@ export const START = {
   btnText: 'Get Started',
 };
 
+export const SIGNOPTIONS = {
+  btnOne: 'Sign In',
+  btnTwo: 'Sign Up',
+};
+
+export const SIGNIN = {
+  title: 'Sign In',
+  btnText: 'Sign In',
+  field: [
+    {
+      name: 'username',
+      label: 'Username',
+      type: 'text',
+      placeholder: 'Enter your username',
+    },
+    {
+      name: 'password',
+      label: 'Password',
+      type: 'text',
+      placeholder: 'Enter your password',
+    },
+  ],
+};
+
 export const SIGNUP = {
   title: 'Sign Up',
   field: [
