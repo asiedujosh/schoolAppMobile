@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {Image, View} from 'react-native';
 import styles from '../globalStyles/Styles';
 import GetStarted from '../component/getStarted';
@@ -9,7 +9,14 @@ import {AuthApiData} from '../contextApi/auth/authContextApi.js';
 import KeyboardAvoidingContainer from '../component/keyboardAvoidingContainer';
 
 const Home = ({navigation}) => {
-  const {registerStage, setRegisterStage} = useContext(AuthApiData);
+  const {registerStage, setRegisterStage, alreadyLoggedIn} =
+    useContext(AuthApiData);
+
+  useEffect(() => {
+    if (alreadyLoggedIn) {
+      navigation.navigate('Dashboard');
+    }
+  }, [alreadyLoggedIn]);
 
   return (
     <KeyboardAvoidingContainer>

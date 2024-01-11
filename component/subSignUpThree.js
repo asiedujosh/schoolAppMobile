@@ -1,13 +1,16 @@
+import React, {useState, useContext} from 'react';
 import {View} from 'react-native';
 import {SIGNUP} from '../constant/homeConstant';
 import CountrySelect from './selectCountry';
 import {AuthApiData} from '../contextApi/auth/authContextApi.js';
+import LoadingBtn from '../component/loadingBtn';
 import InputField from './inputField';
 import styles from '../globalStyles/Styles';
 import SubmitBtn from './submitBtn';
 
 const SubSignUpThree = ({nav, signUpdateFunction}) => {
-  const {} = useContext(AuthApiData);
+  const {processRegister, registerFormData, loading} = useContext(AuthApiData);
+
   const handleInputChange = (data, field) => {
     signUpdateFunction[3]({...signUpdateFunction[2], [field]: data});
   };
@@ -30,8 +33,8 @@ const SubSignUpThree = ({nav, signUpdateFunction}) => {
     } else {
       let i = signUpdateFunction[0] + 1;
       if (i > 5) {
+        processRegister(registerFormData);
         //console.log(signUpdateFunction[2]);
-        nav.navigate('Dashboard');
       }
     }
   };
@@ -53,7 +56,11 @@ const SubSignUpThree = ({nav, signUpdateFunction}) => {
         ))}
       </View>
       <View style={styles.homeBtnContainer}>
-        <SubmitBtn btnText={SIGNUP.btnText[1]} action={handleStageChange} />
+        {loading ? (
+          <LoadingBtn />
+        ) : (
+          <SubmitBtn btnText={SIGNUP.btnText[1]} action={handleStageChange} />
+        )}
       </View>
     </>
   );

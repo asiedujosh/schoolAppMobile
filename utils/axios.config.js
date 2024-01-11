@@ -1,4 +1,4 @@
-import {URL, TIMEOUT} from '../constant/requestConstants';
+import {URL, TIMEOUT} from '../constant/httpConstant';
 import axios from 'axios';
 import {retrieveUserSession, storeUserSession} from './localStore';
 

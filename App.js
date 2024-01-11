@@ -24,6 +24,14 @@ const App = () => {
         />
 
         <Stack.Screen
+          name="Dashboard"
+          component={Dashboard}
+          options={{
+            header: () => null,
+          }}
+        />
+
+        <Stack.Screen
           name="GameResult"
           component={GameResult}
           options={{
@@ -34,14 +42,6 @@ const App = () => {
         <Stack.Screen
           name="GameBoard"
           component={GameBoard}
-          options={{
-            header: () => null,
-          }}
-        />
-
-        <Stack.Screen
-          name="Dashboard"
-          component={Dashboard}
           options={{
             header: () => null,
           }}

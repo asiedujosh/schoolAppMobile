@@ -1,8 +1,8 @@
-import EncryptedStorage from 'react-native-encrypted-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const storeUserSession = async (accessToken, username) => {
   try {
-    await EncryptedStorage.setItem(
+    await AsyncStorage.setItem(
       'user_session',
       JSON.stringify({
         token: accessToken,
@@ -17,11 +17,12 @@ export const storeUserSession = async (accessToken, username) => {
 
 export const retrieveUserSession = async () => {
   try {
-    const session = await EncryptedStorage.getItem('user_session');
+    // console.log('Hello we retrieve sessions');
+    const session = await AsyncStorage.getItem('user_session');
 
     if (session !== undefined) {
       // Congrats! You've just retrieved your first value!
-      return undefined;
+      return session;
     }
   } catch (error) {
     // There was an error on the native side
@@ -31,7 +32,7 @@ export const retrieveUserSession = async () => {
 
 export const removeUserSession = async () => {
   try {
-    await EncryptedStorage.removeItem('user_session');
+    await AsyncStorage.removeItem('user_session');
     // Congrats! You've just removed your first value!
   } catch (error) {
     // There was an error on the native side

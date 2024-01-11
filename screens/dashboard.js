@@ -7,11 +7,19 @@ import {
   FlatList,
   Pressable,
 } from 'react-native';
+import {AuthApiData} from '../contextApi/auth/authContextApi.js';
 import {DASHBOARD} from '../constant/dashboardConstant';
 import styles from '../globalStyles/Styles';
 import KeyboardAvoidingContainer from '../component/keyboardAvoidingContainer';
+import SubmitBtn from '../component/submitBtn';
 
 const Dashboard = ({navigation}) => {
+  const {processLogout, userProfile} = useContext(AuthApiData);
+
+  const handleLogout = () => {
+    processLogout();
+  };
+
   return (
     <KeyboardAvoidingContainer>
       <View style={{flex: 1, padding: 0}}>
@@ -23,7 +31,10 @@ const Dashboard = ({navigation}) => {
             imageStyle={{opacity: 1}}
           />
           <View style={styles.dashboardHeadTextContainer}>
-            <Text style={styles.dashboardHeadTitle}>{DASHBOARD.headTitle}</Text>
+            <Text
+              style={
+                styles.dashboardHeadTitle
+              }>{`${DASHBOARD.headTitle} ${userProfile}`}</Text>
             <Text style={styles.dashboardHeadBody}>{DASHBOARD.headBody}</Text>
           </View>
         </View>
@@ -61,6 +72,9 @@ const Dashboard = ({navigation}) => {
               );
             }}
           />
+        </View>
+        <View>
+          <SubmitBtn btnText={'Logout'} action={handleLogout} />
         </View>
       </View>
     </KeyboardAvoidingContainer>

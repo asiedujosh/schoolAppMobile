@@ -72,6 +72,23 @@ export default StyleSheet.create({
     justifyContent: 'center',
   },
 
+  loadingBtn: {
+    backgroundColor: '#efefef',
+    width: 250,
+    height: 50,
+    borderRadius: 30,
+    marginTop: '10%',
+    marginBottom: '5%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    opacity: 0.7,
+  },
+
+  loadingBtnText: {
+    fontSize: 19,
+    color: '#ffffff',
+  },
+
   homeBtnText: {
     fontSize: 19,
     color: whiteColor,
