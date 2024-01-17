@@ -99,5 +99,4 @@ export const QUESTIONS = [
     options: 'Cheetah**Lion**Gazelle**Leopard',
     ans: 'a',
   },
-  // Add more questions as needed
 ];

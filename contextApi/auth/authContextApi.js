@@ -33,7 +33,7 @@ const AuthApiDataProvider = props => {
     if (response) {
       setUserProfile(response.data.user);
       // set the cookie
-      storeUserSession(response.data.access_token, username);
+      storeUserSession(response.data.token, username);
       axios.defaults.headers.common[
         'Authorization'
       ] = `Bearer ${response.token}`;

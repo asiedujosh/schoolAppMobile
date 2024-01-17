@@ -1,7 +1,7 @@
 import {Text, View, TextInput} from 'react-native';
 import styles from '../globalStyles/Styles';
 
-const NumberField = ({title, top, value, change, field}) => {
+const NumberField = ({title, top, value, width, change, field}) => {
   const handleInputChange = value => {
     change(value, field);
   };
@@ -10,7 +10,7 @@ const NumberField = ({title, top, value, change, field}) => {
     <View style={{marginTop: top}}>
       <Text style={styles.textLabel}>{title}</Text>
       <TextInput
-        style={styles.textInput}
+        style={[styles.textInput, {width: width && width}]}
         placeholderTextColor="white"
         selectionColor="white"
         keyboardType="numeric"

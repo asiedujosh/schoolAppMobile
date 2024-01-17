@@ -7,13 +7,16 @@ import App from './App';
 import {name as appName} from './app.json';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import AuthApiDataProvider from './contextApi/auth/authContextApi';
+import QuestionApiDataProvider from './contextApi/question/questionContextApi';
 
 const MainApp = () => {
   return (
     <AuthApiDataProvider>
-      <GestureHandlerRootView style={{flex: 1}}>
-        <App />
-      </GestureHandlerRootView>
+      <QuestionApiDataProvider>
+        <GestureHandlerRootView style={{flex: 1}}>
+          <App />
+        </GestureHandlerRootView>
+      </QuestionApiDataProvider>
     </AuthApiDataProvider>
   );
 };

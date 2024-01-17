@@ -1,14 +1,18 @@
-import {useState} from 'react';
+import {useState, useContext} from 'react';
 import {StyleSheet, Text, View, ScrollView, Pressable} from 'react-native';
 import styles from '../globalStyles/Styles';
 import {GAMEOPTIONS, QUESTIONS} from '../constant/gameboardConstant';
+import {QuestionApiData} from '../contextApi/question/questionContextApi.js';
+import OutputQuestion from '../component/htmlOutput.js';
 
 import KeyboardAvoidingContainer from '../component/keyboardAvoidingContainer';
 
 const GameBoard = ({navigation}) => {
+  const {questions, questionInfo, correctAns, processQuizAttempt, quizAttempt} =
+    useContext(QuestionApiData);
   const [noOfQuestions, setNoOfQuestions] = useState(10);
+  const [dummy, setDummy] = useState();
   const [currentQuestionNo, setCurrentQuestionNo] = useState(0);
-  const [solvedQuestions, setSolvedQuestions] = useState([]);
   const possibleAns = [
     'a',
     'b',
@@ -24,33 +28,26 @@ const GameBoard = ({navigation}) => {
     'l',
   ];
 
-  const storeSolvedQuestions = (questionId, topic, ans, userAns) => {
-    let solvedQuest = {
-      questionId: questionId,
-      topic: topic,
-      ans: ans,
-      userAns: userAns,
-    };
-    setSolvedQuestions([...solvedQuestions, solvedQuest]);
+  const storeSolvedQuestions = (questionId, ans, userAns) => {
+    processQuizAttempt(questionId, ans, userAns);
   };
 
   const handleChoosenAns = item => {
-    let options = QUESTIONS[currentQuestionNo].options.split('**');
+    let options = questions && questions[currentQuestionNo].options.split('**');
     const position = options.indexOf(item);
     let userAns = possibleAns[position];
     storeSolvedQuestions(
-      QUESTIONS[currentQuestionNo].id,
-      QUESTIONS[currentQuestionNo].topic,
-      QUESTIONS[currentQuestionNo].ans,
+      questions[currentQuestionNo].id,
+      questions[currentQuestionNo].answer,
       userAns,
     );
 
-    let next = currentQuestionNo + 1;
-
-    if (next > QUESTIONS.length) {
-      navigation.navigate('Result');
+    if (currentQuestionNo + 1 == questions.length) {
+      navigation.navigate('GameResult');
     } else {
-      setCurrentQuestionNo(next);
+      setCurrentQuestionNo(prev => prev + 1);
+      console.log(`current question no ${currentQuestionNo}`);
+      console.log(`total question no ${questions.length - 1}`);
     }
   };
 
@@ -69,40 +66,46 @@ const GameBoard = ({navigation}) => {
             </View>
           </View>
           <View style={styles.gameOptionsContainer}>
-            <Text style={styles.subject}>Chemistry</Text>
-            <Text style={styles.quizType}>WASSCE MAY/JUNE 2022</Text>
-            <Text style={styles.quizQues}>Question 12</Text>
+            <Text style={styles.subject}>{questionInfo.subject}</Text>
+            <Text style={styles.quizType}>{questionInfo.year}</Text>
+            <Text style={styles.quizQues}>
+              {`Question No ${
+                questions && questions[currentQuestionNo].questionNo
+              }`}
+            </Text>
           </View>
           <View style={styles.questionContainerBoard}>
             <ScrollView style={{flex: 1}}>
-              <Text style={styles.question}>
-                {QUESTIONS[currentQuestionNo].question}
-              </Text>
-              <View style={styles.questionImg}>
-                <Text>Image</Text>
+              <View style={styles.question}>
+                <OutputQuestion
+                  data={questions && questions[currentQuestionNo].question}
+                />
               </View>
             </ScrollView>
           </View>
           <View style={styles.optionContainer}>
             <ScrollView style={{flex: 1}}>
-              {QUESTIONS[currentQuestionNo].options
-                .split('**')
-                .map((item, index) => (
-                  <Pressable
-                    onPress={() => {
-                      handleChoosenAns(item);
-                    }}
-                    style={({pressed}) => [
-                      styles.optionItemContainer,
-                      {backgroundColor: pressed ? '#3A0936' : '#ffffff'},
-                    ]}>
-                    <Text style={styles.optionItem}>{item}</Text>
-                  </Pressable>
-                ))}
+              {questions &&
+                questions[currentQuestionNo].options
+                  .split('**')
+                  .map((item, index) => (
+                    <Pressable
+                      onPress={() => {
+                        handleChoosenAns(item);
+                      }}
+                      style={({pressed}) => [
+                        styles.optionItemContainer,
+                        {backgroundColor: pressed ? '#3A0936' : '#ffffff'},
+                      ]}>
+                      <Text style={styles.optionItem}>{item}</Text>
+                    </Pressable>
+                  ))}
             </ScrollView>
           </View>
           <View style={{flex: 0.5}}>
-            <Text></Text>
+            <Pressable>
+              <Text>Pause</Text>
+            </Pressable>
           </View>
         </View>
       </View>

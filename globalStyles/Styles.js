@@ -63,10 +63,10 @@ export default StyleSheet.create({
   },
 
   homeBtn: {
-    width: 250,
+    width: '95%',
     height: 50,
     borderRadius: 30,
-    marginTop: '10%',
+    marginTop: '5%',
     marginBottom: '5%',
     alignItems: 'center',
     justifyContent: 'center',
@@ -101,14 +101,14 @@ export default StyleSheet.create({
   },
 
   textInput: {
-    width: 300,
+    width: '95%',
     height: 50,
     borderWidth: 1,
     borderRadius: 20,
     borderColor: whiteColor,
     color: whiteColor,
     fontSize: 20,
-    paddingLeft: 15,
+    paddingLeft: '3%',
   },
 
   /** Sign up options separator*/
@@ -123,6 +123,7 @@ export default StyleSheet.create({
     backgroundColor: whiteColor, // Separator color
     marginHorizontal: 10, // Adjust the margin as needed
   },
+
   orText: {
     marginHorizontal: 10, // Adjust the margin as needed
     fontSize: 16,
@@ -293,6 +294,7 @@ export default StyleSheet.create({
   },
 
   question: {
+    width: width * 0.9,
     color: whiteColor,
     fontSize: 22,
     fontWeight: 'bold',
@@ -325,5 +327,154 @@ export default StyleSheet.create({
   optionItem: {
     color: black,
     fontSize: 18,
+  },
+
+  /** Game Result View */
+  gameResultContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: purpleColor,
+    height: height,
+    width: width,
+  },
+
+  gameResultCard: {
+    marginTop: 20,
+    flex: 2,
+    borderRadius: 20,
+    backgroundColor: whiteColor,
+    width: width * 0.95,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  resultImageContainer: {
+    marginTop: '-10%',
+  },
+
+  resultImage: {
+    width: 250, // Set the width as needed
+    height: 300, // Set the height as needed
+    resizeMode: 'contain',
+  },
+
+  marksContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  mark: {
+    fontSize: 30,
+    marginHorizontal: 5,
+    fontWeight: 'bold',
+  },
+
+  commentContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  comment: {
+    fontSize: 20,
+  },
+
+  statCard: {
+    marginTop: 20,
+    flex: 1,
+    borderRadius: 20,
+    backgroundColor: whiteColor,
+    width: width * 0.95,
+    alignItems: 'center',
+    overflow: 'hidden',
+  },
+
+  statHeadContainer: {
+    alignItems: 'center',
+    marginTop: 10,
+  },
+
+  statBodyContainer: {
+    marginTop: 10,
+  },
+
+  statHeadText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+
+  buttonContainer: {
+    flex: 0.5,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  resultSeparator: {
+    height: 1.5,
+    width: 150,
+    backgroundColor: blackColor, // Separator color
+    marginTop: 5,
+  },
+
+  /** Game Review */
+  reviewSearchContainer: {
+    flex: 0.5,
+    flexDirection: 'row',
+  },
+
+  searchWrapper: {
+    flex: 1,
+    paddingHorizontal: '3%',
+  },
+
+  homeBtnWrapper: {
+    flex: 0.5,
+  },
+
+  topicContainer: {
+    flex: 0.5,
+    alignItems: 'center',
+    marginTop: '5%',
+  },
+
+  scrollContainer: {
+    flex: 4,
+  },
+
+  questionContainer: {
+    backgroundColor: whiteColor,
+    width: width * 0.9,
+    borderRadius: 20,
+    alignItems: 'center',
+    paddingTop: '3%',
+    marginTop: '5%',
+  },
+
+  questionTopicTitle: {
+    color: '#000000',
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+
+  questionTopicTitleSub: {
+    color: '#000000',
+    fontSize: 16,
+    marginTop: 6,
+  },
+
+  topicTitle: {
+    color: '#ffffff',
+    fontWeight: 'bold',
+    fontSize: 20,
+  },
+
+  subTopicTitle: {
+    fontSize: 18,
+    color: '#ffffff',
+  },
+
+  reviewQuestion: {
+    paddingHorizontal: '5%',
   },
 });

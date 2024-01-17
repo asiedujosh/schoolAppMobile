@@ -7,7 +7,7 @@ const cardFiveImg = require('../assets/img/faq.jpg');
 const cardSixImg = require('../assets/img/review.jpg');
 
 export const DASHBOARD = {
-  headTitle: `Hi Josh,`,
+  headTitle: `Hi`,
   headBody: `How are you preparing ${'\n'}for your exams ${'\n'}Today?`,
   //   headImg: headImg,
   dashboardCards: [

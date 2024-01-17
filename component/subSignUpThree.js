@@ -47,6 +47,7 @@ const SubSignUpThree = ({nav, signUpdateFunction}) => {
             key={index}
             top={item.label == SIGNUP.field3[0].label ? '2%' : '5%'}
             title={item.label}
+            width={300}
             field={item.name}
             placeholder={item.placeholder}
             change={(data, field) => {
@@ -59,7 +60,13 @@ const SubSignUpThree = ({nav, signUpdateFunction}) => {
         {loading ? (
           <LoadingBtn />
         ) : (
-          <SubmitBtn btnText={SIGNUP.btnText[1]} action={handleStageChange} />
+          <SubmitBtn
+            btnText={SIGNUP.btnText[1]}
+            width={300}
+            borderRadius={30}
+            topMargin={'5%'}
+            action={handleStageChange}
+          />
         )}
       </View>
     </>

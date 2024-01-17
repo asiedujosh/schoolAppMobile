@@ -7,15 +7,16 @@ import styles from '../globalStyles/Styles';
 import SubmitBtn from './submitBtn';
 
 const SignIn = ({navigation}) => {
-  const {
-    registerStage,
-    setRegisterStage,
-    registerFormData,
-    setRegisterFormData,
-  } = useContext(AuthApiData);
+  const {processLogin} = useContext(AuthApiData);
+  const [formData, setFormData] = useState();
+
+  const handleInputChange = (data, field) => {
+    setFormData({...formData, [field]: data});
+  };
 
   const handleStageChange = () => {
-    console.log('We are working');
+    processLogin(formData);
+    // console.log('We are working');
     // let i = signUpdateFunction[0] + 1;
     // if (i > 2) {
     //   console.log('We are registering...');

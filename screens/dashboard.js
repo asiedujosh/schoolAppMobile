@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {
   Image,
   ImageBackground,
@@ -8,6 +8,7 @@ import {
   Pressable,
 } from 'react-native';
 import {AuthApiData} from '../contextApi/auth/authContextApi.js';
+import {QuestionApiData} from '../contextApi/question/questionContextApi.js';
 import {DASHBOARD} from '../constant/dashboardConstant';
 import styles from '../globalStyles/Styles';
 import KeyboardAvoidingContainer from '../component/keyboardAvoidingContainer';
@@ -15,6 +16,14 @@ import SubmitBtn from '../component/submitBtn';
 
 const Dashboard = ({navigation}) => {
   const {processLogout, userProfile} = useContext(AuthApiData);
+  const {processGetAllExams, processGetAllYear, processGetAllSubject} =
+    useContext(QuestionApiData);
+
+  useEffect(() => {
+    processGetAllExams();
+    processGetAllYear();
+    processGetAllSubject();
+  }, []);
 
   const handleLogout = () => {
     processLogout();
@@ -34,7 +43,7 @@ const Dashboard = ({navigation}) => {
             <Text
               style={
                 styles.dashboardHeadTitle
-              }>{`${DASHBOARD.headTitle} ${userProfile}`}</Text>
+              }>{`${DASHBOARD.headTitle} Josh`}</Text>
             <Text style={styles.dashboardHeadBody}>{DASHBOARD.headBody}</Text>
           </View>
         </View>

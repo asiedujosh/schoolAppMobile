@@ -27,7 +27,13 @@ const GetStarted = ({change}) => {
         <Text style={styles.homeBodyText}>{START.body}</Text>
       </View>
       <View style={styles.homeBtnContainer}>
-        <SubmitBtn btnText={START.btnText} action={handleStageChange} />
+        <SubmitBtn
+          btnText={START.btnText}
+          width={300}
+          topMargin={'8%'}
+          borderRadius={30}
+          action={handleStageChange}
+        />
       </View>
     </View>
   );

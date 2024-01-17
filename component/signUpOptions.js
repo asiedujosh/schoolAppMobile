@@ -22,7 +22,13 @@ const SignUpOptions = ({change}) => {
   return (
     <View>
       <View style={styles.homeBtnContainer}>
-        <SubmitBtn btnText={SIGNOPTIONS.btnOne} action={handleStageChange} />
+        <SubmitBtn
+          btnText={SIGNOPTIONS.btnOne}
+          width={300}
+          topMargin={'8%'}
+          borderRadius={30}
+          action={handleStageChange}
+        />
       </View>
       <View style={styles.separateContainer}>
         <View style={styles.separator} />
@@ -30,7 +36,13 @@ const SignUpOptions = ({change}) => {
         <View style={styles.separator} />
       </View>
       <View style={styles.homeBtnContainer}>
-        <SubmitBtn btnText={SIGNOPTIONS.btnTwo} action={handleStageChangeTwo} />
+        <SubmitBtn
+          btnText={SIGNOPTIONS.btnTwo}
+          width={300}
+          topMargin={'8%'}
+          borderRadius={30}
+          action={handleStageChangeTwo}
+        />
       </View>
     </View>
   );
