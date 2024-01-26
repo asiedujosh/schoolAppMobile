@@ -2,8 +2,11 @@ import React, {useContext, useState, useEffect} from 'react';
 import {View} from 'react-native';
 import {SIGNUP} from '../constant/homeConstant';
 import InputField from './inputField';
+import {Dimensions} from 'react-native';
 import styles from '../globalStyles/Styles';
 import SubmitBtn from './submitBtn';
+
+const {width, height} = Dimensions.get('window');
 
 const SubSignUpTwo = ({signUpdateFunction}) => {
   const [error, setError] = useState();
@@ -50,10 +53,14 @@ const SubSignUpTwo = ({signUpdateFunction}) => {
         {SIGNUP.field2.map((item, index) => (
           <InputField
             key={index}
-            top={item.label == SIGNUP.field2[0].label ? '2%' : '5%'}
+            top={
+              item.label == SIGNUP.field2[0].label
+                ? 0.02 * height
+                : 0.04 * height
+            }
             title={item.label}
             field={item.name}
-            width={300}
+            width={width * 0.95}
             err={error}
             placeholder={item.placeholder}
             change={(data, field) => {
@@ -65,9 +72,9 @@ const SubSignUpTwo = ({signUpdateFunction}) => {
       <View style={styles.homeBtnContainer}>
         <SubmitBtn
           btnText={SIGNUP.btnText[0]}
-          width={300}
-          borderRadius={30}
-          topMargin={'5%'}
+          width={width * 0.8}
+          borderRadius={width * 0.15}
+          topMargin={0.05 * height}
           action={handleStageChange}
         />
       </View>

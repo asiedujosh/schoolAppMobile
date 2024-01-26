@@ -1,9 +1,12 @@
 import React, {useContext, useState, useEffect} from 'react';
 import {Text, View, Pressable} from 'react-native';
 import SubmitBtn from './submitBtn';
+import {Dimensions} from 'react-native';
 import {START} from '../constant/homeConstant';
 // import {AuthApiData} from '../contextApi/auth/authContextApi.js';
 import styles from '../globalStyles/Styles';
+
+const {width, height} = Dimensions.get('window');
 
 const GetStarted = ({change}) => {
   // const {registerStage, setRegisterStage} = useContext(AuthApiData);
@@ -21,7 +24,9 @@ const GetStarted = ({change}) => {
   return (
     <View>
       <View style={styles.homeHeadTextContainer}>
-        <Text style={styles.textTitle}>{START.title}</Text>
+        <Text style={[styles.textTitle, {color: '#0347A1'}]}>
+          {START.title}
+        </Text>
       </View>
       <View style={styles.homeBodyTextContainer}>
         <Text style={styles.homeBodyText}>{START.body}</Text>
@@ -29,9 +34,11 @@ const GetStarted = ({change}) => {
       <View style={styles.homeBtnContainer}>
         <SubmitBtn
           btnText={START.btnText}
-          width={300}
-          topMargin={'8%'}
-          borderRadius={30}
+          width={width * 0.8}
+          topMargin={0.05 * height}
+          borderRadius={width * 0.15}
+          color={'#0347A1'}
+          textColor={'#ffffff'}
           action={handleStageChange}
         />
       </View>

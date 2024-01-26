@@ -18,6 +18,7 @@ const QuestionApiDataProvider = props => {
   const [subjectOptions, setSubjectOptions] = useState();
   const [yearList, setYearList] = useState([]);
   const [solvedQuestions, setSolvedQuestions] = useState([]);
+  const [review, setReview] = useState([]);
   const [subjectList, setSubjectList] = useState([]);
   const [topicList, setTopicList] = useState([]);
   const [loadingQuestions, setLoadingQuestions] = useState(false);
@@ -27,7 +28,7 @@ const QuestionApiDataProvider = props => {
   useEffect(() => {
     if (questions && questions.length > 0) {
       prepareQuestionsToBeAnswered(questions, questionInfo);
-      console.log(questions.length);
+      // console.log(questions.length);
     }
   }, [questions]);
 
@@ -40,7 +41,7 @@ const QuestionApiDataProvider = props => {
   };
 
   const processExamsOptions = async data => {
-    let exams = [];
+    let exams = ['Quiz type'];
     data &&
       data.map(item => {
         exams.push(item.exam);
@@ -65,7 +66,7 @@ const QuestionApiDataProvider = props => {
   };
 
   const processSubjectOptions = async data => {
-    let subjects = [];
+    let subjects = ['Subject'];
     data &&
       data.map(item => {
         subjects.push(item.subject);
@@ -74,7 +75,7 @@ const QuestionApiDataProvider = props => {
   };
 
   const processYearOptions = async data => {
-    let years = [];
+    let years = ['Year'];
     data &&
       data.map(item => {
         years.push(item.year);
@@ -116,9 +117,10 @@ const QuestionApiDataProvider = props => {
 
     setQuestionInfo(info);
 
-    // console.log(formData);
+    console.log(formData);
     let response = await getSelectectedQuestions(formData);
     if (response) {
+      console.log(response);
       setQuestions(response.data.data);
       setLoadingQuestions(false);
     }
@@ -184,8 +186,13 @@ const QuestionApiDataProvider = props => {
   };
 
   const processQuizAttempt = (id, ans, userAns) => {
-    if (ans.toLowerCase() === userAns.toLowerCase()) {
-      setCorrectAns(prev => prev + 1);
+    console.log(userAns);
+    if (userAns) {
+      if (ans.toLowerCase() === userAns.toLowerCase()) {
+        setCorrectAns(prev => prev + 1);
+      }
+    } else {
+      userAns = 'None';
     }
 
     updateQuizAttempt(id, userAns);
@@ -213,6 +220,8 @@ const QuestionApiDataProvider = props => {
         processQuizAttempt,
         correctAns,
         quizAttempt,
+        review,
+        setReview,
       }}>
       {props.children}
     </QuestionApiData.Provider>

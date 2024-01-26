@@ -28,7 +28,11 @@ const Home = ({navigation}) => {
           />
         </View>
 
-        <View style={styles.homeCard}>
+        <View
+          style={[
+            styles.homeCard,
+            {backgroundColor: registerStage > 1 ? '#0347A1' : '#ffffff'},
+          ]}>
           {registerStage == 0 && (
             <GetStarted change={[registerStage, setRegisterStage]} />
           )}

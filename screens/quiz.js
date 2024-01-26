@@ -1,6 +1,7 @@
 import {useState, useContext, useEffect} from 'react';
 import {StyleSheet, Text, View, ScrollView} from 'react-native';
 import {QuestionApiData} from '../contextApi/question/questionContextApi.js';
+import {Dimensions} from 'react-native';
 import styles from '../globalStyles/Styles';
 import {QUIZOPTIONS} from '../constant/quizConstant';
 import SelectField from '../component/selectField';
@@ -8,6 +9,8 @@ import NumberField from '../component/numberField';
 import SubmitBtn from '../component/submitBtn';
 import LoadingBtn from '../component/loadingBtn.js';
 import KeyboardAvoidingContainer from '../component/keyboardAvoidingContainer';
+
+const {width, height} = Dimensions.get('window');
 
 const Quiz = ({navigation}) => {
   const {
@@ -19,17 +22,24 @@ const Quiz = ({navigation}) => {
     loadingQuestions,
     setLoadingQuestions,
   } = useContext(QuestionApiData);
+
   const [quizOptions, setQuizOptions] = useState({
     quizType: examOptions && examOptions[0],
     subject: subjectOptions && subjectOptions[0],
     year: yearOptions && yearOptions[0],
-    questionNos: null,
+    questionNos: '100',
     questionStyle: 'Straight',
   });
   const [selectedValue, setSelectedValue] = useState('');
 
   useEffect(() => {
-    if (questions) navigation.navigate('GameBoard');
+    if (questions) {
+      if (questions.length > 0) {
+        navigation.navigate('GameBoard');
+      } else {
+        navigation.navigate('QuestionsNotAvailable');
+      }
+    }
   }, [questions]);
 
   const handleInputChange = (data, field) => {
@@ -80,8 +90,8 @@ const Quiz = ({navigation}) => {
                       key={index} // Add a unique key for each rendered element
                       title={item.label}
                       field={item.name}
-                      top={'5%'}
-                      width={300}
+                      top={0.04 * height}
+                      width={width * 0.85}
                       option={handleOptionAssign(item)}
                       change={[
                         selectedValue,
@@ -95,8 +105,8 @@ const Quiz = ({navigation}) => {
                   return (
                     <NumberField
                       key={index}
-                      top={'5%'}
-                      width={300}
+                      top={0.04 * height}
+                      width={width * 0.85}
                       title={item.label}
                       field={item.name}
                       placeholder={item.placeholder}
@@ -114,9 +124,11 @@ const Quiz = ({navigation}) => {
                 ) : (
                   <SubmitBtn
                     btnText={QUIZOPTIONS.btnText}
-                    width={300}
-                    borderRadius={30}
-                    topMargin={'5%'}
+                    width={width * 0.85}
+                    color={'#ffffff'}
+                    textColor={'#0347A1'}
+                    borderRadius={width * 0.15}
+                    topMargin={0.05 * height}
                     action={handleSubmitQuizOptions}
                   />
                 )}

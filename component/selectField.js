@@ -9,15 +9,25 @@ const SelectField = ({title, top, option, change, width, field}) => {
 
   return (
     <View style={{marginTop: top}}>
-      <Text style={styles.textLabel}>{title}</Text>
-      <View style={[styles.textInput, {width: width && width}]}>
+      <View
+        style={[
+          styles.textInput,
+          styles.ignorePadding,
+          {width: width && width},
+        ]}>
         <Picker
           selectedValue={change[2][field]}
           onValueChange={(itemValue, itemIndex) => handleChanges(itemValue)}
-          style={{color: '#ffffff'}}>
+          dropdownIconColor={'#ffffff'}
+          style={{color: '#ffffff', fontSize: 20}}>
           {option &&
             option.map((item, index) => (
-              <Picker.Item key={index} label={item} value={item} />
+              <Picker.Item
+                key={index}
+                label={item}
+                value={item}
+                style={{fontSize: 20}}
+              />
             ))}
         </Picker>
       </View>

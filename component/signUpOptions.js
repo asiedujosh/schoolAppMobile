@@ -1,9 +1,12 @@
 import React, {useContext, useState, useEffect} from 'react';
 import {Text, View, Pressable} from 'react-native';
 import SubmitBtn from './submitBtn';
+import {Dimensions} from 'react-native';
 import {SIGNOPTIONS} from '../constant/homeConstant';
 // import {AuthApiData} from '../contextApi/auth/authContextApi.js';
 import styles from '../globalStyles/Styles';
+
+const {width, height} = Dimensions.get('window');
 
 const SignUpOptions = ({change}) => {
   // const {registerStage, setRegisterStage} = useContext(AuthApiData);
@@ -21,12 +24,14 @@ const SignUpOptions = ({change}) => {
 
   return (
     <View>
-      <View style={styles.homeBtnContainer}>
+      <View style={[styles.homeBtnContainer, {marginTop: '15%'}]}>
         <SubmitBtn
           btnText={SIGNOPTIONS.btnOne}
-          width={300}
-          topMargin={'8%'}
-          borderRadius={30}
+          width={width * 0.8}
+          topMargin={0.04 * height}
+          color={'#0347A1'}
+          textColor={'#ffffff'}
+          borderRadius={width * 0.15}
           action={handleStageChange}
         />
       </View>
@@ -38,9 +43,11 @@ const SignUpOptions = ({change}) => {
       <View style={styles.homeBtnContainer}>
         <SubmitBtn
           btnText={SIGNOPTIONS.btnTwo}
-          width={300}
-          topMargin={'8%'}
-          borderRadius={30}
+          width={width * 0.8}
+          color={'#0347A1'}
+          textColor={'#ffffff'}
+          topMargin={0.04 * height}
+          borderRadius={width * 0.15}
           action={handleStageChangeTwo}
         />
       </View>

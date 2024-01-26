@@ -1,18 +1,30 @@
 import {Text, View, TextInput} from 'react-native';
 import styles from '../globalStyles/Styles';
 
-const InputField = ({title, top, value, change, width, field, err}) => {
+const InputField = ({
+  title,
+  top,
+  value,
+  change,
+  width,
+  field,
+  err,
+  editable,
+}) => {
   const handleInputChange = value => {
     change(value, field);
   };
 
+  console.log(editable);
+
   return (
     <View style={{marginTop: top}}>
-      <Text style={styles.textLabel}>{title}</Text>
       <TextInput
         style={[styles.textInput, {width: width && width}]}
+        placeholder={title}
         placeholderTextColor="white"
         selectionColor="white"
+        editable={editable}
         secureTextEntry={
           field == 'password' || field == 'confirmPassword' ? true : false
         }

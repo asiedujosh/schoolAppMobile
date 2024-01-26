@@ -15,8 +15,8 @@ export const ADDSTAFF = {
       placeholder: 'Enter full name',
     },
     {
-      name: 'password',
-      label: 'Password',
+      name: 'telephone',
+      label: 'Telephone',
       type: 'text',
       placeholder: 'Enter tel number',
     },

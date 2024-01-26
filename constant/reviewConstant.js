@@ -6,3 +6,12 @@ export const REVIEW = {
     options: ['All', 'Mistakes', 'Correct'],
   },
 };
+
+export const STATUSOPTION = {
+  selectOptions: {
+    name: 'statusOption',
+    label: '',
+    type: 'select',
+    options: ['All', 'Complete', 'In Complete'],
+  },
+};

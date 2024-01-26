@@ -1,12 +1,12 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export const storeUserSession = async (accessToken, username) => {
+export const storeUserSession = async (accessToken, data) => {
   try {
     await AsyncStorage.setItem(
       'user_session',
       JSON.stringify({
         token: accessToken,
-        username: username,
+        data: data,
       }),
     );
   } catch (error) {

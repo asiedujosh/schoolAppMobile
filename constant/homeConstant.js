@@ -74,3 +74,59 @@ export const SIGNUP = {
   ],
   btnText: ['Next', 'Finish'],
 };
+
+export const EDITSIGNINFO = {
+  title: 'Edit User Info',
+  field: [
+    {
+      name: 'username',
+      label: 'Username',
+      type: 'text',
+      placeholder: 'Enter your username',
+    },
+    {
+      name: 'tel',
+      label: 'Telephone',
+      type: 'text',
+      placeholder: 'Enter your tel',
+    },
+    {
+      name: 'email',
+      label: 'Email',
+      type: 'text',
+      placeholder: 'Enter your email',
+    },
+    {
+      name: 'country',
+      label: 'Country',
+      type: 'text',
+      placeholder: 'Enter your country',
+    },
+  ],
+  btnText: 'Edit',
+};
+
+export const EDITPASSWORDINFO = {
+  title: 'Edit Password',
+  field: [
+    {
+      name: 'oldPassword',
+      label: 'Current Password',
+      type: 'text',
+      placeholder: 'Enter your password',
+    },
+    {
+      name: 'newPassword',
+      label: 'New Password',
+      type: 'text',
+      placeholder: 'Enter your new password',
+    },
+    {
+      name: 'confirmPassword',
+      label: 'Confirm Password',
+      type: 'text',
+      placeholder: 'Enter your confirm password',
+    },
+  ],
+  btnText: 'Edit',
+};

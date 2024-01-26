@@ -6,9 +6,11 @@ const cardFourImg = require('../assets/img/setting.jpg');
 const cardFiveImg = require('../assets/img/faq.jpg');
 const cardSixImg = require('../assets/img/review.jpg');
 
+// export default excellentImg = require('../assets/img/review.jpg');
+
 export const DASHBOARD = {
   headTitle: `Hi`,
-  headBody: `How are you preparing ${'\n'}for your exams ${'\n'}Today?`,
+  headBody: `How are you preparing for your exams Today?`,
   //   headImg: headImg,
   dashboardCards: [
     {
@@ -37,9 +39,9 @@ export const DASHBOARD = {
       link: 'Faq',
     },
     {
-      title: 'Review',
+      title: 'News',
       cardImage: cardSixImg,
-      link: 'Review',
+      link: 'News',
     },
   ],
 };

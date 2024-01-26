@@ -8,10 +8,10 @@ const NumberField = ({title, top, value, width, change, field}) => {
 
   return (
     <View style={{marginTop: top}}>
-      <Text style={styles.textLabel}>{title}</Text>
       <TextInput
         style={[styles.textInput, {width: width && width}]}
         placeholderTextColor="white"
+        placeholder={title}
         selectionColor="white"
         keyboardType="numeric"
         onChangeText={value => {

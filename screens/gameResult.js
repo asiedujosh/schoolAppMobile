@@ -1,12 +1,18 @@
 import React, {useEffect, useState, useContext} from 'react';
-import {Text, View, Image} from 'react-native';
+import {Text, View, Image, Alert} from 'react-native';
 import styles from '../globalStyles/Styles';
 import SubmitBtn from '../component/submitBtn';
+import {AuthApiData} from '../contextApi/auth/authContextApi.js';
 import {QuestionApiData} from '../contextApi/question/questionContextApi.js';
+import {RecordApiData} from '../contextApi/records/recordsContextApi.js';
 import KeyboardAvoidingContainer from '../component/keyboardAvoidingContainer';
 
 const GameResult = ({navigation}) => {
-  const {quizAttempt, correctAns, questions} = useContext(QuestionApiData);
+  const {quizAttempt, correctAns, questions, review, setReview} =
+    useContext(QuestionApiData);
+  const {userProfile} = useContext(AuthApiData);
+  const {processSaveRecords, saveInfoAlert, setSaveInfoAlert} =
+    useContext(RecordApiData);
   const [gradeData, setGradeData] = useState({
     grade: null,
     comment: 'Worker harder',
@@ -14,14 +20,37 @@ const GameResult = ({navigation}) => {
   });
 
   useEffect(() => {
-    console.log(quizAttempt);
-
+    (quizAttempt.userInfo = userProfile.username), console.log(quizAttempt);
+    setReview(quizAttempt.solvedQuestions);
     handleGrade(questions.length, correctAns);
   }, []);
+
+  saveInfoAlert &&
+    Alert.alert('Success', 'Your data was saved successfully', [
+      {
+        text: 'Ok',
+        onPress: () => {
+          setSaveInfoAlert(false);
+        },
+      },
+    ]);
 
   const handleGoToReview = () => {
     navigation.navigate('Review');
     //navigation.navigate('GameBoard');
+  };
+
+  const handleSaveInfo = () => {
+    let data2 = {
+      correctAns: correctAns,
+      totalQuestions: questions.length,
+      status: 'complete',
+    };
+    processSaveRecords(quizAttempt, data2);
+  };
+
+  const handleShareInfo = () => {
+    console.log('Share info');
   };
 
   let handleGrade = (noOfQuestions, marks) => {
@@ -84,13 +113,33 @@ const GameResult = ({navigation}) => {
               </View>
             </View>
           </View>
-          <View style={styles.buttonContainer}>
-            <SubmitBtn
-              btnText={'Review'}
-              width={300}
-              borderRadius={30}
-              action={handleGoToReview}
-            />
+          <View style={styles.buttonContainer2}>
+            <View style={styles.containerButton2}>
+              <SubmitBtn
+                btnText={'Review'}
+                width={90}
+                borderRadius={20}
+                action={handleGoToReview}
+              />
+            </View>
+            <View style={styles.containerButton2}>
+              <SubmitBtn
+                btnText={'Save'}
+                width={90}
+                borderRadius={20}
+                color={'#0AAB1F'}
+                action={handleSaveInfo}
+              />
+            </View>
+            <View style={styles.containerButton2}>
+              <SubmitBtn
+                btnText={'Share'}
+                width={90}
+                color={'#000000'}
+                borderRadius={20}
+                action={handleShareInfo}
+              />
+            </View>
           </View>
         </View>
       </View>

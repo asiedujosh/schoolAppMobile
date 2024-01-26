@@ -1,5 +1,11 @@
 import React, {useState, createContext, useEffect} from 'react';
 import {
+  NOTFOUND,
+  TIMEEXCEED,
+  UNHANDLEERR,
+  SIGNINERR,
+} from '../../constant/httpConstant';
+import {
   storeUserSession,
   retrieveUserSession,
   removeUserSession,
@@ -13,33 +19,59 @@ const AuthApiDataProvider = props => {
   const [userProfile, setUserProfile] = useState();
   const [registerFormData, setRegisterFormData] = useState();
   const [registerStage, setRegisterStage] = useState(0);
+  const [errorMessage, setErrorMessage] = useState();
+
+  //Handling Errors
+  const [signInLoading, setSignInLoading] = useState(false);
+  const [signInError, setSignInError] = useState(false);
+  const [netWorkError, setNetworkError] = useState(false);
+  const [unknownError, setUnknownError] = useState(false);
 
   useEffect(() => {
     async function fetchUser() {
       const userSession = await retrieveUserSession();
       if (userSession) {
-        const parsedObject = JSON.parse(userSession);
-        setUserProfile(parsedObject.username);
+        const dataObject = JSON.parse(userSession);
+        console.log(dataObject.data);
+        setUserProfile(dataObject.data);
         setAlreadyLoggedIn(true);
-        setUserProfile(userSession.username);
       }
-      //removeUserSession();
     }
     fetchUser();
   }, []);
 
   const processLogin = async data => {
+    console.log(data);
     let response = await Login(data);
-    if (response) {
+    if (response === TIMEEXCEED) {
+      setSignInLoading(false);
+      setNetworkError(true);
+      setErrorMessage('Network Error');
+      console.log('Network Error');
+    }
+    if (response === NOTFOUND) {
+      setSignInLoading(false);
+      setSignInError(true);
+      // setErrorMessage('Network Error')
+      console.log('Credentials error');
+    }
+    if (response === SIGNINERR) {
+      setSignInLoading(false);
+      setSignInError(true);
+      console.log('Credentials error');
+    }
+    if (response === UNHANDLEERR) {
+      setSignInLoading(false);
+      setUnknownError(true);
+      setErrorMessage('Unexpected Error');
+      console.log('Unexpected Error');
+    }
+    if (response.data) {
       setUserProfile(response.data.user);
       // set the cookie
-      storeUserSession(response.data.token, username);
-      axios.defaults.headers.common[
-        'Authorization'
-      ] = `Bearer ${response.token}`;
+      storeUserSession(response.data.token, response.data.user);
+      setSignInLoading(false);
       setAlreadyLoggedIn(true);
-    } else {
-      //notify(BAD_REQUEST_STATUS, "Invalid Username/Password")
     }
   };
 
@@ -57,6 +89,7 @@ const AuthApiDataProvider = props => {
 
   const processLogout = async () => {
     removeUserSession();
+    setAlreadyLoggedIn(false);
   };
 
   return (
@@ -73,6 +106,16 @@ const AuthApiDataProvider = props => {
         processLogout,
         loading,
         setLoading,
+        signInLoading,
+        setSignInLoading,
+        signInError,
+        setSignInError,
+        netWorkError,
+        setNetworkError,
+        unknownError,
+        setUnknownError,
+        setErrorMessage,
+        errorMessage,
       }}>
       {props.children}
     </AuthApiData.Provider>
