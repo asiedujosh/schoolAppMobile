@@ -41,9 +41,6 @@ const RecordApiDataProvider = props => {
   let processGetRecordReview = async data => {
     let response = await getRecordReview(data);
     if (response) {
-      // const dataObject = JSON.parse(response.data);
-      // console.log(response.data.questions[0].solvedQuestions[0].question);
-      // console.log(response.data.userInfo);
       setRecordReviewInfo(response.data.userInfo);
       setRecordReviewMark(response.data.mark);
       setRecordReviewDetail(

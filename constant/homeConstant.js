@@ -65,12 +65,6 @@ export const SIGNUP = {
       type: 'text',
       placeholder: 'Enter your email',
     },
-    {
-      name: 'country',
-      label: 'Country',
-      type: 'text',
-      placeholder: 'Enter your country',
-    },
   ],
   btnText: ['Next', 'Finish'],
 };

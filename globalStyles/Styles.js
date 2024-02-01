@@ -1,5 +1,4 @@
-import {StyleSheet} from 'react-native';
-import {Dimensions} from 'react-native';
+import {StyleSheet, Dimensions} from 'react-native';
 
 const {width, height} = Dimensions.get('window');
 
@@ -8,6 +7,41 @@ const blackColor = '#2C444E';
 const black = '#000000';
 const purpleColor = '#894284';
 const blueColor = '#0347A1';
+const grayColor = '#0797F8';
+const mainFamilyHead = 'Roboto Bold';
+const mainFamilyBody = 'Roboto';
+const mainTextTitle = Math.min(width, height) * 0.07;
+const mainTextSize = 5 * (Math.min(width, height) / 100);
+const mainTextError = Math.min(width, height) * 0.025;
+const textTitleMarginTop = Math.min(width, height) * 0.03;
+const keyboardPaddingBottom = height * 0.5;
+const homeCardMarginTop = -0.3 * height;
+const homeCardRadius = 0.08 * width;
+const homeCardPadding = 0.032 * width;
+const homeBodyTextContainerMarginTop = 0.04 * height;
+const homeBtnDimension = height * 0.085;
+const homeBtnRadius = width * 0.15;
+const homeBtnVerticalMargin = height * 0.05;
+const inputFieldBtnWidth = width * 0.85;
+const inputTextBorderWidth = width * 0.007;
+const textOnBtnSize = Math.round(19 * (Math.min(width, height) / 320));
+const inputTextFontSize = width * 0.06;
+const inputTextPaddingHorizontal = width * 0.05;
+const codeContainer = width * 0.3;
+const telContainer = width * 0.05;
+const separatorMargin = width * 0.02;
+const dashboardHeadCardPaddingHorizontal = width * 0.04;
+const dashboardHeadCardHeight = 0.25 * height;
+const dashboardTitle = width * 0.09;
+const dashboardCardContainerMarginTop = height * 0.02;
+const dashboardCardWidth = 0.43 * width;
+const dashboardCardRadius = 0.026 * height;
+const dashboardCardMargin = 0.014 * width;
+const dashboardCardImageWidth = width * 0.43;
+
+const image2MarginTop = -0.9 * height;
+const overlayTextTitleSize = 0.055 * width;
+const overlaySubTextSize = 0.05 * width;
 
 export default StyleSheet.create({
   /***** Styles For Home  *****/
@@ -22,33 +56,40 @@ export default StyleSheet.create({
   },
   errMsg: {
     color: whiteColor,
-    fontSize: Math.min(width, height) * 0.025,
+    fontFamily: mainFamilyBody,
+    fontSize: mainTextError,
   },
   textTitle: {
-    fontSize: Math.min(width, height) * 0.06, // Adjust the multiplication factor as needed
-    fontWeight: 'bold',
-    marginTop: Math.min(width, height) * 0.03, // Adjust the multiplication factor as needed
+    fontFamily: mainFamilyHead,
+    fontSize: mainTextTitle, // Adjust the multiplication factor as needed
+    marginTop: textTitleMarginTop, // Adjust the multiplication factor as needed
     color: whiteColor,
     textAlign: 'center',
   },
   keyboardContainer: {
     flex: 1,
-    paddingBottom: height * 0.5,
+    paddingBottom: keyboardPaddingBottom,
   },
   homeCard: {
-    marginTop: -0.3 * height, // Adjust the multiplication factor as needed
+    marginTop: homeCardMarginTop, // Adjust the multiplication factor as needed
     backgroundColor: whiteColor,
-    borderTopLeftRadius: 0.06 * width, // Adjust the multiplication factor as needed
-    borderTopRightRadius: 0.06 * width, // Adjust the multiplication factor as needed
-    padding: 0.032 * width, // Adjust the multiplication factor as needed
-    height: 0.5 * height,
+    borderTopLeftRadius: homeCardRadius, // Adjust the multiplication factor as needed
+    borderTopRightRadius: homeCardRadius, // Adjust the multiplication factor as needed
+    padding: homeCardPadding, // Adjust the multiplication factor as needed
+    height: keyboardPaddingBottom,
   },
+
+  selectText: {
+    fontFamily: mainFamilyBody,
+    fontSize: inputTextFontSize,
+  },
+
   quizbackgroundImage: {
     marginTop: '-60%',
   },
   quizBackgroundCard: {
     marginTop: '-50%',
-    backgroundColor: '#0347A1',
+    backgroundColor: blueColor,
     height: height,
   },
   homeHeadTextContainer: {
@@ -58,10 +99,11 @@ export default StyleSheet.create({
   homeBodyTextContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 0.04 * height,
+    marginTop: homeBodyTextContainerMarginTop,
   },
   homeBodyText: {
-    fontSize: 5 * (Math.min(width, height) / 100),
+    fontFamily: mainFamilyBody,
+    fontSize: mainTextSize,
     color: blueColor,
     textAlign: 'center',
   },
@@ -72,34 +114,36 @@ export default StyleSheet.create({
   },
 
   homeBtn: {
-    width: width * 0.95, // 95% of the screen width
-    height: height * 0.085, // 7% of the screen height
-    borderRadius: width * 0.15, // 15% of the screen width (adjust as needed)
-    marginTop: height * 0.05, // 5% of the screen height
-    marginBottom: height * 0.05, // 5% of the screen height
+    width: homeBtnDimension, // 95% of the screen width
+    height: homeBtnDimension, // 7% of the screen height
+    borderRadius: homeBtnRadius, // 15% of the screen width (adjust as needed)
+    marginTop: homeBtnVerticalMargin, // 5% of the screen height
+    marginBottom: homeBtnVerticalMargin, // 5% of the screen height
     alignItems: 'center',
     justifyContent: 'center',
   },
 
   loadingBtn: {
-    backgroundColor: '#efefef',
-    width: width * 0.8,
-    height: height * 0.085,
-    borderRadius: width * 0.15,
-    marginTop: height * 0.05,
-    marginBottom: height * 0.05,
+    backgroundColor: grayColor,
+    width: inputFieldBtnWidth,
+    height: homeBtnDimension,
+    borderRadius: homeBtnRadius,
+    marginTop: homeBtnVerticalMargin,
+    marginBottom: homeBtnVerticalMargin,
     alignItems: 'center',
     justifyContent: 'center',
     opacity: 0.7,
   },
 
   loadingBtnText: {
-    fontSize: 19,
-    color: '#ffffff',
+    fontFamily: mainFamilyBody,
+    fontSize: textOnBtnSize,
+    color: whiteColor,
   },
 
   homeBtnText: {
-    fontSize: 19,
+    fontFamily: mainFamilyBody,
+    fontSize: textOnBtnSize,
     color: whiteColor,
   },
 
@@ -110,14 +154,23 @@ export default StyleSheet.create({
   },
 
   textInput: {
-    width: width * 0.95, // 95% of the screen width
-    height: height * 0.085, // 9% of the screen height (adjust as needed)
-    borderWidth: width * 0.007, // 1% of the screen width (adjust as needed)
-    borderRadius: width * 0.1, // 6% of the screen width (adjust as needed)
+    fontFamily: mainFamilyBody,
+    width: inputFieldBtnWidth, // 95% of the screen width
+    height: homeBtnDimension, // 9% of the screen height (adjust as needed)
+    borderWidth: inputTextBorderWidth, // 1% of the screen width (adjust as needed)
+    borderRadius: homeBtnRadius, // 6% of the screen width (adjust as needed)
     borderColor: whiteColor,
     color: whiteColor,
-    fontSize: width * 0.06, // 5% of the screen width (adjust as needed)
-    paddingLeft: width * 0.05,
+    fontSize: inputTextFontSize, // 5% of the screen width (adjust as needed)
+    paddingLeft: inputTextPaddingHorizontal,
+  },
+
+  countryCodeContainer: {
+    width: codeContainer,
+  },
+
+  countryInputTel: {
+    borderRadius: telContainer,
   },
 
   ignorePadding: {
@@ -134,13 +187,13 @@ export default StyleSheet.create({
     flex: 1,
     height: StyleSheet.hairlineWidth,
     backgroundColor: blueColor, // Separator color
-    marginHorizontal: width * 0.02, // Adjust the margin as needed
+    marginHorizontal: separatorMargin, // Adjust the margin as needed
   },
 
   orText: {
-    marginHorizontal: width * 0.02, // Adjust the margin as needed
+    fontFamily: mainFamilyBody,
+    marginHorizontal: separatorMargin, // Adjust the margin as needed
     fontSize: 5 * (Math.min(width, height) / 100),
-    fontWeight: 'bold',
     color: blueColor,
   },
 
@@ -148,42 +201,44 @@ export default StyleSheet.create({
   dashboardHeadCard: {
     flex: 1,
     backgroundColor: blueColor,
-    borderBottomLeftRadius: width * 0.13,
-    paddingHorizontal: width * 0.04,
-    height: 0.3 * height,
+    borderBottomLeftRadius: homeCardRadius,
+    borderBottomRightRadius: homeCardRadius,
+    paddingHorizontal: dashboardHeadCardPaddingHorizontal,
+    height: dashboardHeadCardHeight,
     width: width,
     overflow: 'hidden',
     alignItems: 'center',
   },
   dashboardHeadTextContainer: {
     flex: 1,
-    marginTop: height * 0.05,
+    marginTop: homeBtnVerticalMargin,
   },
 
   dashboardHeadTitle: {
+    fontFamily: mainFamilyHead,
     color: whiteColor,
-    fontSize: width * 0.09,
-    fontWeight: 'bold',
+    fontSize: dashboardTitle,
   },
   dashboardHeadBody: {
+    fontFamily: mainFamilyBody,
     color: whiteColor,
-    fontSize: width * 0.06,
+    fontSize: inputTextFontSize,
   },
   dashboardCardContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: height * 0.02,
+    marginTop: dashboardCardContainerMarginTop,
   },
   dashboardCard: {
-    width: 0.43 * width, // Adjust as needed
-    height: 0.25 * height, // Adjust as needed
-    borderRadius: 0.026 * height, // Adjust as needed
-    backgroundColor: '#fff',
+    width: dashboardCardWidth, // Adjust as needed
+    height: dashboardHeadCardHeight, // Adjust as needed
+    borderRadius: dashboardCardRadius, // Adjust as needed
+    backgroundColor: whiteColor,
     overflow: 'hidden',
-    margin: 0.014 * width, // Adjust as needed
+    margin: dashboardCardMargin, // Adjust as needed
     // Adjust as needed
-    shadowColor: '#000',
+    shadowColor: black,
     shadowOffset: {width: 0, height: 0.01 * height}, // Adjust as needed
     shadowOpacity: 0.3,
     shadowRadius: 0.03 * height, // Adjust as needed
@@ -194,7 +249,7 @@ export default StyleSheet.create({
   },
   dashboardCardImage: {
     flex: 3, // Takes 3/4 of the card's height
-    width: width * 0.43,
+    width: dashboardCardImageWidth,
   },
   dashboardOverlay: {
     flex: 1, // Takes 1/4 of the card's height
@@ -203,8 +258,9 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
   dashboardOverlayText: {
+    fontFamily: mainFamilyBody,
     color: whiteColor,
-    fontSize: width * 0.06,
+    fontSize: inputTextFontSize,
   },
 
   /** Quiz Options */
@@ -212,14 +268,14 @@ export default StyleSheet.create({
     backgroundColor: blueColor,
   },
 
-  quizTitleCard: {
-    marginTop: -height,
-    width: width * 0.8,
-    backgroundColor: '#000',
-    borderTopLeftRadius: 0.06 * width, // Adjust the multiplication factor as needed
-    borderTopRightRadius: 0.06 * width, // Adjust the multiplication factor as needed
-    height: 0.15 * height,
-  },
+  // quizTitleCard: {
+  //   marginTop: -height,
+  //   width: width * 0.8,
+  //   backgroundColor: black,
+  //   borderTopLeftRadius: 0.06 * width, // Adjust the multiplication factor as needed
+  //   borderTopRightRadius: 0.06 * width, // Adjust the multiplication factor as needed
+  //   height: 0.15 * height,
+  // },
 
   quizOptionContainer: {
     flex: 1,
@@ -228,9 +284,9 @@ export default StyleSheet.create({
     backgroundColor: blueColor,
     height: height,
     width: width,
-    borderTopLeftRadius: 0.06 * width, // Adjust the multiplication factor as needed
-    borderTopRightRadius: 0.06 * width,
-    borderBottomLeftRadius: 0.06 * width,
+    // borderTopLeftRadius: 0.06 * width, // Adjust the multiplication factor as needed
+    // borderTopRightRadius: 0.06 * width,
+    // borderBottomLeftRadius: 0.06 * width,
     overflow: 'hidden',
   },
 
@@ -238,7 +294,7 @@ export default StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingTop: 0.05 * height,
+    paddingTop: homeBtnVerticalMargin,
   },
 
   firstView: {
@@ -246,11 +302,12 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+
   image2: {
     width: width,
     height: height,
     resizeMode: 'contain',
-    marginTop: -1 * height,
+    marginTop: image2MarginTop,
   },
 
   centeredOverlay: {
@@ -258,24 +315,25 @@ export default StyleSheet.create({
     alignItems: 'center',
     marginTop: height * 0.03,
   },
+
   secondView: {
-    paddingHorizontal: 0.05 * height,
+    paddingHorizontal: homeBtnVerticalMargin,
     paddingVertical: 0.015 * height,
     backgroundColor: 'rgba(0, 0, 0, 0.4)', // Semi-transparent background color
     height: height * 0.18,
-    width: width * 0.7,
-    borderRadius: 0.06 * width,
+    width: inputFieldBtnWidth,
+    borderRadius: homeCardRadius,
   },
 
   overlayText: {
-    color: 'white',
-    fontSize: 0.055 * width,
-    fontWeight: 'bold',
+    fontFamily: mainFamilyHead,
+    color: whiteColor,
+    fontSize: overlayTextTitleSize,
   },
 
   overlaySubText: {
-    fontWeight: 'regular',
-    fontSize: 0.05 * width,
+    fontFamily: mainFamilyBody,
+    fontSize: overlaySubTextSize,
     paddingHorizontal: '0%',
     paddingTop: '2%',
   },
@@ -289,39 +347,44 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
 
+  questionTextContainer: {
+    paddingHorizontal: '5%',
+  },
+
   questionText: {
+    fontFamily: mainFamilyBody,
     color: whiteColor,
-    fontSize: 20 * (Math.min(width, height) / 100),
-    marginHorizontal: 0.05 * width,
-    marginTop: 0.05 * height,
   },
 
   answerContainer: {
-    marginTop: 0.03 * height,
+    width: '100%',
+    marginTop: textTitleMarginTop,
+    alignItems: 'center',
   },
 
   optionItemContainer2: {
     flex: 1,
     justifyContent: 'center',
-    paddingHorizontal: 20,
+    paddingHorizontal: inputTextPaddingHorizontal,
     paddingVertical: 15,
-    width: width * 0.9,
-    borderWidth: width * 0.007,
-    borderRadius: Math.round(width * 0.09),
+    width: inputFieldBtnWidth,
+    borderWidth: inputTextBorderWidth,
+    borderRadius: homeBtnRadius,
     borderColor: whiteColor,
-    marginVertical: Math.round(height * 0.015),
+    marginVertical: homeBtnVerticalMargin / 3,
   },
 
   optionItem2: {
     color: whiteColor,
-    fontSize: 55 * (Math.min(width, height) / 1000),
+    fontSize: mainTextSize * 1.1,
+    fontFamily: mainFamilyBody,
   },
 
   buttonContainer3: {
     backgroundColor: whiteColor,
     paddingHorizontal: 10 * (width / 375),
     paddingVertical: height * 0.012,
-    width: width * 0.9,
+    width: inputFieldBtnWidth,
     height: height * 0.09,
     borderRadius: Math.round(width * 0.09),
     marginHorizontal: 0.025 * height,
@@ -332,10 +395,11 @@ export default StyleSheet.create({
   buttonContainer2Text: {
     color: whiteColor,
     paddingHorizontal: 0.2 * width,
+    fontFamily: mainFamilyBody,
   },
 
   buttonCircle: {
-    backgroundColor: '#EBEBEC',
+    // backgroundColor: '#EBEBEC',
     borderRadius: Math.round(width * 0.09), // Adjust the borderRadius to make it more or less round
     paddingVertical: Math.round(height * 0.02),
     paddingHorizontal: Math.round(width * 0.055),
@@ -360,20 +424,23 @@ export default StyleSheet.create({
   },
 
   subject: {
+    fontFamily: mainFamilyBody,
     color: whiteColor,
-    fontSize: 15,
+    fontSize: mainTextSize,
     textTransform: 'uppercase',
   },
 
   quizType: {
+    fontFamily: mainFamilyBody,
     color: whiteColor,
-    fontSize: 18,
+    fontSize: mainTextSize,
     textTransform: 'uppercase',
   },
 
   quizQues: {
+    fontFamily: mainFamilyBody,
     color: whiteColor,
-    fontSize: 15,
+    fontSize: mainTextSize,
   },
 
   timerContainer: {
@@ -389,8 +456,9 @@ export default StyleSheet.create({
   },
 
   timerScoreText: {
+    fontFamily: mainFamilyBody,
     color: whiteColor,
-    fontSize: 17,
+    fontSize: mainTextSize,
   },
 
   questionContainerBoard: {
@@ -410,6 +478,7 @@ export default StyleSheet.create({
   question: {
     width: width * 0.9,
     color: whiteColor,
+    fontFamily: mainFamilyBody,
     fontSize: 22,
     fontWeight: 'bold',
     padding: 20,
@@ -427,20 +496,18 @@ export default StyleSheet.create({
   optionItemContainer: {
     flex: 1,
     justifyContent: 'center',
-    paddingTop: 15,
-    paddingBottom: 15,
-    width: width * 0.9,
-    borderRadius: 10,
+    paddingVertical: 15,
+    width: inputFieldBtnWidth,
+    borderRadius: homeBtnRadius,
     backgroundColor: whiteColor,
-    paddingLeft: 20,
-    paddingRight: 20,
-    marginTop: 5,
-    marginBottom: 5,
+    paddingHorizontal: inputTextPaddingHorizontal,
+    marginVertical: homeBtnVerticalMargin / 3,
   },
 
   optionItem: {
+    fontFamily: mainFamilyBody,
     color: black,
-    fontSize: 18,
+    fontSize: mainTextSize * 1.1,
   },
 
   /** Game Result View */
@@ -465,7 +532,7 @@ export default StyleSheet.create({
     flex: 2,
     borderRadius: 20,
     backgroundColor: whiteColor,
-    width: width * 0.95,
+    width: width * 0.85,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -487,6 +554,7 @@ export default StyleSheet.create({
   },
 
   mark: {
+    fontFamily: mainFamilyBody,
     fontSize: 30,
     marginHorizontal: 5,
     fontWeight: 'bold',
@@ -498,6 +566,7 @@ export default StyleSheet.create({
   },
 
   comment: {
+    fontFamily: mainFamilyBody,
     fontSize: 20,
   },
 
@@ -521,6 +590,7 @@ export default StyleSheet.create({
   },
 
   statHeadText: {
+    fontFamily: mainFamilyHead,
     fontSize: 20,
     fontWeight: 'bold',
   },
@@ -549,10 +619,124 @@ export default StyleSheet.create({
     marginTop: 5,
   },
 
+  /** Game Result Two */
+  gameResultTwoCard1: {
+    flex: 1,
+    width: inputFieldBtnWidth,
+    backgroundColor: whiteColor,
+    borderRadius: homeCardRadius,
+    marginTop: '5%',
+    overflow: 'hidden',
+    alignItems: 'center',
+  },
+
+  gameResultTwoCard2: {
+    flex: 0.7,
+  },
+
+  gameResultTwoCard3: {
+    flex: 0.3,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: '5%',
+  },
+
+  gameResultScoreBoard: {
+    backgroundColor: '#EBEBEC',
+    height: '15%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+  },
+
+  gameResultScoreText: {
+    fontFamily: mainFamilyBody,
+    fontSize: mainTextSize,
+    color: blueColor,
+  },
+
+  resultTwoImage: {
+    marginTop: '-70%',
+    marginLeft: '-23%',
+  },
+
+  markDetail: {
+    borderRadius: 30,
+    marginTop: '-110%',
+    height: 40,
+    borderWidth: 3,
+    borderColor: blueColor,
+    backgroundColor: 'rgba(255, 255, 255, 0.7)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    elevation: 5,
+    zIndex: 1,
+  },
+
+  markDetailText: {
+    fontFamily: mainFamilyBody,
+    fontSize: 16,
+    fontWeight: 'bold',
+    paddingHorizontal: '5%',
+    color: blueColor,
+  },
+
   /** Game Review */
   reviewSearchContainer: {
-    flex: 0.5,
+    flex: 0.4,
     flexDirection: 'row',
+    width: inputFieldBtnWidth,
+  },
+
+  reviewSearchContainerTwo: {
+    flexDirection: 'row',
+    width: inputFieldBtnWidth,
+  },
+
+  /**Review Two */
+  reviewCardTwo: {
+    marginTop: '5%',
+    flex: 0.6,
+  },
+
+  /** Review Card Two */
+  reviewCardThree: {
+    marginTop: '0%',
+    paddingTop: '5%',
+    height: height,
+    flex: 1,
+    alignItems: 'center',
+    backgroundColor: blueColor,
+  },
+
+  reviewCardHeadContainer: {
+    alignItems: 'left',
+    width: '100%',
+    paddingHorizontal: '14%',
+    paddingBottom: '2%',
+    marginTop: homeBtnVerticalMargin / 3,
+  },
+
+  reviewCardHeadTitle: {
+    fontFamily: mainFamilyHead,
+    fontSize: mainTextSize,
+    color: '#fff',
+  },
+
+  reviewCardHeadSubTitle: {
+    color: blueColor,
+    fontFamily: mainFamilyBody,
+    fontSize: mainTextSize * 0.9,
+  },
+
+  reviewQuestionCard: {
+    width: inputFieldBtnWidth,
+    backgroundColor: whiteColor,
+    borderRadius: homeCardRadius,
+    paddingVertical: '5%',
+    paddingHorizontal: '10%',
+    marginVertical: '5%',
   },
 
   searchWrapper: {
@@ -561,7 +745,7 @@ export default StyleSheet.create({
   },
 
   homeBtnWrapper: {
-    flex: 0.5,
+    flex: 0.3,
   },
 
   topicContainer: {
@@ -576,38 +760,44 @@ export default StyleSheet.create({
 
   questionContainer: {
     backgroundColor: whiteColor,
-    width: width * 0.9,
-    borderRadius: 20,
+    width: inputFieldBtnWidth,
+    borderRadius: homeCardRadius,
     alignItems: 'center',
     paddingTop: '3%',
     marginTop: '5%',
   },
 
   questionTopicTitle: {
-    color: '#000000',
-    fontSize: 18,
+    fontFamily: mainFamilyHead,
+    color: black,
+    fontSize: mainTextSize * 0.9,
     fontWeight: 'bold',
   },
 
   questionTopicTitleSub: {
-    color: '#000000',
+    fontFamily: mainFamilyBody,
+    color: black,
     fontSize: 16,
     marginTop: 6,
   },
 
   topicTitle: {
-    color: '#ffffff',
-    fontWeight: 'bold',
-    fontSize: 20,
+    fontFamily: mainFamilyHead,
+    color: whiteColor,
+    fontSize: mainTextSize,
   },
 
   subTopicTitle: {
-    fontSize: 18,
-    color: '#ffffff',
+    fontSize: mainTextSize * 0.9,
+    color: whiteColor,
   },
 
   reviewQuestion: {
-    paddingHorizontal: '5%',
+    fontFamily: mainFamilyBody,
+    paddingHorizontal: '2%',
+    marginTop: '4%',
+    fontSize: 20,
+    color: blueColor,
   },
 
   reviewQuestionContainer: {
@@ -615,13 +805,14 @@ export default StyleSheet.create({
   },
 
   reviewAnsContainer: {
+    marginTop: '5%',
     flexDirection: 'row',
+    justifyContent: 'space-between',
   },
 
   reviewAnsText: {
-    marginHorizontal: '2%',
-    fontWeight: 'bold',
-    fontSize: 18,
+    fontFamily: mainFamilyHead,
+    fontSize: mainTextSize * 0.9,
   },
 
   reviewOptionsContainer: {
@@ -629,17 +820,17 @@ export default StyleSheet.create({
   },
 
   reviewOptionsItemContainer: {
-    width: width * 0.8,
-    borderRadius: 15,
-    backgroundColor: purpleColor,
+    width: '100%',
+    borderRadius: homeBtnRadius,
+    paddingVertical: '8%',
+    paddingHorizontal: '10%',
     marginVertical: '3%',
   },
 
   reviewOptionText: {
+    fontFamily: mainFamilyBody,
     fontSize: 18,
-    color: '#ffffff',
-    paddingVertical: '3%',
-    paddingHorizontal: '3%',
+    color: whiteColor,
   },
 
   markContainer: {
@@ -665,7 +856,8 @@ export default StyleSheet.create({
   },
 
   markText: {
-    color: '#ffffff',
+    color: whiteColor,
+    fontFamily: mainFamilyBody,
     fontSize: 18,
     paddingVertical: '5%',
   },
@@ -675,25 +867,27 @@ export default StyleSheet.create({
   },
 
   mark: {
-    fontSize: 20,
+    fontFamily: mainFamilyBody,
+    fontSize: mainTextSize,
   },
 
   middleMark: {
+    fontFamily: mainFamilyBody,
     fontSize: 14,
   },
 
   /** Question not available */
   questionNotAvailable: {
-    fontSize: 20,
+    fontFamily: mainFamilyHead,
+    fontSize: mainTextSize,
     color: 'white',
-    fontWeight: 'bold',
     marginTop: '10%',
   },
 
   questionNotAvailImgContainer: {
     height: height * 0.4,
     width: width * 0.7,
-    backgroundColor: 'white',
+    backgroundColor: whiteColor,
     borderRadius: 10,
     marginTop: '5%',
     paddingHorizontal: '3%',
@@ -713,7 +907,7 @@ export default StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 15,
     height: height / 3,
-    width: width * 0.6,
+    width: width * 0.7,
   },
 
   errorImgContainer: {
@@ -736,7 +930,7 @@ export default StyleSheet.create({
   },
 
   errorBtn: {
-    backgroundColor: purpleColor,
+    backgroundColor: blueColor,
     width: '96%',
     borderRadius: 10,
     height: '20%',
@@ -746,25 +940,98 @@ export default StyleSheet.create({
   },
 
   errorText: {
-    fontWeight: 'bold',
-    fontSize: 20,
+    fontSize: mainTextSize,
+    fontFamily: mainFamilyHead,
   },
 
   errorBtnText: {
-    fontWeight: 'bold',
-    fontSize: 20,
-    color: 'white',
+    fontSize: mainTextSize,
+    color: whiteColor,
+    fontFamily: mainFamilyHead,
+  },
+
+  /** Record View Two */
+  recordBackgroundImage: {
+    flex: 1,
+    resizeMode: 'cover',
+    // resizeMode: '',
+  },
+
+  recordOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent black overlay
+    // Add other styles for content on top of the background image
+  },
+
+  homeBtnTwo: {
+    backgroundColor: whiteColor,
+    borderRadius: homeBtnRadius, // Adjust the borderRadius to make it more or less round
+    height: homeBtnDimension,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  homeBtnThree: {
+    paddingVertical: Math.round(height * 0.039),
+  },
+
+  recordCardContainer: {
+    alignItems: 'center',
+  },
+
+  recordInfoCard: {
+    width: '100%',
+    alignItems: 'left',
+  },
+
+  recordStatusBarContainer: {
+    width: inputFieldBtnWidth,
+    height: homeBtnDimension,
+    borderRadius: homeBtnRadius,
+    backgroundColor: '#2C72D2',
+    flexDirection: 'row',
+    paddingHorizontal: '1%',
+    paddingVertical: '1%',
+    justifyContent: 'space-between',
+    marginVertical: homeBtnVerticalMargin / 3,
+  },
+
+  completeBtn: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 30,
+    borderColor: whiteColor,
+    borderWidth: 3,
+    marginRight: '1%',
+  },
+
+  retryBtn: {
+    flex: 0.6,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#042046',
+    marginLeft: '1%',
+    borderRadius: 30,
+  },
+
+  recordBtnText: {
+    fontFamily: mainFamilyBody,
+    color: whiteColor,
+    fontSize: mainTextSize,
   },
 
   /** Record view card */
   viewRecordCard: {
     marginTop: 20,
     borderRadius: 15,
-    backgroundColor: whiteColor,
-    width: 300,
-    alignItems: 'center',
+    backgroundColor: 'rgba(225, 225, 225, 0.9)',
+    width: inputFieldBtnWidth,
+    alignItems: 'left',
     paddingHorizontal: '10%',
-    paddingVertical: '10%',
+    paddingTop: '10%',
+    paddingBottom: '5%',
+    elevation: 5,
   },
 
   recordCardContainerResult: {
@@ -774,8 +1041,8 @@ export default StyleSheet.create({
   },
 
   recordCardMarks: {
+    fontFamily: mainFamilyHead,
     fontSize: 25,
-    fontWeight: 'bold',
     paddingHorizontal: '2%',
   },
 
@@ -799,7 +1066,45 @@ export default StyleSheet.create({
   // },
 
   examsDate: {
-    fontWeight: 'bold',
+    fontFamily: mainFamilyHead,
+  },
+
+  /** Record Two */
+  recordCardTwo: {
+    borderBottomRightRadius: width * 0.13,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  recordBody: {
+    flex: 3,
+  },
+
+  recordInfoTextTitle: {
+    fontFamily: mainFamilyHead,
+    fontSize: mainTextSize,
+
+    color: blueColor,
+  },
+
+  recordInfoText: {
+    fontSize: 16,
+    fontWeight: 'normal',
+    color: blueColor,
+  },
+
+  recordCardBtn: {
+    width: '100%',
+    height: homeBtnDimension,
+    backgroundColor: blueColor,
+    borderRadius: homeBtnRadius,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  recordCardBtnText: {
+    fontFamily: mainFamilyBody,
+    fontSize: 16,
+    color: whiteColor,
   },
 
   /** FAQ */
@@ -814,35 +1119,61 @@ export default StyleSheet.create({
     width: width * 0.9,
     flexDirection: 'row',
     justifyContent: 'space-between',
+    paddingVertical: '8%',
+    elevation: 5,
   },
   dashboardHeadFAQ: {
     marginTop: '5%',
   },
   accordTitle: {
-    fontSize: 20,
+    fontFamily: mainFamilyBody,
+    fontSize: mainTextSize,
+    color: blueColor,
   },
   accordBody: {
+    backgroundColor: whiteColor,
+    color: blueColor,
     width: width * 0.9,
     padding: 12,
+    paddingVertical: 20,
+    alignItems: 'left',
+    borderBottomRadius: 30,
   },
   textSmall: {
     fontSize: 16,
-    color: whiteColor,
+    color: blueColor,
   },
   seperator: {
     height: 12,
   },
 
   /** Settings */
+  settingHeadCard: {
+    elevation: 20,
+    paddingVertical: '10%',
+    marginTop: '-5%',
+    marginBottom: '5%',
+  },
+
   settingContainer: {
     width: width * 0.9,
     backgroundColor: whiteColor,
     height: 100,
+    elevation: 10,
+    borderRadius: 10,
+    flexDirection: 'row',
   },
 
   settingText: {
+    fontFamily: mainFamilyBody,
     color: blackColor,
-    fontSize: 20,
+    fontSize: mainTextSize,
     paddingHorizontal: '10%',
+  },
+
+  backBtnContainer: {
+    zIndex: 10,
+    position: 'absolute',
+    margin: '5%',
   },
 });

@@ -13,6 +13,7 @@ import {Dimensions} from 'react-native';
 import {DASHBOARD} from '../constant/dashboardConstant';
 import styles from '../globalStyles/Styles';
 import KeyboardAvoidingContainer from '../component/keyboardAvoidingContainer';
+import capitalizeFirstLetter from '../utils/firstLetterCaps.js';
 import SubmitBtn from '../component/submitBtn';
 
 const {width, height} = Dimensions.get('window');
@@ -45,10 +46,12 @@ const Dashboard = ({navigation}) => {
       <View style={{flex: 1, padding: 0}}>
         <View style={styles.dashboardHeadCard}>
           <View style={styles.dashboardHeadTextContainer}>
-            <Text
-              style={
-                styles.dashboardHeadTitle
-              }>{`${DASHBOARD.headTitle} ${userProfile.username}`}</Text>
+            <Text style={styles.dashboardHeadTitle}>
+              {`${DASHBOARD.headTitle} ${capitalizeFirstLetter(
+                userProfile.username,
+              )}`}
+              ,
+            </Text>
             <Text style={styles.dashboardHeadBody}>{DASHBOARD.headBody}</Text>
           </View>
         </View>

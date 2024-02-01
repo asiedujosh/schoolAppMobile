@@ -70,7 +70,7 @@ const SignIn = ({navigation}) => {
       <View style={styles.homeHeadTextContainer}>
         <Text style={styles.textTitle}>{SIGNIN.title}</Text>
       </View>
-      <View>
+      <View style={{width: '100%', alignItems: 'center', marginTop: '5%'}}>
         {SIGNIN.field.map((item, index) => (
           <InputField
             key={index}
@@ -80,6 +80,7 @@ const SignIn = ({navigation}) => {
                 : 0.04 * height
             }
             title={item.label}
+            width={width * 0.85}
             field={item.name}
             err={error}
             placeholder={item.placeholder}
@@ -96,7 +97,7 @@ const SignIn = ({navigation}) => {
         ) : (
           <SubmitBtn
             btnText={SIGNIN.btnText}
-            width={width * 0.95}
+            width={width * 0.85}
             color={'#ffffff'}
             textColor={'#0347A1'}
             borderRadius={width * 0.15}

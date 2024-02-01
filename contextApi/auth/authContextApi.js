@@ -4,6 +4,7 @@ import {
   TIMEEXCEED,
   UNHANDLEERR,
   SIGNINERR,
+  BAD_REQUEST_STATUS,
 } from '../../constant/httpConstant';
 import {
   storeUserSession,
@@ -17,15 +18,31 @@ const AuthApiDataProvider = props => {
   const [alreadyLoggedIn, setAlreadyLoggedIn] = useState(false);
   const [loading, setLoading] = useState(false);
   const [userProfile, setUserProfile] = useState();
-  const [registerFormData, setRegisterFormData] = useState();
+  const [registerFormData, setRegisterFormData] = useState({
+    username: '',
+    country: {
+      dial_code: '+233',
+      name: 'Ghana',
+    },
+    tel: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+    email: '',
+  });
   const [registerStage, setRegisterStage] = useState(0);
-  const [errorMessage, setErrorMessage] = useState();
+  const [errorMessage, setErrorMessage] = useState('');
 
   //Handling Errors
   const [signInLoading, setSignInLoading] = useState(false);
   const [signInError, setSignInError] = useState(false);
   const [netWorkError, setNetworkError] = useState(false);
   const [unknownError, setUnknownError] = useState(false);
+  const [usernameTaken, setUsernameTaken] = useState(false);
+
+  // const [selected, setSelected] = useState('+233');
+  // const [country, setCountry] = useState('');
+  // const [phone, setPhone] = useState('000 000 0000');
 
   useEffect(() => {
     async function fetchUser() {
@@ -77,11 +94,45 @@ const AuthApiDataProvider = props => {
 
   const processRegister = async data => {
     //console.log(data);
-    setLoading(true);
+    setSignInLoading(true);
+    (data.country = registerFormData.country.name),
+      (data.tel = `${registerFormData.country.dial_code}" "${registerFormData.tel}`);
     let response = await Register(data);
-    if (response) {
-      setUserProfile(response.data.user.username);
-      storeUserSession(response.data.token, response.data.user.username);
+    if (response === TIMEEXCEED) {
+      setSignInLoading(false);
+      setNetworkError(true);
+      setErrorMessage('Network Error');
+      console.log('Network Error');
+    }
+    if (response === NOTFOUND) {
+      setSignInLoading(false);
+      setSignInError(true);
+      // setErrorMessage('Network Error')
+      console.log('Credentials error');
+    }
+    if (response === SIGNINERR) {
+      setSignInLoading(false);
+      setErrorMessage('Sign Error');
+      setSignInError(true);
+      console.log('Credentials error');
+    }
+    if (response === UNHANDLEERR) {
+      setSignInLoading(false);
+      setErrorMessage('Username already available');
+      setUnknownError(true);
+
+      console.log('Unexpected Error');
+    }
+
+    if (response === BAD_REQUEST_STATUS) {
+      setSignInLoading(false);
+      setErrorMessage('Username already taken');
+      setUsernameTaken(true);
+    }
+    if (response.data) {
+      setSignInLoading(false);
+      setUserProfile(response.data.user);
+      storeUserSession(response.data.token, response.data.user);
       setLoading(false);
       setAlreadyLoggedIn(true);
     }
@@ -116,6 +167,14 @@ const AuthApiDataProvider = props => {
         setUnknownError,
         setErrorMessage,
         errorMessage,
+        usernameTaken,
+        setUsernameTaken,
+        // selected,
+        // setSelected,
+        // country,
+        // setCountry,
+        // phone,
+        // setPhone,
       }}>
       {props.children}
     </AuthApiData.Provider>

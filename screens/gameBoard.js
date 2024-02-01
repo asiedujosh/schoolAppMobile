@@ -138,7 +138,7 @@ const GameBoard = ({navigation}) => {
   };
 
   return (
-    <KeyboardAvoidingContainer>
+    <View>
       <View
         style={[
           styles.quizOptionLead,
@@ -169,7 +169,7 @@ const GameBoard = ({navigation}) => {
         <View style={[styles.homeCard, styles.questionCard]}>
           <View style={{flex: 0.95}}>
             <ScrollView style={{flex: 1}}>
-              <View>
+              <View style={styles.questionTextContainer}>
                 <OutputQuestion
                   data={questions && questions[currentQuestionNo].question}
                   color={'white'}
@@ -207,14 +207,21 @@ const GameBoard = ({navigation}) => {
             }}>
             <View style={styles.buttonContainer3}>
               <Pressable
-                style={styles.buttonCircle}
+              style={({pressed}) => [
+                {backgroundColor: pressed ? 'lightblue' : '#EBEBEC'},
+                styles.buttonCircle
+              ]}
+                
                 onPress={() => {
                   handlePrev();
                 }}>
                 <Icon name="chevron-left" size={10} color="#0347A1" />
               </Pressable>
               <Pressable
-                style={styles.buttonCircle}
+                style={({pressed}) => [
+                  {backgroundColor: pressed ? 'lightblue' : '#EBEBEC'},
+                  styles.buttonCircle
+                ]}
                 onPress={() => {
                   handleNext();
                 }}>
@@ -224,7 +231,7 @@ const GameBoard = ({navigation}) => {
           </View>
         </View>
       </View>
-    </KeyboardAvoidingContainer>
+    </View>
   );
 };
 

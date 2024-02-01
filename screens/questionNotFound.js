@@ -7,9 +7,12 @@ import {
   Pressable,
   Image,
 } from 'react-native';
+import {Dimensions} from 'react-native';
 import SubmitBtn from '../component/submitBtn';
 import styles from '../globalStyles/Styles';
 import KeyboardAvoidingContainer from '../component/keyboardAvoidingContainer';
+
+const {width, height} = Dimensions.get('window');
 
 const QuestionsNotAvailable = ({navigation}) => {
   const handleTryAgain = () => {
@@ -36,8 +39,10 @@ const QuestionsNotAvailable = ({navigation}) => {
           <View style={{flex: 0.5}}>
             <SubmitBtn
               btnText={'Try Again'}
-              width={300}
-              borderRadius={30}
+              width={width * 0.85}
+              color={'#ffffff'}
+              textColor={'#0347A1'}
+              borderRadius={width * 0.15}
               topMargin={'5%'}
               action={handleTryAgain}
             />

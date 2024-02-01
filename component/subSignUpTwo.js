@@ -55,12 +55,12 @@ const SubSignUpTwo = ({signUpdateFunction}) => {
             key={index}
             top={
               item.label == SIGNUP.field2[0].label
-                ? 0.02 * height
+                ? 0.005 * height
                 : 0.04 * height
             }
             title={item.label}
             field={item.name}
-            width={width * 0.95}
+            width={width * 0.85}
             err={error}
             placeholder={item.placeholder}
             change={(data, field) => {
@@ -72,7 +72,9 @@ const SubSignUpTwo = ({signUpdateFunction}) => {
       <View style={styles.homeBtnContainer}>
         <SubmitBtn
           btnText={SIGNUP.btnText[0]}
-          width={width * 0.8}
+          width={width * 0.85}
+          color={'#ffffff'}
+          textColor={'#0347A1'}
           borderRadius={width * 0.15}
           topMargin={0.05 * height}
           action={handleStageChange}

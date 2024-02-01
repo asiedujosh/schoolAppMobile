@@ -2,9 +2,9 @@ import {View, Text} from 'react-native';
 import {Picker} from '@react-native-picker/picker';
 import styles from '../globalStyles/Styles';
 
-const SelectField = ({title, top, option, change, width, field}) => {
+const SelectFieldCorrection = ({top, option, change, width}) => {
   const handleChanges = value => {
-    change[3]({...change[2], [field]: value});
+    change[1](value);
   };
 
   return (
@@ -16,7 +16,7 @@ const SelectField = ({title, top, option, change, width, field}) => {
           {width: width && width},
         ]}>
         <Picker
-          selectedValue={change[2][field]}
+          selectedValue={change[0]}
           onValueChange={(itemValue, itemIndex) => handleChanges(itemValue)}
           dropdownIconColor={'#ffffff'}
           style={[
@@ -39,4 +39,4 @@ const SelectField = ({title, top, option, change, width, field}) => {
   );
 };
 
-export default SelectField;
+export default SelectFieldCorrection;

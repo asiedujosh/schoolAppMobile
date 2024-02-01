@@ -19,7 +19,7 @@ function AccordionItem({children, title}) {
         <Icon
           name={expanded ? 'chevron-up' : 'chevron-down'}
           size={20}
-          color="#bbb"
+          color="#0347A1"
         />
       </TouchableOpacity>
       {expanded && body}

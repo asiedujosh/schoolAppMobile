@@ -6,6 +6,7 @@ import {
   TIMEEXCEED,
   UNHANDLEERR,
   SIGNINERR,
+  BAD_REQUEST_STATUS,
 } from '../../constant/httpConstant';
 import axios from 'axios';
 import axiosRetry from 'axios-retry';
@@ -42,6 +43,8 @@ export const Login = async data => {
     } else if (err.response.status === 401) {
       // Handle signin error
       return SIGNINERR;
+    } else if (err.response.status === 400) {
+      return BAD_REQUEST_STATUS;
     } else {
       // Handle other errors
       console.error('Unhandled error:', err);
@@ -60,10 +63,32 @@ export const Register = async data => {
     if (responseOnRegister.status === SUCCESS_STATUS) {
       return responseOnRegister.data;
     } else {
-      console.log('There was an error');
-      return false;
+      return responseOnRegister.message;
     }
   } catch (err) {
-    console.log(err);
+    if (axiosRetry.isNetworkError(err)) {
+      console.log('Network error occurred. Retrying...');
+      return TIMEEXCEED;
+    } else if (axiosRetry.isRetryableError(err)) {
+      console.log('Retrying due to timeout...');
+      throw err;
+    } else if (err.response && err.response.status === 404) {
+      console.warn('Resource not found (404)');
+      // Handle 404 response as needed
+      return NOTFOUND;
+    } else if (err.code.code === 'ECONNABORTED') {
+      // Handle timeout error as needed
+      console.error('Request timed out.');
+      return TIMEEXCEED;
+    } else if (err.response.status === 401) {
+      // Handle signin error
+      return SIGNINERR;
+    } else if (err.response.status === 400) {
+      return BAD_REQUEST_STATUS;
+    } else {
+      // Handle other errors
+      console.error('Unhandled error:', err);
+      return UNHANDLEERR;
+    }
   }
 };

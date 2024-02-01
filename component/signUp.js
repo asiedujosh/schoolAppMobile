@@ -3,6 +3,7 @@ import {Text, View} from 'react-native';
 import SubSignUpOne from './subSignUpOne';
 import SubSignUpTwo from './subSignUpTwo';
 import SubSignUpThree from './subSignUpThree';
+import ErrorModal from '../errorComponents/errorModal.js';
 import {SIGNUP} from '../constant/homeConstant';
 import {AuthApiData} from '../contextApi/auth/authContextApi.js';
 import InputField from './inputField';
@@ -59,6 +60,7 @@ const SignUp = ({navigation}) => {
         {/* <SubSignUpTwo />
         <SubSignUpThree /> */}
       </View>
+      <ErrorModal />
     </View>
   );
 };

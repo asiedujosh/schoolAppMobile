@@ -1,5 +1,7 @@
-import {Text, View, TextInput} from 'react-native';
+import {Text, View, TextInput, Dimensions} from 'react-native';
 import styles from '../globalStyles/Styles';
+
+// const {width, height} = Dimensions.get('window');
 
 const InputField = ({
   title,

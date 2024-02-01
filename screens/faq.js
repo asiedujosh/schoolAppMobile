@@ -9,12 +9,20 @@ const FAQ = ({navigation}) => {
   return (
     <KeyboardAvoidingContainer>
       <View style={styles.quizOptionLead}>
-        <View style={styles.gameResultContainer}>
-          <View style={styles.dashboardHeadFAQ}>
-            <Text style={[styles.dashboardHeadTitle, {paddingBottom: '2%'}]}>
-              {FaqConstants.title}
-            </Text>
+        <View style={styles.quizOptionContainer}>
+          <View
+            style={[
+              styles.dashboardHeadCard,
+              styles.reviewCardTwo,
+              styles.settingHeadCard,
+            ]}>
+            <View style={styles.dashboardHeadFAQ}>
+              <Text style={[styles.dashboardHeadTitle]}>
+                {FaqConstants.title}
+              </Text>
+            </View>
           </View>
+
           <View style={styles.scrollContainer}>
             <ScrollView style={{flex: 1}}>
               <FlatList
@@ -28,7 +36,10 @@ const FAQ = ({navigation}) => {
                   return (
                     <View>
                       <AccordionItem title={item.question}>
-                        <Text style={styles.textSmall}>{item.answer}</Text>
+                        <Text style={styles.textSmall}>
+                          <Text style={{fontWeight: 'bold'}}>Answer:</Text>{' '}
+                          {item.answer}
+                        </Text>
                       </AccordionItem>
                     </View>
                   );

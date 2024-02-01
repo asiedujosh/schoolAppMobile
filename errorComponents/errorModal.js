@@ -11,6 +11,8 @@ const ErrorModal = () => {
     setUnknownError,
     errorMessage,
     setErrorMessage,
+    usernameTaken,
+    setUsernameTaken,
   } = useContext(AuthApiData);
   const [err, setErr] = useState(false);
 
@@ -22,7 +24,11 @@ const ErrorModal = () => {
     if (unknownError === true) {
       setErr(unknownError);
     }
-  }, [netWorkError, unknownError]);
+
+    if (usernameTaken === true) {
+      setErr(usernameTaken);
+    }
+  }, [netWorkError, unknownError, usernameTaken]);
 
   // console.log(netWork);
   // setErr(netWork[0]);
@@ -31,13 +37,13 @@ const ErrorModal = () => {
   let handleCloseModel = () => {
     if (netWorkError) {
       setNetworkError(prev => !prev);
-      setErr(prev => !prev);
-      setErrorMessage('');
-    } else {
+    } else if (unknownError) {
       setUnknownError(prev => !prev);
-      setErr(prev => !prev);
-      setErrorMessage('');
+    } else {
+      setUsernameTaken(prev => !prev);
     }
+    setErr(prev => !prev);
+    setErrorMessage('');
   };
 
   return (

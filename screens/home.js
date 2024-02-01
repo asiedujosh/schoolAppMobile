@@ -2,6 +2,7 @@ import React, {useContext, useEffect} from 'react';
 import {Image, View} from 'react-native';
 import styles from '../globalStyles/Styles';
 import GetStarted from '../component/getStarted';
+import BackBtn from '../component/backBtn.js';
 import SignUp from '../component/signUp';
 import SignIn from '../component/signIn.js';
 import SignUpOptions from '../component/signUpOptions.js';
@@ -27,7 +28,11 @@ const Home = ({navigation}) => {
             style={styles.image}
           />
         </View>
-
+        {registerStage > 0 && (
+          <View style={styles.backBtnContainer}>
+            <BackBtn change={[registerStage, setRegisterStage]} />
+          </View>
+        )}
         <View
           style={[
             styles.homeCard,

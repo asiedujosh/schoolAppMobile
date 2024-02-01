@@ -207,6 +207,7 @@ const QuestionApiDataProvider = props => {
         processGetAllExams,
         processGetAllSubject,
         processGetQuestions,
+        setQuestions,
         examsList,
         yearList,
         subjectList,
@@ -222,6 +223,8 @@ const QuestionApiDataProvider = props => {
         quizAttempt,
         review,
         setReview,
+        setSolvedQuestions,
+        setCorrectAns
       }}>
       {props.children}
     </QuestionApiData.Provider>

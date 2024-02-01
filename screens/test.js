@@ -3,18 +3,29 @@ import {Text, View, ScrollView, Pressable, FlatList} from 'react-native';
 import {QuestionApiData} from '../contextApi/question/questionContextApi.js';
 import {REVIEW} from '../constant/reviewConstant';
 import filterAnswers from '../utils/filterAnswers';
+import SelectField from '../component/selectField';
 import HomeBtn from '../component/homeBtn.js';
 import SelectFieldCorrection from '../component/selectFieldCorrection';
-import {OPTIONS} from '../constant/gameboardConstant.js';
+import {QUESTIONS, OPTIONS} from '../constant/gameboardConstant.js';
+import SubmitBtn from '../component/submitBtn';
+import LoadingBtn from '../component/loadingBtn.js';
 import styles from '../globalStyles/Styles';
+import {STATUSOPTION} from '../constant/reviewConstant';
 import OutputQuestion from '../component/htmlOutput.js';
+import {AuthApiData} from '../contextApi/auth/authContextApi.js';
 import {RecordApiData} from '../contextApi/records/recordsContextApi.js';
+import KeyboardAvoidingContainer from '../component/keyboardAvoidingContainer';
 
-const RecordView = ({navigation}) => {
-  const {processGetQuestions, questions, setLoadingQuestions} =
-    useContext(QuestionApiData);
+const Test = ({navigation}) => {
+  const {
+    processGetQuestions,
+    questions,
+    loadingQuestions,
+    setLoadingQuestions,
+  } = useContext(QuestionApiData);
   const {
     processGetRecordReview,
+    savedRecords,
     recordReviewMark,
     recordReviewInfo,
     recordReviewDetail,
@@ -62,18 +73,18 @@ const RecordView = ({navigation}) => {
   let colorCheck = (one, answer, choseAnswer, item) => {
     let results = '#0347A1';
 
-    let optionData = one.split('**');
+    // let optionData = one.split('**');
 
-    let positionItem = optionData && optionData.indexOf(item);
-    let getOptionRep = OPTIONS[positionItem];
+    // let positionItem = optionData && optionData.indexOf(item);
+    // let getOptionRep = OPTIONS[positionItem];
 
-    if (getOptionRep.toLowerCase() === answer.toLowerCase()) {
-      results = '#007E01';
-    } else if (getOptionRep.toLowerCase() === choseAnswer.toLowerCase()) {
-      results = '#CF0707';
-    } else {
-      results = '#0347A1';
-    }
+    // if (getOptionRep.toLowerCase() === answer.toLowerCase()) {
+    //   results = '#007E01';
+    // } else if (getOptionRep.toLowerCase() === choseAnswer.toLowerCase()) {
+    //   results = '#CF0707';
+    // } else {
+    //   results = '#0347A1';
+    // }
 
     return results;
   };
@@ -97,22 +108,13 @@ const RecordView = ({navigation}) => {
             <HomeBtn handleHome={handleHomeBtn} />
           </View>
         </View>
-
         <View style={styles.reviewCardHeadContainer}>
-          <Text style={styles.reviewCardHeadTitle}>
-            {recordReviewInfo.length > 0 &&
-              recordReviewInfo[0].examsType.toUpperCase()}{' '}
-            {recordReviewInfo.length > 0 && recordReviewInfo[0].subject}
-          </Text>
-          <Text style={styles.reviewCardHeadTitle}>
-            {recordReviewInfo.length > 0 && recordReviewInfo[0].year}
-          </Text>
+          <Text style={styles.reviewCardHeadTitle}>Wassce chemistry</Text>
+          <Text style={styles.reviewCardHeadTitle}>May/June 1995</Text>
           <Text style={[styles.reviewCardHeadSubTitle, {color: '#fff'}]}>
-            {recordReviewMark && recordReviewMark[0].correctMark} Out of{' '}
-            {recordReviewMark && recordReviewMark[0].noOfQuestions}
+            5 Out of 10
           </Text>
         </View>
-
         <View style={styles.recordStatusBarContainer}>
           <View style={styles.completeBtn}>
             <Text style={styles.recordBtnText}>Complete</Text>
@@ -121,62 +123,54 @@ const RecordView = ({navigation}) => {
             <Text style={styles.recordBtnText}>Retry</Text>
           </Pressable>
         </View>
-
         <ScrollView style={{flex: 1}}>
-          {infoData.length > 0 &&
-            infoData.map(item => (
-              <View style={styles.reviewQuestionCard}>
-                <Text style={styles.reviewCardHeadSubTitle}>
-                  Question {item.questionNo}
+          {QUESTIONS.map(item => (
+            <View style={styles.reviewQuestionCard}>
+              <Text style={styles.reviewCardHeadSubTitle}>
+                Question {item.questionNo}
+              </Text>
+
+              <OutputQuestion
+                data={item.question}
+                color={'black'}
+                fontSize={20}
+              />
+
+              <View style={styles.reviewAnsContainer}>
+                <Text
+                  style={[styles.reviewCardHeadSubTitle, styles.reviewAnsText]}>
+                  Chose: B
                 </Text>
-
-                <OutputQuestion
-                  data={item.question}
-                  color={'black'}
-                  fontSize={20}
-                />
-
-                <View style={styles.reviewAnsContainer}>
-                  <Text
-                    style={[
-                      styles.reviewCardHeadSubTitle,
-                      styles.reviewAnsText,
-                    ]}>
-                    Chose: {item.userChoice.toUpperCase()}
-                  </Text>
-                  <Text
-                    style={[
-                      styles.reviewCardHeadSubTitle,
-                      styles.reviewAnsText,
-                    ]}>
-                    Answer: {item.answer.toUpperCase()}
-                  </Text>
-                </View>
-                <View style={styles.reviewOptionsContainer}>
-                  {item.options.split('**').map((item2, index) => (
-                    <View
-                      key={index}
-                      style={[
-                        {
-                          backgroundColor: colorCheck(
-                            item.options,
-                            item.answer,
-                            item.userChoice,
-                            item2,
-                          ),
-                        },
-                        styles.reviewOptionsItemContainer,
-                      ]}>
-                      <Text style={styles.reviewOptionText}>{item2}</Text>
-                    </View>
-                  ))}
-                </View>
+                <Text
+                  style={[styles.reviewCardHeadSubTitle, styles.reviewAnsText]}>
+                  Answer: {item.ans.toUpperCase()}
+                </Text>
               </View>
-            ))}
+              <View style={styles.reviewOptionsContainer}>
+                {item.options.split('**').map((item2, index) => (
+                  <View
+                    key={index}
+                    style={[
+                      {
+                        backgroundColor: colorCheck(
+                          item.options,
+                          item.answer,
+                          item.userChoice,
+                          item2,
+                        ),
+                      },
+                      styles.reviewOptionsItemContainer,
+                    ]}>
+                    <Text style={styles.reviewOptionText}>{item2}</Text>
+                  </View>
+                ))}
+              </View>
+            </View>
+          ))}
         </ScrollView>
       </View>
     </View>
   );
 };
 
-export default RecordView;
+export default Test;

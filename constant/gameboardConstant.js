@@ -7,6 +7,22 @@ export const GAMEOPTIONS = {
   time: 2,
 };
 
+export const OPTIONS = [
+  'a',
+  'b',
+  'c',
+  'd',
+  'e',
+  'f',
+  'g',
+  'h',
+  'i',
+  'j',
+  'k',
+  'l',
+  'none',
+];
+
 export const QUESTIONS = [
   {
     id: 1,

@@ -1,6 +1,7 @@
 import React, {useContext, useState, useEffect} from 'react';
 import {View} from 'react-native';
 import {AuthApiData} from '../contextApi/auth/authContextApi.js';
+import CountrySelect from './selectCountry.js';
 import {SIGNUP} from '../constant/homeConstant';
 import InputField from './inputField';
 import {Dimensions} from 'react-native';
@@ -10,11 +11,11 @@ import SubmitBtn from './submitBtn';
 const {width, height} = Dimensions.get('window');
 
 const SubSignUpOne = ({signUpdateFunction}) => {
-  //   const {registerFormData, setRegisterFormData} = useContext(AuthApiData);
+  const {registerFormData, setRegisterFormData} = useContext(AuthApiData);
   const [error, setError] = useState();
 
   const handleInputChange = (data, field) => {
-    signUpdateFunction[3]({...signUpdateFunction[2], [field]: data});
+    setRegisterFormData({...registerFormData, [field]: data});
   };
 
   const handleStageChange = () => {
@@ -36,35 +37,46 @@ const SubSignUpOne = ({signUpdateFunction}) => {
       let i = signUpdateFunction[0] + 1;
       signUpdateFunction[1](i);
     }
+    // console.log(registerFormData);
   };
 
   return (
     <>
       <View style={styles.homeBodyTextContainer}>
-        {SIGNUP.field.map((item, index) => (
-          <InputField
-            key={index}
-            top={
-              item.label == SIGNUP.field[0].label
-                ? 0.02 * height
-                : 0.04 * height
-            }
-            title={item.label}
-            field={item.name}
-            width={width * 0.95}
-            err={error}
-            placeholder={item.placeholder}
-            change={(data, field) => {
-              //   console.log('We are year');
-              handleInputChange(data, field);
-            }}
-          />
-        ))}
+        {SIGNUP.field.map((item, index) =>
+          item.name !== 'tel' ? (
+            <InputField
+              key={index}
+              top={
+                item.label == SIGNUP.field[0].label
+                  ? 0.005 * height
+                  : 0.04 * height
+              }
+              title={item.label}
+              field={item.name}
+              width={width * 0.85}
+              err={error}
+              placeholder={item.placeholder}
+              change={(data, field) => {
+                //   console.log('We are year');
+                handleInputChange(data, field);
+              }}
+            />
+          ) : (
+            <CountrySelect
+              top={0.04 * height}
+              change={(data, field) => {
+                //   console.log('We are year');
+                handleInputChange(data, field);
+              }}
+            />
+          ),
+        )}
       </View>
       <View style={styles.homeBtnContainer}>
         <SubmitBtn
           btnText={SIGNUP.btnText[0]}
-          width={width * 0.8}
+          width={width * 0.85}
           color={'#ffffff'}
           textColor={'#0347A1'}
           borderRadius={width * 0.15}

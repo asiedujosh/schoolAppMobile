@@ -7,6 +7,7 @@ import {AuthApiData} from '../contextApi/auth/authContextApi.js';
 import InputField from '../component/inputField';
 import {EDITSIGNINFO} from '../constant/homeConstant';
 import KeyboardAvoidingContainer from '../component/keyboardAvoidingContainer';
+import CountrySelect from '../component/selectCountry.js';
 
 const {width, height} = Dimensions.get('window');
 
@@ -27,27 +28,28 @@ const EditUserInfo = ({navigation}) => {
 
   //console.log(userProfile);
   const handleSubmit = () => {
-    formData.tel = formData.tel.trim();
-    formData.email = formData.email.trim();
-    formData.country = formData.country.trim();
-    let err = [];
-    EDITSIGNINFO.field.map((item, index) => {
-      if (!formData.tel || !formData.email || !formData.country) {
-        let errData = {
-          errName: item.name,
-          errMsg: `* ${item.label} cannot be empty`,
-        };
-        err.push(errData);
-      }
-    });
+    navigation.navigate('NotAvailable')
+    // formData.tel = formData.tel.trim();
+    // formData.email = formData.email.trim();
+    // formData.country = formData.country.trim();
+    // let err = [];
+    // EDITSIGNINFO.field.map((item, index) => {
+    //   if (!formData.tel || !formData.email || !formData.country) {
+    //     let errData = {
+    //       errName: item.name,
+    //       errMsg: `* ${item.label} cannot be empty`,
+    //     };
+    //     err.push(errData);
+    //   }
+    // });
 
-    if (err.length !== 0) {
-      setError(err);
-    } else {
-      setError(error);
-      setSignInLoading(true);
-      processEditUserInfo(formData);
-    }
+    // if (err.length !== 0) {
+    //   setError(err);
+    // } else {
+    //   setError(error);
+    //   setSignInLoading(true);
+    //   processEditUserInfo(formData);
+    // }
   };
 
   return (
@@ -75,6 +77,9 @@ const EditUserInfo = ({navigation}) => {
                     }}
                   />
                 ))}
+                {/* <View style={{marginTop: '10%', width: '100%'}}>
+                  <CountrySelect />
+                </View> */}
                 <View>
                   <SubmitBtn
                     btnText={EDITSIGNINFO.btnText}

@@ -1,12 +1,19 @@
-import {useState, useContext} from 'react';
+import {useState, useEffect, useContext} from 'react';
 import {StyleSheet, Text, View, ScrollView, Pressable} from 'react-native';
+import {Dimensions} from 'react-native';
 import styles from '../globalStyles/Styles';
 import {REVIEW} from '../constant/reviewConstant';
+import filterAnswers from '../utils/filterAnswers';
 import SelectField from '../component/selectField';
+import SelectFieldCorrection from '../component/selectFieldCorrection';
+import HomeBtn from '../component/homeBtn.js';
+import {QUESTIONS, OPTIONS} from '../constant/gameboardConstant.js';
 import SubmitBtn from '../component/submitBtn';
 import OutputQuestion from '../component/htmlOutput.js';
 import {QuestionApiData} from '../contextApi/question/questionContextApi.js';
 import KeyboardAvoidingContainer from '../component/keyboardAvoidingContainer';
+
+const {width, height} = Dimensions.get('window');
 
 const Review = ({navigation}) => {
   const {quizAttempt, correctAns, questions, questionInfo, review, setReview} =
@@ -14,7 +21,13 @@ const Review = ({navigation}) => {
   const [reviewOption, setReviewOption] = useState({
     reviewOption: REVIEW.selectOptions.options[0],
   });
-  const [selectedValue, setSelectedValue] = useState('');
+  const [selectedValue, setSelectedValue] = useState('All');
+  const [infoData, setInfoData] = useState([]);
+
+  useEffect(() => {
+    console.log(selectedValue);
+    setInfoData(filterAnswers(review, selectedValue));
+  }, [selectedValue]);
 
   let handleHomeBtn = () => {
     navigation.navigate('Dashboard');
@@ -24,109 +37,118 @@ const Review = ({navigation}) => {
     console.log('We will handle retry');
   };
 
-  return (
-    <KeyboardAvoidingContainer>
-      <View style={styles.quizOptionLead}>
-        <View style={styles.gameResultContainer}>
-          <View style={styles.reviewSearchContainer}>
-            <View style={styles.searchWrapper}>
-              <SelectField
-                title={REVIEW.selectOptions.label}
-                field={REVIEW.selectOptions.name}
-                top={'0%'}
-                option={REVIEW.selectOptions.options}
-                change={[
-                  selectedValue,
-                  setSelectedValue,
-                  reviewOption,
-                  setReviewOption,
-                ]}
-              />
-            </View>
-            <View style={styles.homeBtnWrapper}>
-              <SubmitBtn
-                btnText={'Home'}
-                width={100}
-                borderRadius={30}
-                topMargin={'20%'}
-                action={handleHomeBtn}
-              />
-            </View>
-          </View>
-          <View style={styles.topicContainer}>
-            <Text style={styles.topicTitle}>
-              {quizAttempt.quizInfo.subject.toUpperCase()}
-            </Text>
-            <Text style={styles.subTopicTitle}>
-              {quizAttempt.quizInfo.year.toUpperCase()}
-            </Text>
-            <View style={styles.markRecordData}>
-              <Text style={styles.mark}>{correctAns}</Text>
-              <Text style={styles.middleMark}>Out of</Text>
-              <Text style={styles.mark}>{questions.length}</Text>
-            </View>
-          </View>
-          <View style={styles.scrollContainer}>
-            <ScrollView style={{flex: 1}}>
-              {review.map(item => (
-                <View style={styles.questionContainer}>
-                  <Text style={styles.questionTopicTitle}>{item.topicId}</Text>
-                  <Text style={styles.questionTopicTitleSub}>
-                    Question {item.questionNo}
-                  </Text>
-                  <View style={styles.reviewQuestionContainer}>
-                    <OutputQuestion
-                      data={item.question}
-                      color={'black'}
-                      fontSize={20}
-                    />
-                  </View>
-                  <View style={styles.reviewAnsContainer}>
-                    <View style={styles.reviewAns}>
-                      <Text style={styles.reviewAnsText}>
-                        Choose: {item.userChoice.toUpperCase()}
-                      </Text>
-                    </View>
-                    <View style={styles.reviewAns}>
-                      <Text style={styles.reviewAnsText}>
-                        Answer: {item.answer.toUpperCase()}
-                      </Text>
-                    </View>
-                  </View>
-                  <View style={styles.reviewOptionsContainer}>
-                    {item.options.split('**').map((item, index) => (
-                      <View style={styles.reviewOptionsItemContainer}>
-                        <Text style={styles.reviewOptionText}>{item}</Text>
-                      </View>
-                    ))}
-                  </View>
-                  <View style={styles.markContainer}>
-                    {item.userChoice.toUpperCase() ===
-                    item.answer.toUpperCase() ? (
-                      <View style={styles.correctContainer}>
-                        <Text style={styles.markText}>Correct</Text>
-                      </View>
-                    ) : (
-                      <View style={styles.wrongContainer}>
-                        <Text style={styles.markText}>Wrong</Text>
-                      </View>
-                    )}
-                  </View>
-                </View>
-              ))}
+  let colorCheck = (one, answer, choseAnswer, item) => {
+    let results = '#0347A1';
 
-              <SubmitBtn
-                btnText={'Retry'}
-                width={300}
-                borderRadius={30}
-                topMargin={'5%'}
-                action={handleRetry}
-              />
-            </ScrollView>
+    let optionData = one.split('**');
+
+    let positionItem = optionData && optionData.indexOf(item);
+    let getOptionRep = OPTIONS[positionItem];
+
+    if (getOptionRep.toLowerCase() === answer.toLowerCase()) {
+      results = '#007E01';
+    } else if (getOptionRep.toLowerCase() === choseAnswer.toLowerCase()) {
+      results = '#CF0707';
+    } else {
+      results = '#0347A1';
+    }
+
+    return results;
+  };
+
+  return (
+    <View style={{flex: 1}}>
+      <View style={[styles.reviewCardTwo, styles.reviewCardThree]}>
+        <View style={[styles.reviewSearchContainerTwo]}>
+          <View style={styles.searchWrapper}>
+            <SelectFieldCorrection
+              top={'0%'}
+              option={['All', 'Correct', 'Wrongs']}
+              change={[selectedValue, setSelectedValue]}
+            />
+          </View>
+          <View style={styles.homeBtnWrapper}>
+            <HomeBtn handleHome={handleHomeBtn} />
           </View>
         </View>
+        <View style={styles.reviewCardHeadContainer}>
+          <Text style={styles.reviewCardHeadTitle}>
+            {quizAttempt.quizInfo.subject.toUpperCase()}
+          </Text>
+          <Text style={styles.reviewCardHeadTitle}>
+            {quizAttempt.quizInfo.year.toUpperCase()}
+          </Text>
+          <Text style={[styles.reviewCardHeadSubTitle, {color: '#fff'}]}>
+            {correctAns} Out of {questions && questions.length}
+          </Text>
+        </View>
+        <ScrollView style={{flex: 1}}>
+          {infoData.length > 0 &&
+            infoData.map(item => (
+              <View style={styles.reviewQuestionCard}>
+                <Text style={styles.reviewCardHeadSubTitle}>
+                  Question {item.questionNo}
+                </Text>
+
+                <OutputQuestion
+                  data={item.question}
+                  color={'black'}
+                  fontSize={20}
+                />
+
+                <View style={styles.reviewAnsContainer}>
+                  <Text
+                    style={[
+                      styles.reviewCardHeadSubTitle,
+                      styles.reviewAnsText,
+                    ]}>
+                    Chose: {item.userChoice.toUpperCase()}
+                  </Text>
+                  <Text
+                    style={[
+                      styles.reviewCardHeadSubTitle,
+                      styles.reviewAnsText,
+                    ]}>
+                    Answer: {item.answer.toUpperCase()}
+                  </Text>
+                </View>
+                <View style={styles.reviewOptionsContainer}>
+                  {item.options.split('**').map((item2, index) => (
+                    <View
+                      key={index}
+                      style={[
+                        {
+                          backgroundColor: colorCheck(
+                            item.options,
+                            item.answer,
+                            item.userChoice,
+                            item2,
+                          ),
+                        },
+                        styles.reviewOptionsItemContainer,
+                      ]}>
+                      <Text style={styles.reviewOptionText}>{item2}</Text>
+                    </View>
+                  ))}
+                </View>
+              </View>
+            ))}
+        </ScrollView>
+        <View>
+          <SubmitBtn
+            btnText={'Retry'}
+            width={width * 0.85}
+            color={'#ffffff'}
+            textColor={'#0347A1'}
+            borderRadius={width * 0.15}
+            topMargin={0.02 * height}
+            action={() => {
+              console.log('Will retry');
+            }}
+          />
+        </View>
       </View>
-    </KeyboardAvoidingContainer>
+    </View>
   );
 };
 
