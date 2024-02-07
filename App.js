@@ -10,11 +10,13 @@ import EditUserInfo from './screens/editUserInfo';
 import EditPassword from './screens/editPassword';
 import GameBoard from './screens/gameBoard';
 import Test from './screens/test';
+// import TestTwo from './screens/testTwo.js';
 import NotAvailable from './screens/notAvailable.js';
 import GameBoardTwo from './screens/gameBoardTwo';
 import GameResultTwo from './screens/gameResultTwo';
 import RecordTwo from './screens/recordTwo.js';
 import ReviewTwo from './screens/reviewTwo.js';
+import AsciiOutput from './screens/asciiHtml.js';
 import {AuthApiData} from './contextApi/auth/authContextApi.js';
 import FAQ from './screens/faq';
 import Setting from './screens/settings';
@@ -40,15 +42,15 @@ const App = () => {
     <NavigationContainer>
       <Stack.Navigator>
         {/* <Stack.Screen
-          name="Test"
-          component={Test}
+          name="TestTwo"
+          component={AsciiOutput}
           options={{
             header: () => null,
           }}
         /> */}
         {/* <Stack.Screen
-          name="GameResultTwo"
-          component={GameResultTwo}
+          name="GameBoardTwo"
+          component={GameBoardTwo}
           options={{
             header: () => null,
           }}

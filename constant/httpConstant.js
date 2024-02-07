@@ -1,6 +1,6 @@
 export const TIMEOUT = {timeout: 5000};
-export const URL = 'https://studentappapi.awesomehandsacademy.com';
-//export const URL = 'https://apiv4.awesomehandsacademy.com/';
+//export const URL = 'https://studentappapi.awesomehandsacademy.com';
+export const URL = 'https://a46c-102-214-88-11.ngrok-free.app';
 
 //System Responses
 

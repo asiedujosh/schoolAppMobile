@@ -251,6 +251,9 @@ export default StyleSheet.create({
     flex: 3, // Takes 3/4 of the card's height
     width: dashboardCardImageWidth,
   },
+  imageOptions: {
+    marginHorizontal: '5%',
+  },
   dashboardOverlay: {
     flex: 1, // Takes 1/4 of the card's height
     backgroundColor: blueColor,
