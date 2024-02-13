@@ -17,6 +17,7 @@ const RenderOptionsContainer = ({
   highlight,
   currentQuestion,
   ansHighLight,
+  renderType,
 }) => {
   if (optionType[0] !== null && optionType[0] !== '') {
     return (

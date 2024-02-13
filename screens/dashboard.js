@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {
   Image,
   ImageBackground,
@@ -6,6 +6,7 @@ import {
   Text,
   FlatList,
   Pressable,
+  ScrollView,
 } from 'react-native';
 import {AuthApiData} from '../contextApi/auth/authContextApi.js';
 import {QuestionApiData} from '../contextApi/question/questionContextApi.js';
@@ -15,13 +16,20 @@ import styles from '../globalStyles/Styles';
 import KeyboardAvoidingContainer from '../component/keyboardAvoidingContainer';
 import capitalizeFirstLetter from '../utils/firstLetterCaps.js';
 import SubmitBtn from '../component/submitBtn';
+import ScrollViewCard from '../component/scrollViewCard.js';
 
 const {width, height} = Dimensions.get('window');
 
 const Dashboard = ({navigation}) => {
   const {processLogout, userProfile, alreadyLoggedIn} = useContext(AuthApiData);
-  const {processGetAllExams, processGetAllYear, processGetAllSubject} =
-    useContext(QuestionApiData);
+  const {
+    examsList,
+    processGetAllExams,
+    processGetAllYear,
+    processGetAllSubject,
+  } = useContext(QuestionApiData);
+
+  const [carouselData, setCarouselData] = useState([]);
 
   useEffect(() => {
     processGetAllExams();
@@ -34,6 +42,13 @@ const Dashboard = ({navigation}) => {
       navigation.navigate('Home');
     }
   }, [alreadyLoggedIn]);
+
+  useEffect(() => {
+    let carousels = examsList.filter(item => item.position !== '0');
+    setCarouselData(
+      carousels.sort((a, b) => parseInt(a.position) - parseInt(b.position)),
+    );
+  }, [examsList]);
 
   const handleLogout = () => {
     processLogout();
@@ -55,6 +70,24 @@ const Dashboard = ({navigation}) => {
             <Text style={styles.dashboardHeadBody}>{DASHBOARD.headBody}</Text>
           </View>
         </View>
+
+        <View style={styles.scrollViewContainer}>
+          <FlatList
+            data={carouselData}
+            pagingEnabled
+            numColumns={1}
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
+            snapToAlignment="center"
+            scrollEventThrottle={16}
+            decelerationRate={'fast'}
+            renderItem={({item}) => {
+              return <ScrollViewCard data={item} />;
+            }}
+            keyExtractor={(item, index) => index.toString()}
+          />
+        </View>
+
         <View style={styles.dashboardCardContainer}>
           <FlatList
             data={DASHBOARD.dashboardCards}

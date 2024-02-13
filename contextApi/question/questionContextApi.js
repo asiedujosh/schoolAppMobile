@@ -4,6 +4,7 @@ import {
   getAllExams,
   getAllSubject,
   getAllYear,
+  getAllTopic,
   getSelectectedQuestions,
 } from './question';
 // import {Login, Register} from './question';
@@ -24,6 +25,10 @@ const QuestionApiDataProvider = props => {
   const [loadingQuestions, setLoadingQuestions] = useState(false);
   const [questions, setQuestions] = useState();
   const [correctAns, setCorrectAns] = useState(0);
+
+  useEffect(() => {
+    processGetAllTopic();
+  }, []);
 
   useEffect(() => {
     if (questions && questions.length > 0) {
@@ -140,7 +145,10 @@ const QuestionApiDataProvider = props => {
         topicId: item.topicId,
         questionNo: item.questionNo,
         question: item.question,
+        questionEquation: item.questionEquation,
         options: item.options,
+        imageOptions: item.imageOptions,
+        optionsWithEquation: item.optionsWithEquation,
         answer: item.answer,
         userChoice: null,
       };
@@ -224,7 +232,8 @@ const QuestionApiDataProvider = props => {
         review,
         setReview,
         setSolvedQuestions,
-        setCorrectAns
+        setCorrectAns,
+        topicList,
       }}>
       {props.children}
     </QuestionApiData.Provider>

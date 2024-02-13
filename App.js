@@ -9,6 +9,7 @@ import RecordView from './screens/recordView';
 import EditUserInfo from './screens/editUserInfo';
 import EditPassword from './screens/editPassword';
 import GameBoard from './screens/gameBoard';
+import Analysis from './screens/analysis';
 import Test from './screens/test';
 // import TestTwo from './screens/testTwo.js';
 import NotAvailable from './screens/notAvailable.js';
@@ -26,6 +27,7 @@ import Pause from './screens/pause';
 import {createStackNavigator} from '@react-navigation/stack';
 import SplashScreen from 'react-native-splash-screen';
 import React, {useEffect, useContext} from 'react';
+import AnalysisDetails from './screens/analysisDetails.js';
 
 const Stack = createStackNavigator();
 
@@ -85,6 +87,22 @@ const App = () => {
         <Stack.Screen
           name="RecordView"
           component={RecordView}
+          options={{
+            header: () => null,
+          }}
+        />
+
+        <Stack.Screen
+          name="Analysis"
+          component={Analysis}
+          options={{
+            header: () => null,
+          }}
+        />
+
+        <Stack.Screen
+          name="AnalysisDetail"
+          component={AnalysisDetails}
           options={{
             header: () => null,
           }}

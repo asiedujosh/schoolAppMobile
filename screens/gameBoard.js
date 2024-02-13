@@ -102,8 +102,35 @@ const GameBoard = ({navigation}) => {
   let processAns = () => {
     choseAnsHighlight.map(item => {
       if (item !== NOANSWER) {
-        let options =
-          questions[choseAnsHighlight.indexOf(item)].options.split('**');
+        let options;
+        if (
+          questions[choseAnsHighlight.indexOf(item)].options !== '' &&
+          questions[choseAnsHighlight.indexOf(item)].options !== null
+        ) {
+          options =
+            questions[choseAnsHighlight.indexOf(item)].options.split('**');
+        }
+
+        if (
+          questions[choseAnsHighlight.indexOf(item)].imageOptions !== '' &&
+          questions[choseAnsHighlight.indexOf(item)].imageOptions !== null
+        ) {
+          options =
+            questions[choseAnsHighlight.indexOf(item)].imageOptions.split('**');
+        }
+
+        if (
+          questions[choseAnsHighlight.indexOf(item)].optionsWithEquation !==
+            '' &&
+          questions[choseAnsHighlight.indexOf(item)].optionsWithEquation !==
+            null
+        ) {
+          options =
+            questions[
+              choseAnsHighlight.indexOf(item)
+            ].optionsWithEquation.split('**');
+        }
+
         let position = options.indexOf(item);
         let userAns = possibleAns[position];
         storeSolvedQuestions(
@@ -172,16 +199,26 @@ const GameBoard = ({navigation}) => {
           <View style={{flex: 0.95}}>
             <ScrollView style={{flex: 1}}>
               <View style={styles.questionTextContainer}>
-                <OutputQuestion
-                  data={questions && questions[currentQuestionNo].question}
-                  color={'white'}
-                  fontSize={21}
-                />
-                <AsciiOutput
-                  data={
-                    questions && questions[currentQuestionNo].questionEquation
-                  }
-                />
+                {questions &&
+                  questions[currentQuestionNo].question !== '' &&
+                  questions[currentQuestionNo].question !== null && (
+                    <OutputQuestion
+                      data={questions && questions[currentQuestionNo].question}
+                      color={'white'}
+                      fontSize={21}
+                    />
+                  )}
+
+                {questions &&
+                  questions[currentQuestionNo].questionEquation !== '' &&
+                  questions[currentQuestionNo].questionEquation !== null && (
+                    <AsciiOutput
+                      data={
+                        questions &&
+                        questions[currentQuestionNo].questionEquation
+                      }
+                    />
+                  )}
               </View>
               <View style={styles.answerContainer}>
                 <RenderOptionsContainer
@@ -192,7 +229,7 @@ const GameBoard = ({navigation}) => {
                   ]}
                   currentQuestion={currentQuestionNo}
                   highlight={handleChoosenAns}
-                  ansHighlight={choseAnsHighlight}
+                  ansHighLight={choseAnsHighlight}
                 />
               </View>
             </ScrollView>

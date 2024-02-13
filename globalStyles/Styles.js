@@ -738,7 +738,7 @@ export default StyleSheet.create({
     backgroundColor: whiteColor,
     borderRadius: homeCardRadius,
     paddingVertical: '5%',
-    paddingHorizontal: '10%',
+    paddingHorizontal: '7%',
     marginVertical: '5%',
   },
 
@@ -804,7 +804,7 @@ export default StyleSheet.create({
   },
 
   reviewQuestionContainer: {
-    marginHorizontal: '3%',
+    marginHorizontal: '2%',
   },
 
   reviewAnsContainer: {
@@ -1179,4 +1179,74 @@ export default StyleSheet.create({
     position: 'absolute',
     margin: '5%',
   },
+
+  /** Scrollview container */
+  scrollViewContainer: {
+    flexDirection: 'row',
+  },
+
+  scrollViewCard: {
+    margin: 10,
+    borderRadius: 10,
+    backgroundColor: '#fff',
+    padding: 10,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
+    elevation: 2,
+  },
+
+  scrollViewCardText: {
+    marginTop: 5,
+    fontSize: 16,
+  },
+
+  scrollViewCardImage: {
+    width: 80,
+    height: 80,
+    borderRadius: 10,
+  },
+
+  analysisCard: {
+    flex: 1,
+    width: width * 0.9,
+    backgroundColor: whiteColor,
+    paddingHorizontal: '10%',
+    paddingTop: '10%',
+    paddingBottom: '5%',
+    borderRadius: 10,
+  },
+
+  analysisHeadContainer: {
+    alignItems: 'center',
+    marginTop: '10%',
+  },
+
+  analysisHeadTitle: {
+    fontSize: mainTextTitle,
+  },
+
+  analysisTable: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginVertical: '5%',
+  },
+
+  analysisTableText: {
+    fontFamily: mainFamilyBody,
+    fontSize: mainTextSize,
+    color: blueColor,
+  },
+
+  colorCode: {
+    width: 20,
+    height: 20,
+    borderRadius: 20,
+    backgroundColor: '#fbd203',
+    marginHorizontal: 2,
+  },
+
+  /** End scrollview container */
 });

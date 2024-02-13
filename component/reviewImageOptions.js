@@ -14,16 +14,11 @@ import styles from '../globalStyles/Styles';
 
 const {width, height} = Dimensions.get('window');
 
-const RenderImageOptions = ({
-  data,
-  highlight,
-  currentQuestion,
-  ansHighLight,
-}) => {
+const ReviewImageOptions = ({imgData, dataInfo, checkColor}) => {
   return (
     <View>
       <FlatList
-        data={data.split('**')}
+        data={imgData.split('**')}
         pagingEnabled
         numColumns={2}
         snapToAlignment="center"
@@ -31,34 +26,34 @@ const RenderImageOptions = ({
         decelerationRate={'fast'}
         renderItem={({item}) => {
           return (
-            <Pressable
+            <View
               onPress={() => {
                 highlight(item);
-              }}
-              style={({pressed}) => [
-                {
-                  backgroundColor:
-                    item == ansHighLight[currentQuestion]
-                      ? '#0797F8'
-                      : '#0347A1',
-                },
-                {
-                  borderRadius: width * 0.05,
-                  marginTop: 0.02 * height,
-                  marginHorizontal: '2%',
-                },
-              ]}>
+              }}>
               <View
                 style={[
-                  styles.dashboardCard,
-                  {width: width * 0.4, height: width * 0.4},
+                  styles.scrollViewCard,
+                  {
+                    backgroundColor: checkColor(
+                      imgData,
+                      dataInfo[0],
+                      dataInfo[1],
+                      item,
+                    ),
+                    padding: 5,
+                    width: 100,
+                    height: 100,
+                  },
                 ]}>
                 <Image
                   source={{uri: `${item}`}} // Replace with the actual path to your image
-                  style={[styles.dashboardCardImage, {resizeMode: 'stretch'}]}
+                  style={[
+                    styles.scrollViewCardImage,
+                    {width: 90, height: 90, resizeMode: 'contain'},
+                  ]}
                 />
               </View>
-            </Pressable>
+            </View>
           );
         }}
         keyExtractor={(item, index) => index.toString()}
@@ -67,4 +62,4 @@ const RenderImageOptions = ({
   );
 };
 
-export default RenderImageOptions;
+export default ReviewImageOptions;

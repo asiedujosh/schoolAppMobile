@@ -21,7 +21,7 @@ const RenderEquationOptions = ({
           styles.optionItemContainer2,
           {
             backgroundColor:
-              item === ansHighLight[currentQuestion] ? '#0797F8' : '#0347A1',
+              item == ansHighLight[currentQuestion] ? '#0797F8' : '#0347A1',
           },
         ]}>
         <AsciiOutput data={item} />

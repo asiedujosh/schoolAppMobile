@@ -8,6 +8,7 @@ const RenderTextOptions = ({
   currentQuestion,
   ansHighLight,
 }) => {
+  console.log(currentQuestion);
   return (
     // Enclose the JSX elements inside the return statement
     data.split('**').map((item, index) => (

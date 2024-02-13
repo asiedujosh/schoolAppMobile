@@ -89,7 +89,31 @@ const GameBoardTwo = ({navigation}) => {
   };
 
   const handleChoosenAns = item => {
-    let options = questions && questions[currentQuestionNo].options.split('**');
+    let options;
+    if (
+      questions[currentQuestionNo].options !== '' &&
+      questions[currentQuestionNo].options !== null
+    ) {
+      options = questions && questions[currentQuestionNo].options.split('**');
+    }
+
+    if (
+      questions[currentQuestionNo].imageOptions !== '' &&
+      questions[currentQuestionNo].imageOptions !== null
+    ) {
+      options =
+        questions && questions[currentQuestionNo].imageOptions.split('**');
+    }
+
+    if (
+      questions[currentQuestionNo].optionsWithEquation !== '' &&
+      questions[currentQuestionNo].optionsWithEquation !== null
+    ) {
+      options =
+        questions &&
+        questions[currentQuestionNo].optionsWithEquation.split('**');
+    }
+
     const position = options.indexOf(item);
     let userAns = possibleAns[position];
     storeSolvedQuestions(
