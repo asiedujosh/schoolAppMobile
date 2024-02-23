@@ -7,6 +7,8 @@ import {
   Pressable,
   FlatList,
   ImageBackground,
+  Alert,
+  ActivityIndicator,
 } from 'react-native';
 import styles from '../globalStyles/Styles';
 import dateFormat from '../utils/dateFormat.js';
@@ -21,8 +23,12 @@ import KeyboardAvoidingContainer from '../component/keyboardAvoidingContainer';
 
 const Records = ({navigation}) => {
   const {userProfile} = useContext(AuthApiData);
-  const {processGetUserRecords, savedRecords, setReviewId} =
-    useContext(RecordApiData);
+  const {
+    processGetUserRecords,
+    savedRecords,
+    setReviewId,
+    processDeleteRecord,
+  } = useContext(RecordApiData);
   const [reviewOption, setReviewOption] = useState({
     reviewOption: STATUSOPTION.selectOptions.options[0],
   });
@@ -32,13 +38,33 @@ const Records = ({navigation}) => {
     processGetUserRecords({userId: userProfile.username});
   }, []);
 
+  // useEffect(() => {
+  //   console.log(savedRecords);
+  // }, [savedRecords]);
+
   let handleHomeBtn = () => {
-    navigation.navigate('Dashboard')
+    navigation.navigate('Dashboard');
   };
 
   const goToRecordReview = item => {
     setReviewId(item);
     navigation.navigate('RecordView');
+  };
+
+  const alertToDeleteRecord = item => {
+    Alert.alert(
+      'Delete Record',
+      'Are you sure you want to delete record?',
+      [
+        {
+          text: 'Cancel',
+          onPress: () => null,
+          style: 'cancel',
+        },
+        {text: 'OK', onPress: () => processDeleteRecord(item)},
+      ],
+      {cancelable: false},
+    );
   };
 
   return (
@@ -63,14 +89,14 @@ const Records = ({navigation}) => {
               />
             </View>
             <View style={styles.homeBtnWrapper}>
-              <HomeBtn handleHome = {handleHomeBtn}/>
+              <HomeBtn handleHome={handleHomeBtn} />
             </View>
           </View>
         </View>
         <View style={[styles.recordBody]}>
           <ScrollView style={{flex: 1}}>
             <View style={styles.recordCardContainer}>
-              {savedRecords && (
+              {savedRecords ? (
                 <FlatList
                   data={savedRecords.records}
                   keyExtractor={(item, index) => 'key' + item.id}
@@ -81,52 +107,71 @@ const Records = ({navigation}) => {
                   decelerationRate={'fast'}
                   renderItem={({item}) => {
                     return (
-                      <Pressable
-                        style={styles.viewRecordCard}
-                        onPress={() => {
-                          goToRecordReview(item.quizId);
-                        }}>
-                        <View>
-                          <View style={styles.recordCardTextContainer}>
-                            <View style={styles.recordInfoCard}>
-                              <Text style={styles.recordInfoTextTitle}>
-                                {item.examsType.toUpperCase()}{' '}
-                                {item.subject.toUpperCase()}
+                      <View style={styles.viewRecordCard}>
+                        <View style={styles.recordCardTextContainer}>
+                          <View style={styles.recordInfoCard}>
+                            <Text style={styles.recordInfoTextTitle}>
+                              {item.examsType.toUpperCase()}{' '}
+                              {item.subject.toUpperCase()}
+                            </Text>
+                            <Text style={styles.recordInfoTextTitle}>
+                              {item.year}
+                            </Text>
+                            <Text style={styles.recordInfoText}>
+                              {dateFormat(item.updated_at)}
+                            </Text>
+                          </View>
+                          <View style={{marginTop: '5%'}}>
+                            <Text style={styles.recordInfoTextTitle}>
+                              SCORE
+                            </Text>
+                            <Text style={styles.recordInfoText}>
+                              {Marks(item.quizId, savedRecords.marks, 'Ans')}{' '}
+                              Out of{' '}
+                              {Marks(
+                                item.quizId,
+                                savedRecords.marks,
+                                'Questions',
+                              )}
+                            </Text>
+                          </View>
+                          <View style={{marginTop: '7%'}}>
+                            <Pressable
+                              style={styles.recordCardBtn}
+                              onPress={() => {
+                                goToRecordReview(item.quizId);
+                              }}>
+                              <Text style={styles.recordCardBtnText}>
+                                {item.status}
                               </Text>
-                              <Text style={styles.recordInfoTextTitle}>
-                                {item.year}
+                            </Pressable>
+
+                            <Pressable
+                              style={[
+                                styles.recordCardBtn,
+                                {backgroundColor: '#CF0707', marginTop: '2%'},
+                              ]}
+                              onPress={() => {
+                                alertToDeleteRecord({
+                                  data: item.quizId,
+                                  userId: userProfile.username,
+                                });
+                                // goToRecordReview(item.quizId);
+                              }}>
+                              <Text style={styles.recordCardBtnText}>
+                                Delete
                               </Text>
-                              <Text style={styles.recordInfoText}>
-                                {dateFormat(item.updated_at)}
-                              </Text>
-                            </View>
-                            <View style={{marginTop: '5%'}}>
-                              <Text style={styles.recordInfoTextTitle}>
-                                SCORE
-                              </Text>
-                              <Text style={styles.recordInfoText}>
-                                {Marks(item.quizId, savedRecords.marks, 'Ans')}{' '}
-                                Out of{' '}
-                                {Marks(
-                                  item.quizId,
-                                  savedRecords.marks,
-                                  'Questions',
-                                )}
-                              </Text>
-                            </View>
-                            <View style={{marginTop: '7%'}}>
-                              <View style={styles.recordCardBtn}>
-                                <Text style={styles.recordCardBtnText}>
-                                  {item.status}
-                                </Text>
-                              </View>
-                            </View>
+                            </Pressable>
                           </View>
                         </View>
-                      </Pressable>
+                      </View>
                     );
                   }}
                 />
+              ) : (
+                <View style={[styles.recordCardContainer, {marginTop: '20%'}]}>
+                  <ActivityIndicator size="large" color="#FFFFFF" />
+                </View>
               )}
             </View>
           </ScrollView>

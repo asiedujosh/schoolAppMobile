@@ -135,6 +135,30 @@ export default StyleSheet.create({
     opacity: 0.7,
   },
 
+  /** Premium Button */
+  premiumBtnContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  premiumBtn: {
+    marginTop: homeBtnVerticalMargin / 2,
+    marginBottom: homeBtnVerticalMargin / 4,
+    backgroundColor: blueColor,
+    opacity: 1,
+    // borderWidth: 4, // Set the border width
+    // borderColor: grayColor,
+    flexDirection: 'row',
+  },
+
+  /**End Premium Button Issues */
+
+  /**Payment Button */
+  paymentBtn: {
+    backgroundColor: '#2C72D2',
+  },
+  /**End Payment Button */
+
   loadingBtnText: {
     fontFamily: mainFamilyBody,
     fontSize: textOnBtnSize,
@@ -228,7 +252,7 @@ export default StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: dashboardCardContainerMarginTop,
+    marginTop: dashboardCardContainerMarginTop / 2,
   },
   dashboardCard: {
     width: dashboardCardWidth, // Adjust as needed
@@ -383,6 +407,13 @@ export default StyleSheet.create({
     fontFamily: mainFamilyBody,
   },
 
+  recordOverlay: {
+    flex: 1,
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent black overlay
+    // Add other styles for content on top of the background image
+  },
+
   buttonContainer3: {
     backgroundColor: whiteColor,
     paddingHorizontal: 10 * (width / 375),
@@ -393,6 +424,14 @@ export default StyleSheet.create({
     marginHorizontal: 0.025 * height,
     flexDirection: 'row',
     justifyContent: 'space-between',
+  },
+
+  whatsappBtn: {
+    backgroundColor: 'green',
+    borderRadius: Math.round(width * 0.09),
+    marginVertical: '2%',
+    height: 40,
+    justifyContent: 'center',
   },
 
   buttonContainer2Text: {
@@ -960,10 +999,9 @@ export default StyleSheet.create({
     // resizeMode: '',
   },
 
-  recordOverlay: {
-    flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent black overlay
-    // Add other styles for content on top of the background image
+  floatBtnContainer: {
+    flex: 0.09,
+    backgroundColor: 'rgba(0, 0, 0, 0.3)',
   },
 
   homeBtnTwo: {

@@ -20,6 +20,7 @@ const SubmitBtn = ({
     <Pressable
       style={({pressed}) => [
         styles.homeBtn,
+        {marginBottom: '2%'},
         {backgroundColor: pressed ? '#0797F8' : newColor},
         {marginTop: topMargin && topMargin},
         {borderRadius: borderRadius && borderRadius},

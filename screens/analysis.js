@@ -61,9 +61,13 @@ const Analysis = ({navigation}) => {
                     return (
                       <View style={[styles.analysisCard, {marginBottom: '5%'}]}>
                         <View className="analysisContainerOne">
-                          <Text>{item.examsType.toUpperCase()}</Text>
-                          <Text>{item.subject.toUpperCase()}</Text>
-                          <Text>{item.year}</Text>
+                          <Text style={styles.recordInfoTextTitle}>
+                            {item.examsType.toUpperCase()}
+                          </Text>
+                          <Text style={styles.recordInfoText}>
+                            {item.subject.toUpperCase()}
+                          </Text>
+                          <Text style={styles.recordInfoText}>{item.year}</Text>
                         </View>
                         <PieChartView
                           pieData={[
@@ -72,8 +76,8 @@ const Analysis = ({navigation}) => {
                           ]}
                         />
                         <View>
-                          <Text>Score </Text>
-                          <Text>
+                          <Text style={styles.recordInfoTextTitle}>Score </Text>
+                          <Text style={styles.recordInfoText}>
                             {Marks(item.quizId, savedRecords.marks, 'Ans')} Out
                             of{' '}
                             {Marks(
@@ -82,7 +86,7 @@ const Analysis = ({navigation}) => {
                               'Questions',
                             )}
                           </Text>
-                          <Text>
+                          <Text style={styles.recordInfoText}>
                             {' '}
                             {Math.ceil(
                               (Marks(item.quizId, savedRecords.marks, 'Ans') /
@@ -97,12 +101,14 @@ const Analysis = ({navigation}) => {
                           </Text>
                         </View>
                         <Pressable
-                          style={styles.recordCardBtn}
+                          style={[styles.recordCardBtn, {marginTop: '5%'}]}
                           onPress={() => {
                             goToMoreDetails(item.quizId);
                             // goToRecordReview(item.quizId);
                           }}>
-                          <Text>View Details</Text>
+                          <Text style={styles.recordCardBtnText}>
+                            View Details
+                          </Text>
                         </Pressable>
                       </View>
                     );

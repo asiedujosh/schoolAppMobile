@@ -51,3 +51,20 @@ export const getRecordReview = async data => {
     return false;
   }
 };
+
+export const deleteRecord = async data => {
+  try {
+    let responseOnDeleteRecord = await axios.delete(`${URL}/api/deleteRecord`, {
+      data: data, // Pass the data in the config object
+      headers: {
+        'Content-Type': 'application/json', // Set the Content-Type header if sending JSON data
+      },
+    });
+
+    if (responseOnDeleteRecord.status === SUCCESS_STATUS) {
+      return responseOnDeleteRecord.data;
+    }
+  } catch (err) {
+    console.error(err);
+  }
+};

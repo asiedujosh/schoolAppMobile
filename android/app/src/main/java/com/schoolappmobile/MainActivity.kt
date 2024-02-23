@@ -1,5 +1,6 @@
 package com.schoolappmobile
 
+import android.view.WindowManager
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate
 import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint.fabricEnabled
@@ -20,6 +21,7 @@ SplashScreen.show(this)
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(null)
+     window.addFlags(WindowManager.LayoutParams.FLAG_SECURE)
   }
 
   /**

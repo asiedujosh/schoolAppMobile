@@ -1,22 +1,14 @@
-import {useState, useEffect, useContext} from 'react';
-import {StyleSheet, Text, View, ScrollView, FlatList} from 'react-native';
-import {RecordApiData} from '../contextApi/records/recordsContextApi.js';
+import {Text, View, ScrollView, FlatList} from 'react-native';
 import styles from '../globalStyles/Styles';
 import KeyboardAvoidingContainer from '../component/keyboardAvoidingContainer';
-import AnalysisCard from '../component/analysisCard.js';
 import AnalysisData from '../utils/analysisData.js';
 import {useRoute} from '@react-navigation/native';
 
-const AnalysisDetails = ({navigation}) => {
+const AnalysisDetails = () => {
   const route = useRoute();
   const receivedData = route.params?.data;
-  const {processGetRecordReview, recordReviewDetail} =
-    useContext(RecordApiData);
-  //   const {processGetQuestions, review} = useContext(QuestionApiData);
 
   let postInfo = AnalysisData(receivedData);
-  console.log(postInfo);
-
   //Original Verison
 
   return (
@@ -53,12 +45,11 @@ const AnalysisDetails = ({navigation}) => {
                               flexDirection: 'row',
                               alignItems: 'center',
                             }}>
-                            <Text style={styles.analysisTableText}>
+                            <Text style={styles.recordInfoTextTitle}>
                               {item.topic}
                             </Text>
-                            <View style={styles.colorCode}></View>
                           </View>
-                          <Text>
+                          <Text style={styles.recordInfoText}>
                             {item.recurring} out of {item.totalTopic}
                           </Text>
                           <Text style={styles.analysisTableText}>
