@@ -41,7 +41,7 @@ export const DASHBOARD = {
     {
       title: 'News',
       cardImage: cardSixImg,
-      link: 'NotAvailable',
+      link: 'News',
     },
   ],
 };

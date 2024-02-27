@@ -115,6 +115,13 @@ const Analysis = ({navigation}) => {
                   }}
                 />
               )}
+              {savedRecords && !savedRecords.records && (
+                <View style={[styles.recordCardContainer, {marginTop: '20%'}]}>
+                  <Text style={styles.recordInfoTextTitle}>
+                    No Data Available
+                  </Text>
+                </View>
+              )}
             </ScrollView>
           </View>
         </View>

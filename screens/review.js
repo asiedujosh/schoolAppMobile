@@ -27,7 +27,7 @@ const Review = ({navigation}) => {
   const [infoData, setInfoData] = useState([]);
 
   useEffect(() => {
-    console.log(selectedValue);
+    // console.log(selectedValue);
     setInfoData(filterAnswers(review, selectedValue));
   }, [selectedValue]);
 
@@ -35,9 +35,9 @@ const Review = ({navigation}) => {
     navigation.navigate('Dashboard');
   };
 
-  let handleRetry = () => {
-    console.log('We will handle retry');
-  };
+  // let handleRetry = () => {
+  //   console.log(quizAttempt);
+  // };
 
   let colorCheck = (one, answer, choseAnswer, item) => {
     let results = '#0347A1';

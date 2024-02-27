@@ -119,6 +119,7 @@ dependencies {
     implementation("com.facebook.react:react-android")
     implementation("com.facebook.react:flipper-integration")
     implementation project(':react-native-splash-screen')
+    implementation 'com.google.android.gms:play-services-ads:22.2.0'
 
     if (hermesEnabled.toBoolean()) {
         implementation("com.facebook.react:hermes-android")

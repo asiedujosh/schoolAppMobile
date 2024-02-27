@@ -21,7 +21,7 @@ SplashScreen.show(this)
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(null)
-     window.addFlags(WindowManager.LayoutParams.FLAG_SECURE)
+    window.addFlags(WindowManager.LayoutParams.FLAG_SECURE)
   }
 
   /**

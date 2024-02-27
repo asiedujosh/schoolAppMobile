@@ -10,6 +10,7 @@ import EditUserInfo from './screens/editUserInfo';
 import EditPassword from './screens/editPassword';
 import GameBoard from './screens/gameBoard';
 import Analysis from './screens/analysis';
+import News from './screens/news.js';
 import BannerAds from './googleadscomponent/adsbanner.js';
 import RewardAds from './googleadscomponent/adsreward.js';
 import MakePayment from './paymentGateway/paystackView.js';
@@ -208,6 +209,14 @@ const App = () => {
         <Stack.Screen
           name="NotAvailable"
           component={NotAvailable}
+          options={{
+            header: () => null,
+          }}
+        />
+
+        <Stack.Screen
+          name="News"
+          component={News}
           options={{
             header: () => null,
           }}

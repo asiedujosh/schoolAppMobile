@@ -93,7 +93,9 @@ const Dashboard = ({navigation}) => {
 
   return (
     <>
-      {userProfile.packageId == 1 && <BannerAds />}
+      {userProfile.packageId == 1 && (
+        <BannerAds adkey={process.env.AD_UNIT_ID} />
+      )}
 
       <KeyboardAvoidingContainer>
         <View style={{flex: 1, padding: 0}}>
