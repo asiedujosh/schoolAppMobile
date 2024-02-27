@@ -98,6 +98,7 @@ android {
             keyPassword 'android'
         }
     }
+
     buildTypes {
         debug {
             signingConfig signingConfigs.debug
@@ -110,6 +111,7 @@ android {
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
     }
+    
 }
 
 dependencies {
@@ -124,6 +126,10 @@ dependencies {
         implementation jscFlavor
     }
 }
+
+project.ext.vectoricons = [
+    iconFontNames: [ 'Feather.ttf', 'FontAwesome5.ttf' ] // Specify font files
+]
 
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
 apply from: file("../../node_modules/react-native-vector-icons/fonts.gradle")

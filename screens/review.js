@@ -5,11 +5,13 @@ import styles from '../globalStyles/Styles';
 import {REVIEW} from '../constant/reviewConstant';
 import filterAnswers from '../utils/filterAnswers';
 import SelectField from '../component/selectField';
+import ReviewOptionsContainer from '../component/reviewOptionContainer.js';
 import SelectFieldCorrection from '../component/selectFieldCorrection';
 import HomeBtn from '../component/homeBtn.js';
 import {QUESTIONS, OPTIONS} from '../constant/gameboardConstant.js';
 import SubmitBtn from '../component/submitBtn';
 import OutputQuestion from '../component/htmlOutput.js';
+import AsciiOutput from './asciiHtml.js';
 import {QuestionApiData} from '../contextApi/question/questionContextApi.js';
 import KeyboardAvoidingContainer from '../component/keyboardAvoidingContainer';
 
@@ -90,11 +92,18 @@ const Review = ({navigation}) => {
                   Question {item.questionNo}
                 </Text>
 
-                <OutputQuestion
-                  data={item.question}
-                  color={'black'}
-                  fontSize={20}
-                />
+                {item.question !== '' && item.question !== null && (
+                  <OutputQuestion
+                    data={item.question}
+                    color={'black'}
+                    fontSize={20}
+                  />
+                )}
+
+                {item.questionEquation !== '' &&
+                  item.questionEquation !== null && (
+                    <AsciiOutput data={item.questionEquation} />
+                  )}
 
                 <View style={styles.reviewAnsContainer}>
                   <Text
@@ -113,23 +122,17 @@ const Review = ({navigation}) => {
                   </Text>
                 </View>
                 <View style={styles.reviewOptionsContainer}>
-                  {item.options.split('**').map((item2, index) => (
-                    <View
-                      key={index}
-                      style={[
-                        {
-                          backgroundColor: colorCheck(
-                            item.options,
-                            item.answer,
-                            item.userChoice,
-                            item2,
-                          ),
-                        },
-                        styles.reviewOptionsItemContainer,
-                      ]}>
-                      <Text style={styles.reviewOptionText}>{item2}</Text>
-                    </View>
-                  ))}
+                  {
+                    <ReviewOptionsContainer
+                      optionType={[
+                        item.options,
+                        item.imageOptions,
+                        item.optionsWithEquation,
+                      ]}
+                      checkColor={colorCheck}
+                      dataInfo={[item.answer, item.userChoice]}
+                    />
+                  }
                 </View>
               </View>
             ))}

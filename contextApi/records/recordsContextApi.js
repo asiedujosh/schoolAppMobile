@@ -1,5 +1,10 @@
 import React, {useState, createContext, useEffect} from 'react';
-import {saveRecords, getSavedRecordsOfUser, getRecordReview} from './records';
+import {
+  saveRecords,
+  getSavedRecordsOfUser,
+  getRecordReview,
+  deleteRecord,
+} from './records';
 // import {Login, Register} from './question';
 export const RecordApiData = createContext();
 
@@ -49,6 +54,13 @@ const RecordApiDataProvider = props => {
     }
   };
 
+  let processDeleteRecord = async data => {
+    let response = await deleteRecord(data);
+    if (response) {
+      processGetUserRecords({userId: data.userId});
+    }
+  };
+
   return (
     <RecordApiData.Provider
       value={{
@@ -65,6 +77,7 @@ const RecordApiDataProvider = props => {
         setReviewId,
         recordReviewMark,
         recordReviewInfo,
+        processDeleteRecord,
       }}>
       {props.children}
     </RecordApiData.Provider>

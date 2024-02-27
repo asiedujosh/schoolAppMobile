@@ -13,7 +13,9 @@ import {GAMEOPTIONS, QUESTIONS} from '../constant/gameboardConstant';
 import {QuestionApiData} from '../contextApi/question/questionContextApi.js';
 import OutputQuestion from '../component/htmlOutput.js';
 import KeyboardAvoidingContainer from '../component/keyboardAvoidingContainer';
+import AsciiOutput from './asciiHtml.js';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import RenderOptionsContainer from '../component/renderOptionContainer.js';
 
 const GameBoard = ({navigation}) => {
   const {questions, questionInfo, correctAns, processQuizAttempt, quizAttempt} =
@@ -100,8 +102,35 @@ const GameBoard = ({navigation}) => {
   let processAns = () => {
     choseAnsHighlight.map(item => {
       if (item !== NOANSWER) {
-        let options =
-          questions[choseAnsHighlight.indexOf(item)].options.split('**');
+        let options;
+        if (
+          questions[choseAnsHighlight.indexOf(item)].options !== '' &&
+          questions[choseAnsHighlight.indexOf(item)].options !== null
+        ) {
+          options =
+            questions[choseAnsHighlight.indexOf(item)].options.split('**');
+        }
+
+        if (
+          questions[choseAnsHighlight.indexOf(item)].imageOptions !== '' &&
+          questions[choseAnsHighlight.indexOf(item)].imageOptions !== null
+        ) {
+          options =
+            questions[choseAnsHighlight.indexOf(item)].imageOptions.split('**');
+        }
+
+        if (
+          questions[choseAnsHighlight.indexOf(item)].optionsWithEquation !==
+            '' &&
+          questions[choseAnsHighlight.indexOf(item)].optionsWithEquation !==
+            null
+        ) {
+          options =
+            questions[
+              choseAnsHighlight.indexOf(item)
+            ].optionsWithEquation.split('**');
+        }
+
         let position = options.indexOf(item);
         let userAns = possibleAns[position];
         storeSolvedQuestions(
@@ -170,33 +199,38 @@ const GameBoard = ({navigation}) => {
           <View style={{flex: 0.95}}>
             <ScrollView style={{flex: 1}}>
               <View style={styles.questionTextContainer}>
-                <OutputQuestion
-                  data={questions && questions[currentQuestionNo].question}
-                  color={'white'}
-                  fontSize={21}
-                />
+                {questions &&
+                  questions[currentQuestionNo].question !== '' &&
+                  questions[currentQuestionNo].question !== null && (
+                    <OutputQuestion
+                      data={questions && questions[currentQuestionNo].question}
+                      color={'white'}
+                      fontSize={21}
+                    />
+                  )}
+
+                {questions &&
+                  questions[currentQuestionNo].questionEquation !== '' &&
+                  questions[currentQuestionNo].questionEquation !== null && (
+                    <AsciiOutput
+                      data={
+                        questions &&
+                        questions[currentQuestionNo].questionEquation
+                      }
+                    />
+                  )}
               </View>
               <View style={styles.answerContainer}>
-                {questions &&
-                  questions[currentQuestionNo].options
-                    .split('**')
-                    .map((item, index) => (
-                      <Pressable
-                        onPress={() => {
-                          handleChoosenAns(item);
-                        }}
-                        style={({pressed}) => [
-                          styles.optionItemContainer2,
-                          {
-                            backgroundColor:
-                              item == choseAnsHighlight[currentQuestionNo]
-                                ? '#0797F8'
-                                : '#0347A1',
-                          },
-                        ]}>
-                        <Text style={styles.optionItem2}>{item}</Text>
-                      </Pressable>
-                    ))}
+                <RenderOptionsContainer
+                  optionType={[
+                    questions[currentQuestionNo].options,
+                    questions[currentQuestionNo].imageOptions,
+                    questions[currentQuestionNo].optionsWithEquation,
+                  ]}
+                  currentQuestion={currentQuestionNo}
+                  highlight={handleChoosenAns}
+                  ansHighLight={choseAnsHighlight}
+                />
               </View>
             </ScrollView>
           </View>
@@ -207,11 +241,10 @@ const GameBoard = ({navigation}) => {
             }}>
             <View style={styles.buttonContainer3}>
               <Pressable
-              style={({pressed}) => [
-                {backgroundColor: pressed ? 'lightblue' : '#EBEBEC'},
-                styles.buttonCircle
-              ]}
-                
+                style={({pressed}) => [
+                  {backgroundColor: pressed ? 'lightblue' : '#EBEBEC'},
+                  styles.buttonCircle,
+                ]}
                 onPress={() => {
                   handlePrev();
                 }}>
@@ -220,7 +253,7 @@ const GameBoard = ({navigation}) => {
               <Pressable
                 style={({pressed}) => [
                   {backgroundColor: pressed ? 'lightblue' : '#EBEBEC'},
-                  styles.buttonCircle
+                  styles.buttonCircle,
                 ]}
                 onPress={() => {
                   handleNext();

@@ -5,15 +5,23 @@ import {
   View,
   ScrollView,
   Pressable,
+  FlatList,
   Image,
 } from 'react-native';
 import styles from '../globalStyles/Styles';
+import {Dimensions} from 'react-native';
 import SubmitBtn from '../component/submitBtn';
-import {GAMEOPTIONS, QUESTIONS} from '../constant/gameboardConstant';
+import {
+  GAMEOPTIONS,
+  QUESTIONS,
+  QUESTIONSIMAGE,
+} from '../constant/gameboardConstant';
 import {QuestionApiData} from '../contextApi/question/questionContextApi.js';
 import OutputQuestion from '../component/htmlOutput.js';
 import KeyboardAvoidingContainer from '../component/keyboardAvoidingContainer';
 import Icon from 'react-native-vector-icons/FontAwesome';
+
+const {width, height} = Dimensions.get('window');
 
 const GameBoardTwo = ({navigation}) => {
   const {questions, questionInfo, correctAns, processQuizAttempt, quizAttempt} =
@@ -81,7 +89,31 @@ const GameBoardTwo = ({navigation}) => {
   };
 
   const handleChoosenAns = item => {
-    let options = questions && questions[currentQuestionNo].options.split('**');
+    let options;
+    if (
+      questions[currentQuestionNo].options !== '' &&
+      questions[currentQuestionNo].options !== null
+    ) {
+      options = questions && questions[currentQuestionNo].options.split('**');
+    }
+
+    if (
+      questions[currentQuestionNo].imageOptions !== '' &&
+      questions[currentQuestionNo].imageOptions !== null
+    ) {
+      options =
+        questions && questions[currentQuestionNo].imageOptions.split('**');
+    }
+
+    if (
+      questions[currentQuestionNo].optionsWithEquation !== '' &&
+      questions[currentQuestionNo].optionsWithEquation !== null
+    ) {
+      options =
+        questions &&
+        questions[currentQuestionNo].optionsWithEquation.split('**');
+    }
+
     const position = options.indexOf(item);
     let userAns = possibleAns[position];
     storeSolvedQuestions(
@@ -134,42 +166,73 @@ const GameBoardTwo = ({navigation}) => {
         <View style={[styles.homeCard, styles.questionCard]}>
           <View style={{flex: 0.95}}>
             <ScrollView style={{flex: 1}}>
-              <View>
-                <Text style={styles.questionText}>{QUESTIONS[3].question}</Text>
-              </View>
-              <View style={styles.answerContainer}>
-                <Pressable
-                  onPress={() => {
-                    handleChoosenAns(item);
-                  }}
-                  style={({pressed}) => [styles.optionItemContainer2]}>
-                  <Text style={styles.optionItem2}>Answer One</Text>
-                </Pressable>
-                <Pressable
-                  onPress={() => {
-                    handleChoosenAns(item);
-                  }}
-                  style={({pressed}) => [
-                    styles.optionItemContainer2,
-                    {backgroundColor: '#0797F8'},
-                  ]}>
-                  <Text style={styles.optionItem2}>Answer Two</Text>
-                </Pressable>
-                <Pressable
-                  onPress={() => {
-                    handleChoosenAns(item);
-                  }}
-                  style={({pressed}) => [styles.optionItemContainer2]}>
-                  <Text style={styles.optionItem2}>Answer Three</Text>
-                </Pressable>
-                <Pressable
-                  onPress={() => {
-                    handleChoosenAns(item);
-                  }}
-                  style={({pressed}) => [styles.optionItemContainer2]}>
-                  <Text style={styles.optionItem2}>Answer Four</Text>
-                </Pressable>
-              </View>
+              {QUESTIONSIMAGE.map(item => (
+                <>
+                  <View>
+                    <Text style={styles.questionText}>{item.question}</Text>
+                  </View>
+                  {item.options == '' ? (
+                    <View style={[styles.answerContainer]}>
+                      <FlatList
+                        data={item.imageOptions.split('**')}
+                        pagingEnabled
+                        numColumns={2}
+                        snapToAlignment="center"
+                        scrollEventThrottle={16}
+                        decelerationRate={'fast'}
+                        renderItem={({item}) => {
+                          return (
+                            <Pressable
+                              onPress={() => {
+                                handleChoosenAns(item);
+                              }}
+                              style={({pressed}) => [
+                                {
+                                  backgroundColor: pressed
+                                    ? 'lightblue'
+                                    : '#efefef',
+                                },
+                                {
+                                  borderRadius: width * 0.05,
+                                  marginTop: 0.02 * height,
+                                  marginHorizontal: '2%',
+                                },
+                              ]}>
+                              <View
+                                style={[
+                                  styles.dashboardCard,
+                                  {width: width * 0.4, height: width * 0.4},
+                                ]}>
+                                <Image
+                                  source={{uri: `${item}`}} // Replace with the actual path to your image
+                                  style={[
+                                    styles.dashboardCardImage,
+                                    {resizeMode: 'stretch'},
+                                  ]}
+                                />
+                              </View>
+                            </Pressable>
+                          );
+                        }}
+                        keyExtractor={(item, index) => index.toString()}
+                      />
+                    </View>
+                  ) : (
+                    item.options.split('**').map((item, index) => (
+                      <Pressable
+                        onPress={() => {
+                          handleChoosenAns(item);
+                        }}
+                        style={({pressed}) => [
+                          styles.optionItemContainer,
+                          {backgroundColor: pressed ? '#3A0936' : '#ffffff'},
+                        ]}>
+                        <Text style={styles.optionItem}>{item}</Text>
+                      </Pressable>
+                    ))
+                  )}
+                </>
+              ))}
             </ScrollView>
           </View>
           <View

@@ -1,4 +1,7 @@
 {
   "name": "SchoolAppMobile",
-  "displayName": "SchoolAppMobile"
+  "displayName": "SchoolAppMobile",
+  "react-native-google-mobile-ads": {
+    "android_app_id": "ca-app-pub-3666170758409873~5743832951"
+  }
 }

@@ -45,20 +45,20 @@ const AuthApiDataProvider = props => {
   // const [phone, setPhone] = useState('000 000 0000');
 
   useEffect(() => {
-    async function fetchUser() {
-      const userSession = await retrieveUserSession();
-      if (userSession) {
-        const dataObject = JSON.parse(userSession);
-        console.log(dataObject.data);
-        setUserProfile(dataObject.data);
-        setAlreadyLoggedIn(true);
-      }
-    }
     fetchUser();
   }, []);
 
+  const fetchUser = async () => {
+    const userSession = await retrieveUserSession();
+    if (userSession) {
+      const dataObject = JSON.parse(userSession);
+      console.log(dataObject.data);
+      setUserProfile(dataObject.data);
+      setAlreadyLoggedIn(true);
+    }
+  };
+
   const processLogin = async data => {
-    console.log(data);
     let response = await Login(data);
     if (response === TIMEEXCEED) {
       setSignInLoading(false);
@@ -169,6 +169,7 @@ const AuthApiDataProvider = props => {
         errorMessage,
         usernameTaken,
         setUsernameTaken,
+        fetchUser,
         // selected,
         // setSelected,
         // country,

@@ -9,21 +9,34 @@ import RecordView from './screens/recordView';
 import EditUserInfo from './screens/editUserInfo';
 import EditPassword from './screens/editPassword';
 import GameBoard from './screens/gameBoard';
-import Test from './screens/test';
+import Analysis from './screens/analysis';
+import BannerAds from './googleadscomponent/adsbanner.js';
+import RewardAds from './googleadscomponent/adsreward.js';
+import MakePayment from './paymentGateway/paystackView.js';
+import SendMessage from './screens/sendMessage.js';
+// import Test from './screens/test';
+// import TestTwo from './screens/testTwo.js';
 import NotAvailable from './screens/notAvailable.js';
-import GameBoardTwo from './screens/gameBoardTwo';
-import GameResultTwo from './screens/gameResultTwo';
-import RecordTwo from './screens/recordTwo.js';
-import ReviewTwo from './screens/reviewTwo.js';
+import UpgradeCongrats from './screens/upgradeCongrats.js';
+import Upgrading from './screens/upgrading.js';
+// import GameBoardTwo from './screens/gameBoardTwo';
+// import GameResultTwo from './screens/gameResultTwo';
+// import RecordTwo from './screens/recordTwo.js';
+// import ReviewTwo from './screens/reviewTwo.js';
+// import AsciiOutput from './screens/asciiHtml.js';
 import {AuthApiData} from './contextApi/auth/authContextApi.js';
 import FAQ from './screens/faq';
 import Setting from './screens/settings';
 import QuestionsNotAvailable from './screens/questionNotFound';
+import QuestionsNotAvailableTwo from './screens/questionNotFoundTwo';
 import GameResult from './screens/gameResult';
 import Pause from './screens/pause';
 import {createStackNavigator} from '@react-navigation/stack';
 import SplashScreen from 'react-native-splash-screen';
 import React, {useEffect, useContext} from 'react';
+import AnalysisDetails from './screens/analysisDetails.js';
+import YearList from './screens/yearList.js';
+import SubjectList from './screens/subjectList.js';
 
 const Stack = createStackNavigator();
 
@@ -40,15 +53,31 @@ const App = () => {
     <NavigationContainer>
       <Stack.Navigator>
         {/* <Stack.Screen
-          name="Test"
-          component={Test}
+          name="TestTwo"
+          component={AsciiOutput}
           options={{
             header: () => null,
           }}
         /> */}
         {/* <Stack.Screen
-          name="GameResultTwo"
-          component={GameResultTwo}
+          name="GameBoardTwo"
+          component={GameBoardTwo}
+          options={{
+            header: () => null,
+          }}
+        /> */}
+
+        {/* <Stack.Screen
+          name="RewardAds"
+          component={RewardAds}
+          options={{
+            header: () => null,
+          }}
+        /> */}
+
+        {/* <Stack.Screen
+          name="BannerAds"
+          component={BannerAds}
           options={{
             header: () => null,
           }}
@@ -89,6 +118,70 @@ const App = () => {
         />
 
         <Stack.Screen
+          name="YearList"
+          component={YearList}
+          options={{
+            header: () => null,
+          }}
+        />
+
+        <Stack.Screen
+          name="SubjectList"
+          component={SubjectList}
+          options={{
+            header: () => null,
+          }}
+        />
+
+        <Stack.Screen
+          name="Analysis"
+          component={Analysis}
+          options={{
+            header: () => null,
+          }}
+        />
+
+        <Stack.Screen
+          name="Upgrading"
+          component={Upgrading}
+          options={{
+            header: () => null,
+          }}
+        />
+
+        <Stack.Screen
+          name="SendMessage"
+          component={SendMessage}
+          options={{
+            header: () => null,
+          }}
+        />
+
+        <Stack.Screen
+          name="MakePayment"
+          component={MakePayment}
+          options={{
+            header: () => null,
+          }}
+        />
+
+        <Stack.Screen
+          name="UpgradeCongrats"
+          component={UpgradeCongrats}
+          options={{
+            header: () => null,
+          }}
+        />
+
+        <Stack.Screen
+          name="AnalysisDetail"
+          component={AnalysisDetails}
+          options={{
+            header: () => null,
+          }}
+        />
+
+        <Stack.Screen
           name="Quiz"
           component={Quiz}
           options={{
@@ -99,6 +192,14 @@ const App = () => {
         <Stack.Screen
           name="QuestionsNotAvailable"
           component={QuestionsNotAvailable}
+          options={{
+            header: () => null,
+          }}
+        />
+
+        <Stack.Screen
+          name="QuestionsNotAvailableTwo"
+          component={QuestionsNotAvailableTwo}
           options={{
             header: () => null,
           }}

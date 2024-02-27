@@ -135,6 +135,30 @@ export default StyleSheet.create({
     opacity: 0.7,
   },
 
+  /** Premium Button */
+  premiumBtnContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  premiumBtn: {
+    marginTop: homeBtnVerticalMargin / 2,
+    marginBottom: homeBtnVerticalMargin / 4,
+    backgroundColor: blueColor,
+    opacity: 1,
+    // borderWidth: 4, // Set the border width
+    // borderColor: grayColor,
+    flexDirection: 'row',
+  },
+
+  /**End Premium Button Issues */
+
+  /**Payment Button */
+  paymentBtn: {
+    backgroundColor: '#2C72D2',
+  },
+  /**End Payment Button */
+
   loadingBtnText: {
     fontFamily: mainFamilyBody,
     fontSize: textOnBtnSize,
@@ -228,7 +252,7 @@ export default StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: dashboardCardContainerMarginTop,
+    marginTop: dashboardCardContainerMarginTop / 2,
   },
   dashboardCard: {
     width: dashboardCardWidth, // Adjust as needed
@@ -250,6 +274,9 @@ export default StyleSheet.create({
   dashboardCardImage: {
     flex: 3, // Takes 3/4 of the card's height
     width: dashboardCardImageWidth,
+  },
+  imageOptions: {
+    marginHorizontal: '5%',
   },
   dashboardOverlay: {
     flex: 1, // Takes 1/4 of the card's height
@@ -380,6 +407,13 @@ export default StyleSheet.create({
     fontFamily: mainFamilyBody,
   },
 
+  recordOverlay: {
+    flex: 1,
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent black overlay
+    // Add other styles for content on top of the background image
+  },
+
   buttonContainer3: {
     backgroundColor: whiteColor,
     paddingHorizontal: 10 * (width / 375),
@@ -390,6 +424,14 @@ export default StyleSheet.create({
     marginHorizontal: 0.025 * height,
     flexDirection: 'row',
     justifyContent: 'space-between',
+  },
+
+  whatsappBtn: {
+    backgroundColor: 'green',
+    borderRadius: Math.round(width * 0.09),
+    marginVertical: '2%',
+    height: 40,
+    justifyContent: 'center',
   },
 
   buttonContainer2Text: {
@@ -735,7 +777,7 @@ export default StyleSheet.create({
     backgroundColor: whiteColor,
     borderRadius: homeCardRadius,
     paddingVertical: '5%',
-    paddingHorizontal: '10%',
+    paddingHorizontal: '7%',
     marginVertical: '5%',
   },
 
@@ -801,7 +843,7 @@ export default StyleSheet.create({
   },
 
   reviewQuestionContainer: {
-    marginHorizontal: '3%',
+    marginHorizontal: '2%',
   },
 
   reviewAnsContainer: {
@@ -957,10 +999,9 @@ export default StyleSheet.create({
     // resizeMode: '',
   },
 
-  recordOverlay: {
-    flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent black overlay
-    // Add other styles for content on top of the background image
+  floatBtnContainer: {
+    flex: 0.09,
+    backgroundColor: 'rgba(0, 0, 0, 0.3)',
   },
 
   homeBtnTwo: {
@@ -1176,4 +1217,74 @@ export default StyleSheet.create({
     position: 'absolute',
     margin: '5%',
   },
+
+  /** Scrollview container */
+  scrollViewContainer: {
+    flexDirection: 'row',
+  },
+
+  scrollViewCard: {
+    margin: 10,
+    borderRadius: 10,
+    backgroundColor: '#fff',
+    padding: 10,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
+    elevation: 2,
+  },
+
+  scrollViewCardText: {
+    marginTop: 5,
+    fontSize: 16,
+  },
+
+  scrollViewCardImage: {
+    width: 80,
+    height: 80,
+    borderRadius: 10,
+  },
+
+  analysisCard: {
+    flex: 1,
+    width: width * 0.9,
+    backgroundColor: whiteColor,
+    paddingHorizontal: '10%',
+    paddingTop: '10%',
+    paddingBottom: '5%',
+    borderRadius: 10,
+  },
+
+  analysisHeadContainer: {
+    alignItems: 'center',
+    marginTop: '10%',
+  },
+
+  analysisHeadTitle: {
+    fontSize: mainTextTitle,
+  },
+
+  analysisTable: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginVertical: '5%',
+  },
+
+  analysisTableText: {
+    fontFamily: mainFamilyBody,
+    fontSize: mainTextSize,
+    color: blueColor,
+  },
+
+  colorCode: {
+    width: 20,
+    height: 20,
+    borderRadius: 20,
+    backgroundColor: '#fbd203',
+    marginHorizontal: 2,
+  },
+
+  /** End scrollview container */
 });

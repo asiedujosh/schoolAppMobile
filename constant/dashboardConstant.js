@@ -26,7 +26,7 @@ export const DASHBOARD = {
     {
       title: 'Analyze',
       cardImage: cardThreeImg,
-      link: 'NotAvailable',
+      link: 'Analysis',
     },
     {
       title: 'Setting',
