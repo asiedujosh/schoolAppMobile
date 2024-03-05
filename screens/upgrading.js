@@ -7,6 +7,7 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import styles from '../globalStyles/Styles';
+import HomeBtn from '../component/homeBtn.js';
 import MakePayment from '../paymentGateway/paystackView.js';
 import KeyboardAvoidingContainer from '../component/keyboardAvoidingContainer';
 import {AuthApiData} from '../contextApi/auth/authContextApi.js';
@@ -24,13 +25,9 @@ const Upgrading = ({navigation}) => {
 
   useEffect(() => {
     let newPaymentInfo = {
-      id: userProfile && userProfile.id,
-      username: userProfile && userProfile.username,
-      tel: userProfile && userProfile.tel,
-      email: userProfile && userProfile.email,
+      premium: true,
       amount: packagePrice && packagePrice.packagePrice,
     };
-
     setPaymentInfo(newPaymentInfo);
   }, [packagePrice]);
 
@@ -39,6 +36,10 @@ const Upgrading = ({navigation}) => {
       navigation.navigate('UpgradeCongrats');
     }
   }, [upgrade]);
+
+  let handleHomeBtn = () => {
+    navigation.navigate('Dashboard');
+  };
 
   let outputData =
     packagePrice !== null ? (
@@ -51,9 +52,10 @@ const Upgrading = ({navigation}) => {
               styles.settingHeadCard,
             ]}>
             <View style={styles.dashboardHeadFAQ}>
-              <Text style={[styles.dashboardHeadTitle, {paddingBottom: '2%'}]}>
-                {`Premium`}
-              </Text>
+              <Text style={[styles.dashboardHeadTitle]}>{`Premium`}</Text>
+              <View style={styles.homeBtnWrapper}>
+                <HomeBtn handleHome={handleHomeBtn} />
+              </View>
             </View>
           </View>
           <View style={styles.scrollContainer}>

@@ -1,5 +1,6 @@
 import {Text, View, ScrollView, FlatList} from 'react-native';
 import styles from '../globalStyles/Styles';
+import HomeBtn from '../component/homeBtn.js';
 import KeyboardAvoidingContainer from '../component/keyboardAvoidingContainer';
 import AnalysisData from '../utils/analysisData.js';
 import {useRoute} from '@react-navigation/native';
@@ -7,6 +8,10 @@ import {useRoute} from '@react-navigation/native';
 const AnalysisDetails = () => {
   const route = useRoute();
   const receivedData = route.params?.data;
+
+  let handleHomeBtn = () => {
+    navigation.navigate('Dashboard');
+  };
 
   let postInfo = AnalysisData(receivedData);
   //Original Verison
@@ -23,6 +28,9 @@ const AnalysisDetails = () => {
             ]}>
             <View style={styles.dashboardHeadFAQ}>
               <Text style={[styles.dashboardHeadTitle]}>Topic Analysis</Text>
+              <View style={styles.homeBtnWrapper}>
+                <HomeBtn handleHome={handleHomeBtn} />
+              </View>
             </View>
           </View>
 

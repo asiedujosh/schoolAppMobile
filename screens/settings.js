@@ -8,10 +8,15 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import styles from '../globalStyles/Styles';
+import HomeBtn from '../component/homeBtn.js';
 import {settingConstant} from '../constant/settingConstant';
 import KeyboardAvoidingContainer from '../component/keyboardAvoidingContainer';
 
 const Settings = ({navigation}) => {
+  let handleHomeBtn = () => {
+    navigation.navigate('Dashboard');
+  };
+
   return (
     <KeyboardAvoidingContainer>
       <View style={styles.quizOptionLead}>
@@ -23,9 +28,12 @@ const Settings = ({navigation}) => {
               styles.settingHeadCard,
             ]}>
             <View style={styles.dashboardHeadFAQ}>
-              <Text style={[styles.dashboardHeadTitle, {paddingBottom: '2%'}]}>
+              <Text style={[styles.dashboardHeadTitle]}>
                 {settingConstant.title}
               </Text>
+              <View style={styles.homeBtnWrapper}>
+                <HomeBtn handleHome={handleHomeBtn} />
+              </View>
             </View>
           </View>
           <View style={styles.scrollContainer}>

@@ -11,21 +11,24 @@ import PackageApiDataProvider from './contextApi/package/packageContextApi';
 import QuestionApiDataProvider from './contextApi/question/questionContextApi';
 import RecordApiDataProvider from './contextApi/records/recordsContextApi';
 import NewsApiDataProvider from './contextApi/news/newsContextApi';
+import StoreApiDataProvider from './contextApi/store/storeContextApi';
 
 const MainApp = () => {
   return (
     <AuthApiDataProvider>
-      <PackageApiDataProvider>
-        <NewsApiDataProvider>
-          <QuestionApiDataProvider>
-            <RecordApiDataProvider>
-              <GestureHandlerRootView style={{flex: 1}}>
-                <App />
-              </GestureHandlerRootView>
-            </RecordApiDataProvider>
-          </QuestionApiDataProvider>
-        </NewsApiDataProvider>
-      </PackageApiDataProvider>
+      <StoreApiDataProvider>
+        <PackageApiDataProvider>
+          <NewsApiDataProvider>
+            <QuestionApiDataProvider>
+              <RecordApiDataProvider>
+                <GestureHandlerRootView style={{flex: 1}}>
+                  <App />
+                </GestureHandlerRootView>
+              </RecordApiDataProvider>
+            </QuestionApiDataProvider>
+          </NewsApiDataProvider>
+        </PackageApiDataProvider>
+      </StoreApiDataProvider>
     </AuthApiDataProvider>
   );
 };

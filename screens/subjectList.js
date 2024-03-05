@@ -1,7 +1,8 @@
 import {useState, useContext, useEffect} from 'react';
 import {QuestionApiData} from '../contextApi/question/questionContextApi.js';
+import {StoreApiData} from '../contextApi/store/storeContextApi';
+import HomeBtn from '../component/homeBtn.js';
 import {Text, View, ScrollView, Pressable, FlatList} from 'react-native';
-import LoadingBtn from '../component/loadingBtn.js';
 import styles from '../globalStyles/Styles';
 import KeyboardAvoidingContainer from '../component/keyboardAvoidingContainer';
 import {useRoute} from '@react-navigation/native';
@@ -16,6 +17,7 @@ const SubjectList = ({navigation}) => {
     yearList,
     subjectList,
   } = useContext(QuestionApiData);
+  const {purchases, freeProducts} = useContext(StoreApiData);
 
   const route = useRoute();
   const infoGathered = route.params?.data;
@@ -32,7 +34,17 @@ const SubjectList = ({navigation}) => {
     }
   }, [questions]);
 
+  let handleHomeBtn = () => {
+    navigation.navigate('Dashboard');
+  };
+
+  let handleNotPurchased = () => {
+    setLoadingQuestions(false);
+    navigation.navigate('NotPurchased');
+  };
+
   const handleSubmitQuizOptions = item2 => {
+    setLoadingQuestions(true);
     let examInfo = examsList.filter(item => item.id == infoGathered.examType);
     let yearInfo = yearList.filter(item => item.id == infoGathered.year);
     let subjectInfo = subjectList.filter(item => item.id == item2);
@@ -44,8 +56,29 @@ const SubjectList = ({navigation}) => {
       questionNos: '100',
       questionStyle: 'Straight',
     };
-    setLoadingQuestions(true);
-    processGetQuestions(quizOptions);
+
+    let entryData = {
+      examId: infoGathered.examType,
+      yearId: infoGathered.year,
+      subjectId: item2,
+    };
+
+    let checkPurchase = purchases.filter(
+      item =>
+        item.examId == entryData.examId &&
+        item.yearId == entryData.yearId &&
+        item.subjectId == entryData.subjectId,
+    );
+    let checkFree = freeProducts.filter(
+      item =>
+        item.examId == entryData.examId &&
+        item.yearId == entryData.yearId &&
+        item.subjectId == entryData.subjectId,
+    );
+
+    checkPurchase.length == 0 && checkFree.length == 0
+      ? handleNotPurchased()
+      : processGetQuestions(quizOptions);
   };
 
   //Original Verison
@@ -62,6 +95,9 @@ const SubjectList = ({navigation}) => {
             ]}>
             <View style={styles.dashboardHeadFAQ}>
               <Text style={[styles.dashboardHeadTitle]}>Subject</Text>
+              <View style={styles.homeBtnWrapper}>
+                <HomeBtn handleHome={handleHomeBtn} />
+              </View>
             </View>
             <View style={{justifyContent: 'center', alignItems: 'center'}}>
               {loadingQuestions && (

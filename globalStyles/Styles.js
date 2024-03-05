@@ -44,6 +44,17 @@ const overlayTextTitleSize = 0.055 * width;
 const overlaySubTextSize = 0.05 * width;
 
 export default StyleSheet.create({
+  /*** Store Card *****/
+  accordionStoreListCard: {
+    marginTop: 5,
+    width: width * 0.9,
+    backgroundColor: whiteColor,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 20,
+    borderRadius: 20,
+  },
   /***** Styles For Home  *****/
   container: {
     flex: 1,
@@ -139,6 +150,7 @@ export default StyleSheet.create({
   premiumBtnContainer: {
     justifyContent: 'center',
     alignItems: 'center',
+    flexDirection: 'row',
   },
 
   premiumBtn: {
@@ -207,6 +219,7 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+
   separator: {
     flex: 1,
     height: StyleSheet.hairlineWidth,
@@ -233,6 +246,7 @@ export default StyleSheet.create({
     overflow: 'hidden',
     alignItems: 'center',
   },
+
   dashboardHeadTextContainer: {
     flex: 1,
     marginTop: homeBtnVerticalMargin,
@@ -1165,6 +1179,10 @@ export default StyleSheet.create({
   },
   dashboardHeadFAQ: {
     marginTop: '5%',
+    width: '95%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   accordTitle: {
     fontFamily: mainFamilyBody,

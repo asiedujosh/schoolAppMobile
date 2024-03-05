@@ -1,5 +1,6 @@
 import {useState, useContext, useEffect} from 'react';
 import {StyleSheet, Text, View, ScrollView} from 'react-native';
+import {StoreApiData} from '../contextApi/store/storeContextApi';
 import {QuestionApiData} from '../contextApi/question/questionContextApi.js';
 import {Dimensions} from 'react-native';
 import styles from '../globalStyles/Styles';
@@ -15,6 +16,9 @@ const {width, height} = Dimensions.get('window');
 const Quiz = ({navigation}) => {
   const {
     examOptions,
+    examsList,
+    yearList,
+    subjectList,
     yearOptions,
     subjectOptions,
     processGetQuestions,
@@ -22,6 +26,7 @@ const Quiz = ({navigation}) => {
     loadingQuestions,
     setLoadingQuestions,
   } = useContext(QuestionApiData);
+  const {purchases, freeProducts} = useContext(StoreApiData);
 
   const [quizOptions, setQuizOptions] = useState({
     quizType: examOptions && examOptions[0],
@@ -67,9 +72,47 @@ const Quiz = ({navigation}) => {
     return Option;
   };
 
+  let handleNotPurchased = () => {
+    setLoadingQuestions(false);
+    navigation.navigate('NotPurchased');
+  };
+
   const handleSubmitQuizOptions = () => {
     setLoadingQuestions(true);
-    processGetQuestions(quizOptions);
+    //Get convertion
+    let examId = examsList.filter(item => item.exam == quizOptions.quizType)[0]
+      .id;
+    let yearId = yearList.filter(item => item.year == quizOptions.year)[0].id;
+    let subjectId = subjectList.filter(
+      item => item.subject == quizOptions.subject,
+    )[0].id;
+
+    let entryData = {
+      examId: examId,
+      yearId: yearId,
+      subjectId: subjectId,
+    };
+
+    let checkPurchase = purchases.filter(
+      item =>
+        item.examId == entryData.examId &&
+        item.yearId == entryData.yearId &&
+        item.subjectId == entryData.subjectId,
+    );
+    let checkFree = freeProducts.filter(
+      item =>
+        item.examId == entryData.examId &&
+        item.yearId == entryData.yearId &&
+        item.subjectId == entryData.subjectId,
+    );
+    console.log(checkPurchase);
+    checkPurchase.length == 0 && checkFree.length == 0
+      ? handleNotPurchased()
+      : processGetQuestions(quizOptions);
+
+    // setLoadingQuestions(true);
+    // console.log(quizOptions);
+    // processGetQuestions(quizOptions);
   };
 
   return (

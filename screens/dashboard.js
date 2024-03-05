@@ -14,6 +14,7 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import {AuthApiData} from '../contextApi/auth/authContextApi.js';
 import {PackageApiData} from '../contextApi/package/packageContextApi.js';
 import {QuestionApiData} from '../contextApi/question/questionContextApi.js';
+import {StoreApiData} from '../contextApi/store/storeContextApi';
 import {Dimensions} from 'react-native';
 import {DASHBOARD} from '../constant/dashboardConstant';
 import styles from '../globalStyles/Styles';
@@ -28,6 +29,7 @@ const {width, height} = Dimensions.get('window');
 
 const Dashboard = ({navigation}) => {
   const {processLogout, userProfile, alreadyLoggedIn} = useContext(AuthApiData);
+  const {processGetPurchase} = useContext(StoreApiData);
   const {upgrade} = useContext(PackageApiData);
   const {
     examsList,
@@ -42,6 +44,7 @@ const Dashboard = ({navigation}) => {
     processGetAllExams();
     processGetAllYear();
     processGetAllSubject();
+    processGetPurchase(userProfile.id);
 
     // const backAction = () => {
     //   Alert.alert(
@@ -83,6 +86,10 @@ const Dashboard = ({navigation}) => {
 
   const goToUpgradePage = () => {
     navigation.navigate('Upgrading');
+  };
+
+  const goToShopPage = () => {
+    navigation.navigate('salesShop');
   };
 
   const handleLogout = () => {
@@ -127,18 +134,35 @@ const Dashboard = ({navigation}) => {
               keyExtractor={(item, index) => index.toString()}
             />
           </View>
-          {userProfile.packageId == 1 && (
-            <View style={styles.premiumBtnContainer}>
+
+          <View style={styles.premiumBtnContainer}>
+            <Pressable
+              style={[
+                styles.loadingBtn,
+                styles.premiumBtn,
+                {width: 160, marginHorizontal: 5},
+              ]}
+              onPress={goToShopPage}>
+              <Icon name="shopping-cart" size={20} color="#ffffff" />
+              <Text style={[styles.loadingBtnText, {marginHorizontal: 5}]}>
+                Shop
+              </Text>
+            </Pressable>
+            {userProfile.packageId == 1 && (
               <Pressable
-                style={[styles.loadingBtn, styles.premiumBtn]}
+                style={[
+                  styles.loadingBtn,
+                  styles.premiumBtn,
+                  {width: 160, marginHorizontal: 5},
+                ]}
                 onPress={goToUpgradePage}>
                 <Icon name="crown" size={20} color="#ffffff" />
                 <Text style={[styles.loadingBtnText, {marginHorizontal: 5}]}>
                   Premium
                 </Text>
               </Pressable>
-            </View>
-          )}
+            )}
+          </View>
 
           <View style={styles.dashboardCardContainer}>
             <FlatList

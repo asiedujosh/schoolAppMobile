@@ -32,12 +32,16 @@ import QuestionsNotAvailable from './screens/questionNotFound';
 import QuestionsNotAvailableTwo from './screens/questionNotFoundTwo';
 import GameResult from './screens/gameResult';
 import Pause from './screens/pause';
+import Cart from './screens/cart.js';
 import {createStackNavigator} from '@react-navigation/stack';
 import SplashScreen from 'react-native-splash-screen';
 import React, {useEffect, useContext} from 'react';
 import AnalysisDetails from './screens/analysisDetails.js';
 import YearList from './screens/yearList.js';
 import SubjectList from './screens/subjectList.js';
+import ShoppingContainer from './screens/shopHistoryTab.js';
+import PurchaseCongrats from './screens/purchaseCongrats.js';
+import NotPurchased from './screens/notPurchased.js';
 
 const Stack = createStackNavigator();
 
@@ -105,6 +109,14 @@ const App = () => {
         <Stack.Screen
           name="Record"
           component={Records}
+          options={{
+            header: () => null,
+          }}
+        />
+
+        <Stack.Screen
+          name="purchaseCongrats"
+          component={PurchaseCongrats}
           options={{
             header: () => null,
           }}
@@ -215,6 +227,14 @@ const App = () => {
         />
 
         <Stack.Screen
+          name="NotPurchased"
+          component={NotPurchased}
+          options={{
+            header: () => null,
+          }}
+        />
+
+        <Stack.Screen
           name="News"
           component={News}
           options={{
@@ -281,6 +301,22 @@ const App = () => {
         <Stack.Screen
           name="editPassword"
           component={EditPassword}
+          options={{
+            header: () => null,
+          }}
+        />
+
+        <Stack.Screen
+          name="salesShop"
+          component={ShoppingContainer}
+          options={{
+            header: () => null,
+          }}
+        />
+
+        <Stack.Screen
+          name="Cart"
+          component={Cart}
           options={{
             header: () => null,
           }}

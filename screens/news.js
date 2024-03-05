@@ -8,6 +8,7 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import styles from '../globalStyles/Styles';
+import HomeBtn from '../component/homeBtn.js';
 import {NewsApiData} from '../contextApi/news/newsContextApi.js';
 import KeyboardAvoidingContainer from '../component/keyboardAvoidingContainer';
 
@@ -17,6 +18,10 @@ const News = ({navigation}) => {
   useEffect(() => {
     processGettingAllNews();
   }, []);
+
+  let handleHomeBtn = () => {
+    navigation.navigate('Dashboard');
+  };
 
   return (
     <KeyboardAvoidingContainer>
@@ -30,6 +35,9 @@ const News = ({navigation}) => {
             ]}>
             <View style={styles.dashboardHeadFAQ}>
               <Text style={[styles.dashboardHeadTitle]}>{'News'}</Text>
+              <View style={styles.homeBtnWrapper}>
+                <HomeBtn handleHome={handleHomeBtn} />
+              </View>
             </View>
           </View>
 

@@ -2,6 +2,7 @@ import React, {useContext, useEffect, useState} from 'react';
 import {Text, View, ScrollView, Pressable, FlatList} from 'react-native';
 
 import styles from '../globalStyles/Styles';
+import HomeBtn from '../component/homeBtn.js';
 import KeyboardAvoidingContainer from '../component/keyboardAvoidingContainer';
 import {QuestionApiData} from '../contextApi/question/questionContextApi.js';
 import {useRoute} from '@react-navigation/native';
@@ -18,6 +19,10 @@ const YearList = ({navigation}) => {
     });
   };
 
+  let handleHomeBtn = () => {
+    navigation.navigate('Dashboard');
+  };
+
   //Original Verison
 
   return (
@@ -32,6 +37,9 @@ const YearList = ({navigation}) => {
             ]}>
             <View style={styles.dashboardHeadFAQ}>
               <Text style={[styles.dashboardHeadTitle]}>Years</Text>
+              <View style={styles.homeBtnWrapper}>
+                <HomeBtn handleHome={handleHomeBtn} />
+              </View>
             </View>
           </View>
 

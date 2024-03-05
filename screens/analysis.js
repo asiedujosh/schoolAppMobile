@@ -12,6 +12,7 @@ import {QuestionApiData} from '../contextApi/question/questionContextApi.js';
 import {RecordApiData} from '../contextApi/records/recordsContextApi.js';
 import styles from '../globalStyles/Styles';
 import Marks from '../utils/marksNo.js';
+import HomeBtn from '../component/homeBtn.js';
 import PieChartView from '../component/pieChart.js';
 import KeyboardAvoidingContainer from '../component/keyboardAvoidingContainer';
 import AnalysisCard from '../component/analysisCard.js';
@@ -25,6 +26,10 @@ const Analysis = ({navigation}) => {
   useEffect(() => {
     processGetUserRecords({userId: userProfile.username});
   }, []);
+
+  let handleHomeBtn = () => {
+    navigation.navigate('Dashboard');
+  };
 
   const goToMoreDetails = item => {
     navigation.navigate('AnalysisDetail', {data: item});
@@ -44,6 +49,9 @@ const Analysis = ({navigation}) => {
             ]}>
             <View style={styles.dashboardHeadFAQ}>
               <Text style={[styles.dashboardHeadTitle]}>Analysis</Text>
+              <View style={styles.homeBtnWrapper}>
+                <HomeBtn handleHome={handleHomeBtn} />
+              </View>
             </View>
           </View>
 

@@ -17,7 +17,7 @@ const SendMessage = ({navigation}) => {
     // Using 91 for India
     // You can change 91 with your country code
     let url =
-      'whatsapp://send?text=' + whatsAppMsg + '&phone=233' + '244615351';
+      'whatsapp://send?text=' + whatsAppMsg + '&phone=233' + '200588522';
     Linking.openURL(url)
       .then(data => {
         console.log('WhatsApp Opened');

@@ -1,11 +1,16 @@
 import {useState, useContext} from 'react';
 import {StyleSheet, Text, View, ScrollView, FlatList} from 'react-native';
 import styles from '../globalStyles/Styles';
+import HomeBtn from '../component/homeBtn.js';
 import AccordionItem from '../component/accordionItem';
 import {FaqConstants} from '../constant/faqConstant';
 import KeyboardAvoidingContainer from '../component/keyboardAvoidingContainer';
 
 const FAQ = ({navigation}) => {
+  let handleHomeBtn = () => {
+    navigation.navigate('Dashboard');
+  };
+
   return (
     <KeyboardAvoidingContainer>
       <View style={styles.quizOptionLead}>
@@ -20,6 +25,9 @@ const FAQ = ({navigation}) => {
               <Text style={[styles.dashboardHeadTitle]}>
                 {FaqConstants.title}
               </Text>
+              <View style={styles.homeBtnWrapper}>
+                <HomeBtn handleHome={handleHomeBtn} />
+              </View>
             </View>
           </View>
 
