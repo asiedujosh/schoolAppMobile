@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import styles from '../globalStyles/Styles';
 import {View, Text, TouchableOpacity} from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/Feather';
 
 function AccordionItem({children, title}) {
   const [expanded, setExpanded] = useState(false);

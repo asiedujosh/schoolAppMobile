@@ -1,4 +1,4 @@
-package com.schoolappmobile
+package com.nunyae.schoolapp
 
 import android.app.Application
 import com.facebook.react.PackageList

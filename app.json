@@ -1,6 +1,6 @@
 {
-  "name": "SchoolAppMobile",
-  "displayName": "SchoolAppMobile",
+  "name": "NunyaeSchoolApp",
+  "displayName": "NunyaeSchoolApp",
   "react-native-google-mobile-ads": {
     "android_app_id": "ca-app-pub-3666170758409873~3004105079"
   }

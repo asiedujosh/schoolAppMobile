@@ -1,6 +1,6 @@
 import {useContext} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import Icon from 'react-native-vector-icons/FontAwesome5';
+import Icon from 'react-native-vector-icons/Feather';
 import Purchase from './purchased';
 import Free from './free';
 import Sales from './sales';

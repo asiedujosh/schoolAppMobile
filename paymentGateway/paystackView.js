@@ -17,7 +17,7 @@ const MakePayment = ({data}) => {
   return (
     <View style={{flex: 1}}>
       <Paystack
-        paystackKey={'pk_test_57f2a278d997d17ffe923ca52982cb5240e4446c'}
+        paystackKey={process.env.PAYSTACK_KEY}
         billingEmail={
           userProfile ? userProfile.email : 'info.paystack@gmail.com'
         }

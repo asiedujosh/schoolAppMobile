@@ -14,7 +14,7 @@ import {QuestionApiData} from '../contextApi/question/questionContextApi.js';
 import OutputQuestion from '../component/htmlOutput.js';
 import KeyboardAvoidingContainer from '../component/keyboardAvoidingContainer';
 import AsciiOutput from './asciiHtml.js';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/Feather';
 import RenderOptionsContainer from '../component/renderOptionContainer.js';
 
 const GameBoard = ({navigation}) => {

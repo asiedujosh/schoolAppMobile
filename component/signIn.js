@@ -42,8 +42,8 @@ const SignIn = ({navigation}) => {
   };
 
   const handleLogin = () => {
-    formData.username = formData.username.trim();
-    formData.password = formData.password.trim();
+    formData.username = formData.username && formData.username.trim();
+    formData.password = formData.password && formData.password.trim();
     let err = [];
     SIGNIN.field.map((item, index) => {
       if (!formData.username || !formData.password) {

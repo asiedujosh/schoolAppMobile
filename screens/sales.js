@@ -8,7 +8,7 @@ import {
   Pressable,
 } from 'react-native';
 import styles from '../globalStyles/Styles';
-import Icon from 'react-native-vector-icons/FontAwesome5';
+import Icon from 'react-native-vector-icons/Feather';
 import {QuestionApiData} from '../contextApi/question/questionContextApi.js';
 import {StoreApiData} from '../contextApi/store/storeContextApi';
 import StoreAccordionItem from '../component/shopAccordionItem.js';

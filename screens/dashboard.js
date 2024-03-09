@@ -10,7 +10,7 @@ import {
   BackHandler,
   ScrollView,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome5';
+import Icon from 'react-native-vector-icons/Feather';
 import {AuthApiData} from '../contextApi/auth/authContextApi.js';
 import {PackageApiData} from '../contextApi/package/packageContextApi.js';
 import {QuestionApiData} from '../contextApi/question/questionContextApi.js';
@@ -156,7 +156,7 @@ const Dashboard = ({navigation}) => {
                   {width: 160, marginHorizontal: 5},
                 ]}
                 onPress={goToUpgradePage}>
-                <Icon name="crown" size={20} color="#ffffff" />
+                <Icon name="award" size={20} color="#ffffff" />
                 <Text style={[styles.loadingBtnText, {marginHorizontal: 5}]}>
                   Premium
                 </Text>
