@@ -1,5 +1,5 @@
 import React, {useContext, useState, useEffect} from 'react';
-import {Text, View, Pressable} from 'react-native';
+import {Text, View, TouchableOpacity, Linking} from 'react-native';
 import SubmitBtn from './submitBtn';
 import {Dimensions} from 'react-native';
 import {START} from '../constant/homeConstant';
@@ -21,6 +21,10 @@ const GetStarted = ({change}) => {
     }
   };
 
+  const handlePressLink = () => {
+    Linking.openURL('https://nunyapolicy.awesomehandsacademy.com/');
+  };
+
   return (
     <View>
       <View style={styles.homeHeadTextContainer}>
@@ -30,6 +34,13 @@ const GetStarted = ({change}) => {
       </View>
       <View style={styles.homeBodyTextContainer}>
         <Text style={styles.homeBodyText}>{START.body}</Text>
+        <Text>View our privacy policy</Text>
+
+        <TouchableOpacity onPress={handlePressLink}>
+          <Text style={{color: 'blue', textDecorationLine: 'underline'}}>
+            here
+          </Text>
+        </TouchableOpacity>
       </View>
       <View style={styles.homeBtnContainer}>
         <SubmitBtn

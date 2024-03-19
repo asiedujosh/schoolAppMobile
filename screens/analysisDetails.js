@@ -5,7 +5,7 @@ import KeyboardAvoidingContainer from '../component/keyboardAvoidingContainer';
 import AnalysisData from '../utils/analysisData.js';
 import {useRoute} from '@react-navigation/native';
 
-const AnalysisDetails = () => {
+const AnalysisDetails = ({navigation}) => {
   const route = useRoute();
   const receivedData = route.params?.data;
 
@@ -27,7 +27,7 @@ const AnalysisDetails = () => {
               styles.settingHeadCard,
             ]}>
             <View style={styles.dashboardHeadFAQ}>
-              <Text style={[styles.dashboardHeadTitle]}>Topic Analysis</Text>
+              <Text style={[styles.dashboardHeadTitle]}>Details</Text>
               <View style={styles.homeBtnWrapper}>
                 <HomeBtn handleHome={handleHomeBtn} />
               </View>

@@ -31,7 +31,7 @@ const Settings = ({navigation}) => {
               <Text style={[styles.dashboardHeadTitle]}>
                 {settingConstant.title}
               </Text>
-              <View style={styles.homeBtnWrapper}>
+              <View style={[styles.homeBtnWrapper, {marginLeft: -25}]}>
                 <HomeBtn handleHome={handleHomeBtn} />
               </View>
             </View>

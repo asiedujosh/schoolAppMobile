@@ -33,6 +33,10 @@ const Cart = ({navigation}) => {
     setTotalAmount(total);
   }, [cart]);
 
+  let handleHomeBtn = () => {
+    navigation.navigate('Dashboard');
+  };
+
   useEffect(() => {
     purchaseStatus && navigation.navigate('purchaseCongrats');
   }, [purchaseStatus]);
@@ -52,7 +56,10 @@ const Cart = ({navigation}) => {
               styles.settingHeadCard,
             ]}>
             <View style={styles.dashboardHeadFAQ}>
-              <Text style={[styles.dashboardHeadTitle]}>Cart</Text>
+              <Text style={[styles.dashboardHeadTitle]}>{'Cart'}</Text>
+              <View style={styles.homeBtnWrapper}>
+                <HomeBtn handleHome={handleHomeBtn} />
+              </View>
             </View>
           </View>
           <View>

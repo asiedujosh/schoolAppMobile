@@ -42,8 +42,12 @@ const News = ({navigation}) => {
           </View>
 
           <View style={styles.scrollContainer}>
+        
             <ScrollView style={{flex: 1}}>
-              {news ? (
+            <Text style={[styles.recordInfoTextTitle, {color: '#ffffff', marginTop: '50%', fontSize: 25}]}>
+                    No news currently available 
+                  </Text>
+              {/* {news ? (
                 <FlatList
                   data={news}
                   keyExtractor={item => item.id}
@@ -66,7 +70,7 @@ const News = ({navigation}) => {
                     No Data Available
                   </Text>
                 </View>
-              )}
+              )} */}
             </ScrollView>
           </View>
         </View>

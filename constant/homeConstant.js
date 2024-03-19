@@ -70,7 +70,7 @@ export const SIGNUP = {
 };
 
 export const EDITSIGNINFO = {
-  title: 'Edit User Info',
+  title: 'Edit User',
   field: [
     {
       name: 'username',
@@ -101,7 +101,7 @@ export const EDITSIGNINFO = {
 };
 
 export const EDITPASSWORDINFO = {
-  title: 'Edit Password',
+  title: 'Password',
   field: [
     {
       name: 'oldPassword',

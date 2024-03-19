@@ -1,6 +1,15 @@
 import {useState, useContext} from 'react';
-import {StyleSheet, Text, View, ScrollView, FlatList} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  FlatList,
+  TouchableOpacity,
+  Linking,
+} from 'react-native';
 import {Dimensions} from 'react-native';
+import HomeBtn from '../component/homeBtn.js';
 import styles from '../globalStyles/Styles';
 import SubmitBtn from '../component/submitBtn';
 import {AuthApiData} from '../contextApi/auth/authContextApi.js';
@@ -26,9 +35,17 @@ const EditUserInfo = ({navigation}) => {
     setFormData({...formData, [field]: data});
   };
 
+  const handlePressLink = () => {
+    Linking.openURL('https://nunyapolicy.awesomehandsacademy.com/');
+  };
+
+  let handleHomeBtn = () => {
+    navigation.navigate('Dashboard');
+  };
+
   //console.log(userProfile);
   const handleSubmit = () => {
-    navigation.navigate('NotAvailable')
+    navigation.navigate('NotAvailable');
     // formData.tel = formData.tel.trim();
     // formData.email = formData.email.trim();
     // formData.country = formData.country.trim();
@@ -55,9 +72,21 @@ const EditUserInfo = ({navigation}) => {
   return (
     <KeyboardAvoidingContainer>
       <View style={styles.quizOptionLead}>
-        <View style={styles.gameResultContainer}>
-          <View style={styles.dashboardHeadFAQ}>
-            <Text style={styles.dashboardHeadTitle}>{EDITSIGNINFO.title}</Text>
+        <View style={styles.quizOptionContainer}>
+          <View
+            style={[
+              styles.dashboardHeadCard,
+              styles.reviewCardTwo,
+              styles.settingHeadCard,
+            ]}>
+            <View style={styles.dashboardHeadFAQ}>
+              <Text style={[styles.dashboardHeadTitle]}>
+                {EDITSIGNINFO.title}
+              </Text>
+              <View style={[styles.homeBtnWrapper, {marginLeft: -25}]}>
+                <HomeBtn handleHome={handleHomeBtn} />
+              </View>
+            </View>
           </View>
           <View style={styles.scrollContainer}>
             <ScrollView style={{flex: 1}}>
@@ -90,6 +119,26 @@ const EditUserInfo = ({navigation}) => {
                     topMargin={0.05 * height}
                     action={handleSubmit}
                   />
+                </View>
+
+                <View>
+                  <Text
+                    style={[
+                      styles.homeBodyText,
+                      {color: '#ffffff', marginTop: '4%'},
+                    ]}>
+                    View our privacy policy
+                  </Text>
+
+                  <TouchableOpacity onPress={handlePressLink}>
+                    <Text
+                      style={[
+                        styles.homeBodyText,
+                        {color: '#ffffff', textDecorationLine: 'underline'},
+                      ]}>
+                      here
+                    </Text>
+                  </TouchableOpacity>
                 </View>
               </View>
             </ScrollView>

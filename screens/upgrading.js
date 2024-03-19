@@ -53,7 +53,7 @@ const Upgrading = ({navigation}) => {
             ]}>
             <View style={styles.dashboardHeadFAQ}>
               <Text style={[styles.dashboardHeadTitle]}>{`Premium`}</Text>
-              <View style={styles.homeBtnWrapper}>
+              <View style={[styles.homeBtnWrapper, {marginLeft: -30}]}>
                 <HomeBtn handleHome={handleHomeBtn} />
               </View>
             </View>

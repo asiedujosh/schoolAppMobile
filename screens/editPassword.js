@@ -1,6 +1,7 @@
 import {useState, useContext} from 'react';
 import {StyleSheet, Text, View, ScrollView} from 'react-native';
 import styles from '../globalStyles/Styles';
+import HomeBtn from '../component/homeBtn.js';
 import {Dimensions} from 'react-native';
 import {AuthApiData} from '../contextApi/auth/authContextApi.js';
 import SubmitBtn from '../component/submitBtn';
@@ -23,8 +24,12 @@ const EditPassword = ({navigation}) => {
     setFormData({...formData, [field]: data});
   };
 
+  let handleHomeBtn = () => {
+    navigation.navigate('Dashboard');
+  };
+
   const handleSubmit = () => {
-    navigation.navigate('NotAvailable')
+    navigation.navigate('NotAvailable');
     // formData.oldPassword = formData.oldPassword.trim();
     // formData.newPassword = formData.newPassword.trim();
     // formData.confirmPassword = formData.confirmPassword.trim();
@@ -55,11 +60,21 @@ const EditPassword = ({navigation}) => {
   return (
     <KeyboardAvoidingContainer>
       <View style={styles.quizOptionLead}>
-        <View style={styles.gameResultContainer}>
-          <View style={styles.dashboardHeadFAQ}>
-            <Text style={styles.dashboardHeadTitle}>
-              {EDITPASSWORDINFO.title}
-            </Text>
+        <View style={styles.quizOptionContainer}>
+          <View
+            style={[
+              styles.dashboardHeadCard,
+              styles.reviewCardTwo,
+              styles.settingHeadCard,
+            ]}>
+            <View style={styles.dashboardHeadFAQ}>
+              <Text style={[styles.dashboardHeadTitle]}>
+                {EDITPASSWORDINFO.title}
+              </Text>
+              <View style={[styles.homeBtnWrapper, {marginLeft: -40}]}>
+                <HomeBtn handleHome={handleHomeBtn} />
+              </View>
+            </View>
           </View>
           <View style={styles.scrollContainer}>
             <ScrollView style={{flex: 1}}>

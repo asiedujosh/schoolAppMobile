@@ -49,7 +49,7 @@ const Analysis = ({navigation}) => {
             ]}>
             <View style={styles.dashboardHeadFAQ}>
               <Text style={[styles.dashboardHeadTitle]}>Analysis</Text>
-              <View style={styles.homeBtnWrapper}>
+              <View style={[styles.homeBtnWrapper, {marginLeft: -25}]}>
                 <HomeBtn handleHome={handleHomeBtn} />
               </View>
             </View>
