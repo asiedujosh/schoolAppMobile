@@ -125,57 +125,107 @@ const RecordView = ({navigation}) => {
         </View>
 
         <ScrollView style={{flex: 1}}>
-          {infoData.length > 0 &&
-            infoData.map(item => (
-              <View style={styles.reviewQuestionCard}>
-                <Text style={styles.reviewCardHeadSubTitle}>
-                  Question {item.questionNo}
-                </Text>
+          {infoData.length > 0
+            ? infoData.map(item => (
+                <View style={styles.reviewQuestionCard}>
+                  <Text style={styles.reviewCardHeadSubTitle}>
+                    Question {item.questionNo}
+                  </Text>
 
-                {item.question !== '' && item.question !== null && (
-                  <OutputQuestion
-                    data={item.question}
-                    color={'black'}
-                    fontSize={20}
-                  />
-                )}
-
-                {item.questionEquation !== '' &&
-                  item.questionEquation !== null && (
-                    <AsciiOutput data={item.questionEquation} />
+                  {item.question !== '' && item.question !== null && (
+                    <OutputQuestion
+                      data={item.question}
+                      color={'black'}
+                      fontSize={20}
+                    />
                   )}
 
-                <View style={styles.reviewAnsContainer}>
-                  <Text
-                    style={[
-                      styles.reviewCardHeadSubTitle,
-                      styles.reviewAnsText,
-                    ]}>
-                    Chose: {item.userChoice.toUpperCase()}
-                  </Text>
-                  <Text
-                    style={[
-                      styles.reviewCardHeadSubTitle,
-                      styles.reviewAnsText,
-                    ]}>
-                    Answer: {item.answer.toUpperCase()}
-                  </Text>
+                  {item.questionEquation !== '' &&
+                    item.questionEquation !== null && (
+                      <AsciiOutput data={item.questionEquation} />
+                    )}
+
+                  <View style={styles.reviewAnsContainer}>
+                    <Text
+                      style={[
+                        styles.reviewCardHeadSubTitle,
+                        styles.reviewAnsText,
+                      ]}>
+                      Chose: {item.userChoice.toUpperCase()}
+                    </Text>
+                    <Text
+                      style={[
+                        styles.reviewCardHeadSubTitle,
+                        styles.reviewAnsText,
+                      ]}>
+                      Answer: {item.answer.toUpperCase()}
+                    </Text>
+                  </View>
+                  <View style={styles.reviewOptionsContainer}>
+                    {
+                      <ReviewOptionsContainer
+                        optionType={[
+                          item.options,
+                          item.imageOptions,
+                          item.optionsWithEquation,
+                        ]}
+                        checkColor={colorCheck}
+                        dataInfo={[item.answer, item.userChoice]}
+                      />
+                    }
+                  </View>
                 </View>
-                <View style={styles.reviewOptionsContainer}>
-                  {
-                    <ReviewOptionsContainer
-                      optionType={[
-                        item.options,
-                        item.imageOptions,
-                        item.optionsWithEquation,
-                      ]}
-                      checkColor={colorCheck}
-                      dataInfo={[item.answer, item.userChoice]}
+              ))
+            : filterAnswers(recordReviewDetail, selectedValue).map(item => (
+                <View style={styles.reviewQuestionCard}>
+                  <Text style={styles.reviewCardHeadSubTitle}>
+                    Question {item.questionNo}
+                  </Text>
+
+                  {item.question !== '' && item.question !== null && (
+                    <OutputQuestion
+                      data={item.question}
+                      color={'black'}
+                      fontSize={20}
                     />
-                  }
+                  )}
+
+                  {item.questionEquation !== '' &&
+                    item.questionEquation !== null && (
+                      <AsciiOutput data={item.questionEquation} />
+                    )}
+
+                  <View style={styles.reviewAnsContainer}>
+                    <Text
+                      style={[
+                        styles.reviewCardHeadSubTitle,
+                        styles.reviewAnsText,
+                      ]}>
+                      Chose: {item.userChoice.toUpperCase()}
+                    </Text>
+                    <Text
+                      style={[
+                        styles.reviewCardHeadSubTitle,
+                        styles.reviewAnsText,
+                      ]}>
+                      Answer: {item.answer.toUpperCase()}
+                    </Text>
+                  </View>
+                  <View style={styles.reviewOptionsContainer}>
+                    {
+                      <ReviewOptionsContainer
+                        optionType={[
+                          item.options,
+                          item.imageOptions,
+                          item.optionsWithEquation,
+                        ]}
+                        checkColor={colorCheck}
+                        dataInfo={[item.answer, item.userChoice]}
+                      />
+                    }
+                  </View>
                 </View>
-              </View>
-            ))}
+              ))}
         </ScrollView>
       </View>
     </View>

@@ -72,7 +72,7 @@ const GameResult = ({navigation}) => {
   };
 
   const handleShareInfo = () => {
-    console.log('Share info');
+    navigation.navigate('NotAvailable');
   };
 
   let handleGrade = (noOfQuestions, marks) => {

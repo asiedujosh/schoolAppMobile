@@ -18,25 +18,30 @@ const Purchase = ({navigation}) => {
   };
 
   return (
-    <KeyboardAvoidingContainer>
-      <View style={styles.quizOptionLead}>
-        <View style={styles.quizOptionContainer}>
-          <View
-            style={[
-              styles.dashboardHeadCard,
-              styles.reviewCardTwo,
-              styles.settingHeadCard,
-            ]}>
-            <View style={styles.dashboardHeadFAQ}>
-              <Text style={[styles.dashboardHeadTitle]}>Library</Text>
-              <View style={styles.homeBtnWrapper}>
-                <HomeBtn handleHome={handleHomeBtn} />
-              </View>
+    <View
+      style={[
+        styles.quizOptionLead,
+        styles.gameboardTwoContainer,
+        styles.gameBoard,
+      ]}>
+      <View style={styles.quizOptionContainer}>
+        <View
+          style={[
+            styles.dashboardHeadCard,
+            styles.reviewCardTwo,
+            styles.settingHeadCard,
+          ]}>
+          <View style={styles.dashboardHeadFAQ}>
+            <Text style={[styles.dashboardHeadTitle]}>Library</Text>
+            <View style={styles.homeBtnWrapper}>
+              <HomeBtn handleHome={handleHomeBtn} />
             </View>
           </View>
+        </View>
 
-          <View style={styles.scrollContainer}>
-            <ScrollView style={{flex: 1}}>
+        <View style={styles.scrollContainer}>
+          <ScrollView style={{flex: 1}}>
+            <View style={{marginBottom: '15%'}}>
               <FlatList
                 data={examsList}
                 pagingEnabled
@@ -80,11 +85,11 @@ const Purchase = ({navigation}) => {
                 }}
                 keyExtractor={(item, index) => index.toString()}
               />
-            </ScrollView>
-          </View>
+            </View>
+          </ScrollView>
         </View>
       </View>
-    </KeyboardAvoidingContainer>
+    </View>
   );
 };
 

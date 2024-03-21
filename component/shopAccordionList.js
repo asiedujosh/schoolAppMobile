@@ -19,33 +19,45 @@ const AccordionList = ({data, purchase}) => {
     setItemsOnSale([...remainingSubjects]);
   };
 
-  let List = data.map(item => (
-    <View key={item.id} style={styles.accordionStoreListCard}>
-      <View>
-        <Text style={styles.accordTitle}>
-          {subjectList.filter(item2 => item2.id == item.subjectId)[0].subject}
-        </Text>
-        {!purchase && <Text style={styles.accordTitle}>GHS {item.price}</Text>}
-      </View>
-      {!purchase && (
-        <Pressable
-          style={[
-            styles.loadingBtn,
-            styles.premiumBtn,
-            {
-              width: 100,
-              marginVertical: 2,
-              height: 40,
-            },
-          ]}
-          onPress={() => {
-            addToCart(item.id);
-          }}>
-          <Text style={{color: '#ffffff'}}>Add</Text>
-        </Pressable>
-      )}
-    </View>
-  ));
+  let List =
+    data.length > 0 ? (
+      data.map(item => (
+        <View key={item.id} style={styles.accordionStoreListCard}>
+          <View>
+            <Text style={styles.accordTitle}>
+              {
+                subjectList.filter(item2 => item2.id == item.subjectId)[0]
+                  .subject
+              }
+            </Text>
+            {!purchase && (
+              <Text style={styles.accordTitle}>GHS {item.price}</Text>
+            )}
+          </View>
+          {!purchase && (
+            <Pressable
+              style={[
+                styles.loadingBtn,
+                styles.premiumBtn,
+                {
+                  width: 100,
+                  marginVertical: 2,
+                  height: 40,
+                },
+              ]}
+              onPress={() => {
+                addToCart(item.id);
+              }}>
+              <Text style={{color: '#ffffff'}}>Add</Text>
+            </Pressable>
+          )}
+        </View>
+      ))
+    ) : (
+      <Text style={[styles.accordTitle, {color: '#ffffff'}]}>
+        No program available
+      </Text>
+    );
   return List;
 };
 

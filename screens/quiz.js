@@ -1,5 +1,5 @@
 import {useState, useContext, useEffect} from 'react';
-import {StyleSheet, Text, View, ScrollView} from 'react-native';
+import {StyleSheet, Text, View, ScrollView, Alert} from 'react-native';
 import {StoreApiData} from '../contextApi/store/storeContextApi';
 import {QuestionApiData} from '../contextApi/question/questionContextApi.js';
 import {Dimensions} from 'react-native';
@@ -36,6 +36,7 @@ const Quiz = ({navigation}) => {
     questionStyle: 'Straight',
   });
   const [selectedValue, setSelectedValue] = useState('');
+  const [fieldError, setFieldError] = useState(false);
 
   useEffect(() => {
     if (questions) {
@@ -46,6 +47,12 @@ const Quiz = ({navigation}) => {
       }
     }
   }, [questions]);
+
+  useEffect(() => {
+    if (fieldError) {
+      ErrorPopup();
+    }
+  }, [fieldError]);
 
   const handleInputChange = (data, field) => {
     setQuizOptions({...quizOptions, [field]: data});
@@ -77,42 +84,65 @@ const Quiz = ({navigation}) => {
     navigation.navigate('NotPurchased');
   };
 
+  const ErrorPopup = () => {
+    Alert.alert('Select Field', 'Select appropriate fields', [
+      {
+        text: 'Ok',
+        onPress: () => setFieldError(prev => !prev),
+        style: 'cancel',
+      },
+    ]);
+  };
+
   const handleSubmitQuizOptions = () => {
     setLoadingQuestions(true);
-    //Get convertion
-    let examId = examsList.filter(item => item.exam == quizOptions.quizType)[0]
-      .id;
-    let yearId = yearList.filter(item => item.year == quizOptions.year)[0].id;
-    let subjectId = subjectList.filter(
-      item => item.subject == quizOptions.subject,
-    )[0].id;
+    console.log(quizOptions);
 
-    let entryData = {
-      examId: examId,
-      yearId: yearId,
-      subjectId: subjectId,
-    };
+    if (
+      quizOptions.quizType == examOptions[0] ||
+      quizOptions.subject == subjectOptions[0] ||
+      quizOptions.year == yearOptions[0]
+    ) {
+      setLoadingQuestions(false);
+      setFieldError(prev => !prev);
+      console.log('Select required Info');
+    } else {
+      //Get convertion
+      let examId = examsList.filter(
+        item => item.exam == quizOptions.quizType,
+      )[0].id;
+      let yearId = yearList.filter(item => item.year == quizOptions.year)[0].id;
+      let subjectId = subjectList.filter(
+        item => item.subject == quizOptions.subject,
+      )[0].id;
 
-    let checkPurchase = purchases.filter(
-      item =>
-        item.examId == entryData.examId &&
-        item.yearId == entryData.yearId &&
-        item.subjectId == entryData.subjectId,
-    );
-    let checkFree = freeProducts.filter(
-      item =>
-        item.examId == entryData.examId &&
-        item.yearId == entryData.yearId &&
-        item.subjectId == entryData.subjectId,
-    );
-    console.log(checkPurchase);
-    checkPurchase.length == 0 && checkFree.length == 0
-      ? handleNotPurchased()
-      : processGetQuestions(quizOptions);
+      let entryData = {
+        examId: examId,
+        yearId: yearId,
+        subjectId: subjectId,
+      };
 
-    // setLoadingQuestions(true);
-    // console.log(quizOptions);
-    // processGetQuestions(quizOptions);
+      let checkPurchase = purchases.filter(
+        item =>
+          item.examId == entryData.examId &&
+          item.yearId == entryData.yearId &&
+          item.subjectId == entryData.subjectId,
+      );
+      let checkFree = freeProducts.filter(
+        item =>
+          item.examId == entryData.examId &&
+          item.yearId == entryData.yearId &&
+          item.subjectId == entryData.subjectId,
+      );
+      console.log(checkPurchase);
+      checkPurchase.length == 0 && checkFree.length == 0
+        ? handleNotPurchased()
+        : processGetQuestions(quizOptions);
+
+      // setLoadingQuestions(true);
+      // console.log(quizOptions);
+      // processGetQuestions(quizOptions);
+    }
   };
 
   return (

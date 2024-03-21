@@ -34,56 +34,58 @@ const Sales = ({navigation}) => {
   };
 
   return (
-    <KeyboardAvoidingContainer>
-      <View style={styles.quizOptionLead}>
-        <View style={styles.quizOptionContainer}>
-          <View
-            style={[
-              styles.dashboardHeadCard,
-              styles.reviewCardTwo,
-              styles.settingHeadCard,
-            ]}>
-            <View style={styles.dashboardHeadFAQ}>
-              <Text style={[styles.dashboardHeadTitle]}>Store</Text>
-              <View style={styles.homeBtnWrapper}>
-                <HomeBtn handleHome={handleHomeBtn} />
-              </View>
+    <View
+      style={[
+        styles.quizOptionLead,
+        styles.gameboardTwoContainer,
+        styles.gameBoard,
+      ]}>
+      <View style={styles.quizOptionContainer}>
+        <View
+          style={[
+            styles.dashboardHeadCard,
+            styles.reviewCardTwo,
+            styles.settingHeadCard,
+          ]}>
+          <View style={styles.dashboardHeadFAQ}>
+            <Text style={[styles.dashboardHeadTitle]}>Store</Text>
+            <View style={styles.homeBtnWrapper}>
+              <HomeBtn handleHome={handleHomeBtn} />
             </View>
           </View>
-          <View>
-            <Pressable
+        </View>
+        <View>
+          <Pressable
+            style={[
+              styles.loadingBtn,
+              styles.premiumBtn,
+              {
+                backgroundColor: '#ffffff',
+                justifyContent: 'space-between',
+                paddingHorizontal: 30,
+              },
+            ]}
+            onPress={goToCart}>
+            <Text
               style={[
-                styles.loadingBtn,
-                styles.premiumBtn,
-                {
-                  backgroundColor: '#ffffff',
-                  justifyContent: 'space-between',
-                  paddingHorizontal: 30,
-                },
-              ]}
-              onPress={goToCart}>
+                styles.loadingBtnText,
+                {color: '#0347A1', paddingHorizontal: 10},
+              ]}>
+              View Cart
+            </Text>
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              <Icon name="shopping-cart" size={20} color="#0347A1" />
               <Text
-                style={[
-                  styles.loadingBtnText,
-                  {color: '#0347A1', paddingHorizontal: 10},
-                ]}>
-                View Cart
+                style={[styles.selectText, {marginLeft: 5, color: '#0347A1'}]}>
+                {cart.length}
               </Text>
-              <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                <Icon name="shopping-cart" size={20} color="#0347A1" />
-                <Text
-                  style={[
-                    styles.selectText,
-                    {marginLeft: 5, color: '#0347A1'},
-                  ]}>
-                  {cart.length}
-                </Text>
-              </View>
-            </Pressable>
-          </View>
+            </View>
+          </Pressable>
+        </View>
 
-          <View style={styles.scrollContainer}>
-            <ScrollView>
+        <View style={styles.scrollContainer}>
+          <ScrollView style={{flex: 1}}>
+            <View style={{marginBottom: '15%'}}>
               <FlatList
                 data={examsList}
                 pagingEnabled
@@ -126,11 +128,11 @@ const Sales = ({navigation}) => {
                 }}
                 keyExtractor={(item, index) => index.toString()}
               />
-            </ScrollView>
-          </View>
+            </View>
+          </ScrollView>
         </View>
       </View>
-    </KeyboardAvoidingContainer>
+    </View>
   );
 };
 
