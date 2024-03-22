@@ -11,6 +11,7 @@ import {
   retrieveUserSession,
   removeUserSession,
 } from '../../utils/localStore';
+import NetInfo from '@react-native-community/netinfo';
 import {Login, Register} from './auth';
 export const AuthApiData = createContext();
 
@@ -18,6 +19,7 @@ const AuthApiDataProvider = props => {
   const [alreadyLoggedIn, setAlreadyLoggedIn] = useState(false);
   const [loading, setLoading] = useState(false);
   const [userProfile, setUserProfile] = useState();
+  const [isOffline, setOfflineStatus] = useState(false);
   const [registerFormData, setRegisterFormData] = useState({
     username: '',
     country: {
@@ -43,6 +45,19 @@ const AuthApiDataProvider = props => {
   // const [selected, setSelected] = useState('+233');
   // const [country, setCountry] = useState('');
   // const [phone, setPhone] = useState('000 000 0000');
+  useEffect(() => {
+    const removeNetInfoSubscription = NetInfo.addEventListener(state => {
+      const offline = state.isConnected && state.isInternetReachable;
+      setOfflineStatus(offline);
+    });
+    //console.log(exampleState);
+    if (isOffline) {
+      console.log(`Network type ${isOffline}`);
+    }
+
+    // Unsubscribe
+    return () => removeNetInfoSubscription();
+  }, [isOffline]);
 
   useEffect(() => {
     fetchUser();
@@ -170,6 +185,7 @@ const AuthApiDataProvider = props => {
         usernameTaken,
         setUsernameTaken,
         fetchUser,
+        isOffline,
         // selected,
         // setSelected,
         // country,

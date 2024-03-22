@@ -28,7 +28,8 @@ import WhatsappBtnContainer from '../component/whatsappBtnContainer.js';
 const {width, height} = Dimensions.get('window');
 
 const Dashboard = ({navigation}) => {
-  const {processLogout, userProfile, alreadyLoggedIn} = useContext(AuthApiData);
+  const {processLogout, userProfile, alreadyLoggedIn, isOffline} =
+    useContext(AuthApiData);
   const {processGetPurchase} = useContext(StoreApiData);
   const {upgrade} = useContext(PackageApiData);
   const {
@@ -45,31 +46,7 @@ const Dashboard = ({navigation}) => {
     processGetAllYear();
     processGetAllSubject();
     processGetPurchase(userProfile.id);
-
-    // const backAction = () => {
-    //   Alert.alert(
-    //     'Exit App',
-    //     'Are you sure you want to exit?',
-    //     [
-    //       {
-    //         text: 'Cancel',
-    //         onPress: () => null,
-    //         style: 'cancel',
-    //       },
-    //       {text: 'OK', onPress: () => BackHandler.exitApp()},
-    //     ],
-    //     {cancelable: false},
-    //   );
-    //   return true; // Prevent default back button behavior
-    // };
-
-    // const backHandler = BackHandler.addEventListener(
-    //   'hardwareBackPress',
-    //   backAction,
-    // );
-
-    // return () => backHandler.remove();
-  }, []);
+  }, [isOffline]);
 
   useEffect(() => {
     if (!alreadyLoggedIn) {
@@ -84,12 +61,30 @@ const Dashboard = ({navigation}) => {
     );
   }, [examsList]);
 
+  const NetWorkCheck = () => {
+    Alert.alert('Network Error', 'Please connect to the internet', [
+      {
+        text: 'Ok',
+        onPress: () => null,
+        style: 'cancel',
+      },
+    ]);
+  };
+
   const goToUpgradePage = () => {
-    navigation.navigate('Upgrading');
+    if (!isOffline) {
+      NetWorkCheck();
+    } else {
+      navigation.navigate('Upgrading');
+    }
   };
 
   const goToShopPage = () => {
-    navigation.navigate('salesShop');
+    if (!isOffline) {
+      NetWorkCheck();
+    } else {
+      navigation.navigate('salesShop');
+    }
   };
 
   const handleLogout = () => {
@@ -176,7 +171,11 @@ const Dashboard = ({navigation}) => {
                 return (
                   <Pressable
                     onPress={() => {
-                      navigation.navigate(item.link);
+                      if (!isOffline) {
+                        NetWorkCheck();
+                      } else {
+                        navigation.navigate(item.link);
+                      }
                     }}
                     style={({pressed}) => [
                       {backgroundColor: pressed ? 'lightblue' : '#efefef'},
