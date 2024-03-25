@@ -28,23 +28,31 @@ const GameResult = ({navigation}) => {
   const [positionReady, setPositionReady] = useState([]);
 
   useEffect(() => {
-    (quizAttempt.userInfo = userProfile.username), console.log(quizAttempt);
-    setReview(quizAttempt.solvedQuestions);
-    handleGrade(questions.length, correctAns);
-    setTopicEvaluation(quizAttempt.solvedQuestions);
-    let data = quizAttempt.solvedQuestions.filter(
-      item => item.userChoice.toLowerCase() == item.answer.toLowerCase(),
-    );
-    setAllCorrectTopicInQuestion(data);
+    try {
+      (quizAttempt.userInfo = userProfile.username), console.log(quizAttempt);
+      setReview(quizAttempt.solvedQuestions);
+      handleGrade(questions.length, correctAns);
+      setTopicEvaluation(quizAttempt.solvedQuestions);
+      let data = quizAttempt.solvedQuestions.filter(
+        item => item.userChoice.toLowerCase() == item.answer.toLowerCase(),
+      );
+      setAllCorrectTopicInQuestion(data);
+    } catch (err) {
+      console.log(err);
+    }
   }, []);
 
   useEffect(() => {
-    let newData = positionMap(
-      allCorrectTopicInQuestion,
-      topicEvaluation,
-      topicList,
-    );
-    setPositionReady(newData);
+    try {
+      let newData = positionMap(
+        allCorrectTopicInQuestion,
+        topicEvaluation,
+        topicList,
+      );
+      setPositionReady(newData);
+    } catch (err) {
+      console.log(err);
+    }
   }, [topicEvaluation]);
 
   saveInfoAlert &&
@@ -63,12 +71,16 @@ const GameResult = ({navigation}) => {
   };
 
   const handleSaveInfo = () => {
-    let data2 = {
-      correctAns: correctAns,
-      totalQuestions: questions.length,
-      status: 'complete',
-    };
-    processSaveRecords(quizAttempt, data2);
+    try {
+      let data2 = {
+        correctAns: correctAns,
+        totalQuestions: questions.length,
+        status: 'complete',
+      };
+      processSaveRecords(quizAttempt, data2);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const handleShareInfo = () => {
@@ -76,26 +88,30 @@ const GameResult = ({navigation}) => {
   };
 
   let handleGrade = (noOfQuestions, marks) => {
-    if (marks === noOfQuestions)
-      setGradeData({
-        grade: marks,
-        comment: 'Excellent',
-      });
-    if (marks < noOfQuestions && marks > noOfQuestions * 0.5)
-      setGradeData({
-        grade: marks,
-        comment: 'V.Good',
-      });
-    if (marks < noOfQuestions * 0.5 && marks > noOfQuestions * 0.25)
-      setGradeData({
-        grade: marks,
-        comment: 'Credit',
-      });
-    if (marks < noOfQuestions * 0.25)
-      setGradeData({
-        grade: marks,
-        comment: 'Fail',
-      });
+    try {
+      if (marks === noOfQuestions)
+        setGradeData({
+          grade: marks,
+          comment: 'Excellent',
+        });
+      if (marks < noOfQuestions && marks > noOfQuestions * 0.5)
+        setGradeData({
+          grade: marks,
+          comment: 'V.Good',
+        });
+      if (marks < noOfQuestions * 0.5 && marks > noOfQuestions * 0.25)
+        setGradeData({
+          grade: marks,
+          comment: 'Credit',
+        });
+      if (marks < noOfQuestions * 0.25)
+        setGradeData({
+          grade: marks,
+          comment: 'Fail',
+        });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (

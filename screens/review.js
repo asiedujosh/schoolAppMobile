@@ -40,22 +40,26 @@ const Review = ({navigation}) => {
   // };
 
   let colorCheck = (one, answer, choseAnswer, item) => {
-    let results = '#0347A1';
+    try {
+      let results = '#0347A1';
 
-    let optionData = one.split('**');
+      let optionData = one.split('**');
 
-    let positionItem = optionData && optionData.indexOf(item);
-    let getOptionRep = OPTIONS[positionItem];
+      let positionItem = optionData && optionData.indexOf(item);
+      let getOptionRep = OPTIONS[positionItem];
 
-    if (getOptionRep.toLowerCase() === answer.toLowerCase()) {
-      results = '#007E01';
-    } else if (getOptionRep.toLowerCase() === choseAnswer.toLowerCase()) {
-      results = '#CF0707';
-    } else {
-      results = '#0347A1';
+      if (getOptionRep.toLowerCase() === answer.toLowerCase()) {
+        results = '#007E01';
+      } else if (getOptionRep.toLowerCase() === choseAnswer.toLowerCase()) {
+        results = '#CF0707';
+      } else {
+        results = '#0347A1';
+      }
+
+      return results;
+    } catch (err) {
+      console.log(err);
     }
-
-    return results;
   };
 
   return (

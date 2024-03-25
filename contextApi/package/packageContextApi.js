@@ -13,17 +13,25 @@ const PackageApiDataProvider = props => {
   }, []);
 
   const processSubscribe = async data => {
-    let response = await subscribe(data);
-    if (response) {
-      setLoading(prev => !prev);
-      setUpgrade(prev => !prev);
+    try {
+      let response = await subscribe(data);
+      if (response) {
+        setLoading(prev => !prev);
+        setUpgrade(prev => !prev);
+      }
+    } catch (err) {
+      console.log(err);
     }
   };
 
   const processGettingAPackage = async () => {
-    let response = await getAPackage();
-    if (response) {
-      setPackagePrice(response.data.data);
+    try {
+      let response = await getAPackage();
+      if (response) {
+        setPackagePrice(response.data.data);
+      }
+    } catch (err) {
+      console.log(err);
     }
   };
 

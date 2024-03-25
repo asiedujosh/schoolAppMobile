@@ -31,179 +31,226 @@ const QuestionApiDataProvider = props => {
   }, []);
 
   useEffect(() => {
-    if (questions && questions.length > 0) {
-      prepareQuestionsToBeAnswered(questions, questionInfo);
-      // console.log(questions.length);
+    try {
+      if (questions && questions.length > 0) {
+        prepareQuestionsToBeAnswered(questions, questionInfo);
+        // console.log(questions.length);
+      }
+    } catch (err) {
+      console.log(err);
     }
   }, [questions]);
 
   const processGetAllExams = async () => {
-    let response = await getAllExams();
-    if (response) {
-      setExamsList(response.data.data);
-      processExamsOptions(response.data.data);
+    try {
+      let response = await getAllExams();
+      if (response) {
+        setExamsList(response.data.data);
+        processExamsOptions(response.data.data);
+      }
+    } catch (err) {
+      console.log(err);
     }
   };
 
   const processExamsOptions = async data => {
-    let exams = ['Quiz type'];
-    data &&
-      data.map(item => {
-        exams.push(item.exam);
-      });
-    setExamOptions(exams);
+    try {
+      let exams = ['Quiz type'];
+      data &&
+        data.map(item => {
+          exams.push(item.exam);
+        });
+      setExamOptions(exams);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const processGetAllYear = async () => {
-    let response = await getAllYear();
-    if (response) {
-      setYearList(response.data.data);
-      processYearOptions(response.data.data);
+    try {
+      let response = await getAllYear();
+      if (response) {
+        setYearList(response.data.data);
+        processYearOptions(response.data.data);
+      }
+    } catch (err) {
+      console.log(err);
     }
   };
 
   const processGetAllSubject = async () => {
-    let response = await getAllSubject();
-    if (response) {
-      setSubjectList(response.data.data);
-      processSubjectOptions(response.data.data);
+    try {
+      let response = await getAllSubject();
+      if (response) {
+        setSubjectList(response.data.data);
+        processSubjectOptions(response.data.data);
+      }
+    } catch (err) {
+      console.log(err);
     }
   };
 
   const processSubjectOptions = async data => {
-    let subjects = ['Subject'];
-    data &&
-      data.map(item => {
-        subjects.push(item.subject);
-      });
-    setSubjectOptions(subjects);
+    try {
+      let subjects = ['Subject'];
+      data &&
+        data.map(item => {
+          subjects.push(item.subject);
+        });
+      setSubjectOptions(subjects);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const processYearOptions = async data => {
-    let years = ['Year'];
-    data &&
-      data.map(item => {
-        years.push(item.year);
-      });
-    setYearOptions(years);
+    try {
+      let years = ['Year'];
+      data &&
+        data.map(item => {
+          years.push(item.year);
+        });
+      setYearOptions(years);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const processGetAllTopic = async () => {
-    let response = await getAllTopic();
-    if (response) {
-      setTopicList(response.data.data);
+    try {
+      let response = await getAllTopic();
+      if (response) {
+        setTopicList(response.data.data);
+      }
+    } catch (err) {
+      console.log(err);
     }
   };
 
   //Map Id to corresponding options
   const mapId = (item, itemList, name) => {
-    let filteredItem = itemList.filter(items => items[name] === item);
-    return filteredItem && filteredItem[0] && filteredItem[0].id;
-    // return filteredItem[0].id
+    try {
+      let filteredItem = itemList.filter(items => items[name] === item);
+      return filteredItem && filteredItem[0] && filteredItem[0].id;
+      // return filteredItem[0].id
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const processGetQuestions = async data => {
-    // questionStyle: data.questionStyle || null,
-    //   timer: data.timer || null,
-    let formData = {
-      examType: mapId(data.quizType, examsList, 'exam'),
-      year: mapId(data.year, yearList, 'year'),
-      subject: mapId(data.subject, subjectList, 'subject'),
-      questionNos: data.questionNos || null,
-    };
+    try {
+      // questionStyle: data.questionStyle || null,
+      //   timer: data.timer || null,
+      let formData = {
+        examType: mapId(data.quizType, examsList, 'exam'),
+        year: mapId(data.year, yearList, 'year'),
+        subject: mapId(data.subject, subjectList, 'subject'),
+        questionNos: data.questionNos || null,
+      };
 
-    let info = {
-      examsType: data.quizType,
-      year: data.year,
-      subject: data.subject,
-      timer: data.timer || null,
-      questionStyle: data.questionStyle,
-    };
+      let info = {
+        examsType: data.quizType,
+        year: data.year,
+        subject: data.subject,
+        timer: data.timer || null,
+        questionStyle: data.questionStyle,
+      };
 
-    setQuestionInfo(info);
+      setQuestionInfo(info);
 
-    console.log(formData);
-    let response = await getSelectectedQuestions(formData);
-    if (response) {
-      console.log(response);
-      setQuestions(response.data.data);
-      setLoadingQuestions(false);
+      console.log(formData);
+      let response = await getSelectectedQuestions(formData);
+      if (response) {
+        console.log(response);
+        setQuestions(response.data.data);
+        setLoadingQuestions(false);
+      }
+    } catch (err) {
+      console.log(err);
     }
   };
 
   const prepareQuestionsToBeAnswered = (data, info) => {
-    console.log('We are working');
+    try {
+      //step 2
+      let attemptQuestArray = [];
+      data.map(item => {
+        let newData = {
+          id: item.id,
+          examId: item.examId,
+          yearId: item.yearId,
+          subjectId: item.subjectId,
+          topicId: item.topicId,
+          questionNo: item.questionNo,
+          question: item.question,
+          questionEquation: item.questionEquation,
+          options: item.options,
+          imageOptions: item.imageOptions,
+          optionsWithEquation: item.optionsWithEquation,
+          answer: item.answer,
+          userChoice: null,
+        };
 
-    //step 2
-    let attemptQuestArray = [];
-    data.map(item => {
-      let newData = {
-        id: item.id,
-        examId: item.examId,
-        yearId: item.yearId,
-        subjectId: item.subjectId,
-        topicId: item.topicId,
-        questionNo: item.questionNo,
-        question: item.question,
-        questionEquation: item.questionEquation,
-        options: item.options,
-        imageOptions: item.imageOptions,
-        optionsWithEquation: item.optionsWithEquation,
-        answer: item.answer,
-        userChoice: null,
-      };
+        attemptQuestArray.push(newData);
+      });
 
-      attemptQuestArray.push(newData);
-    });
-
-    //Step 1
-    setQuizAttempt({
-      quizId: generateUniqueID(),
-      userInfo: 'josh',
-      quizInfo: info,
-      solvedQuestions: attemptQuestArray,
-    });
-
-    console.log('We are working');
+      //Step 1
+      setQuizAttempt({
+        quizId: generateUniqueID(),
+        userInfo: 'josh',
+        quizInfo: info,
+        solvedQuestions: attemptQuestArray,
+      });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const updateQuizAttempt = (id, newData) => {
-    setQuizAttempt(prevQuizAttempt => {
-      // Create a copy of the state
-      const updatedSolvedQuestions = [...prevQuizAttempt.solvedQuestions];
+    try {
+      setQuizAttempt(prevQuizAttempt => {
+        // Create a copy of the state
+        const updatedSolvedQuestions = [...prevQuizAttempt.solvedQuestions];
 
-      // Find the index of the question with the given ID
-      const questionIndex = updatedSolvedQuestions.findIndex(
-        question => question.id === id,
-      );
+        // Find the index of the question with the given ID
+        const questionIndex = updatedSolvedQuestions.findIndex(
+          question => question.id === id,
+        );
 
-      // Update the userChoice for the found question
-      if (questionIndex !== -1) {
-        updatedSolvedQuestions[questionIndex] = {
-          ...updatedSolvedQuestions[questionIndex],
-          userChoice: newData,
+        // Update the userChoice for the found question
+        if (questionIndex !== -1) {
+          updatedSolvedQuestions[questionIndex] = {
+            ...updatedSolvedQuestions[questionIndex],
+            userChoice: newData,
+          };
+        }
+
+        // Return the updated state
+        return {
+          ...prevQuizAttempt,
+          solvedQuestions: updatedSolvedQuestions,
         };
-      }
-
-      // Return the updated state
-      return {
-        ...prevQuizAttempt,
-        solvedQuestions: updatedSolvedQuestions,
-      };
-    });
+      });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const processQuizAttempt = (id, ans, userAns) => {
-    console.log(userAns);
-    if (userAns) {
-      if (ans.toLowerCase() === userAns.toLowerCase()) {
-        setCorrectAns(prev => prev + 1);
+    try {
+      if (userAns) {
+        if (ans.toLowerCase() === userAns.toLowerCase()) {
+          setCorrectAns(prev => prev + 1);
+        }
+      } else {
+        userAns = 'None';
       }
-    } else {
-      userAns = 'None';
-    }
 
-    updateQuizAttempt(id, userAns);
+      updateQuizAttempt(id, userAns);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (

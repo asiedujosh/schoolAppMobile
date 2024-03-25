@@ -64,98 +64,114 @@ const AuthApiDataProvider = props => {
   }, []);
 
   const fetchUser = async () => {
-    const userSession = await retrieveUserSession();
-    if (userSession) {
-      const dataObject = JSON.parse(userSession);
-      console.log(dataObject.data);
-      setUserProfile(dataObject.data);
-      setAlreadyLoggedIn(true);
+    try {
+      const userSession = await retrieveUserSession();
+      if (userSession) {
+        const dataObject = JSON.parse(userSession);
+        console.log(dataObject.data);
+        setUserProfile(dataObject.data);
+        setAlreadyLoggedIn(true);
+      }
+    } catch (err) {
+      console.log(err);
     }
   };
 
   const processLogin = async data => {
-    let response = await Login(data);
-    if (response === TIMEEXCEED) {
-      setSignInLoading(false);
-      setNetworkError(true);
-      setErrorMessage('Network Error');
-      console.log('Network Error');
-    }
-    if (response === NOTFOUND) {
-      setSignInLoading(false);
-      setSignInError(true);
-      // setErrorMessage('Network Error')
-      console.log('Credentials error');
-    }
-    if (response === SIGNINERR) {
-      setSignInLoading(false);
-      setSignInError(true);
-      console.log('Credentials error');
-    }
-    if (response === UNHANDLEERR) {
-      setSignInLoading(false);
-      setUnknownError(true);
-      setErrorMessage('Unexpected Error');
-      console.log('Unexpected Error');
-    }
-    if (response.data) {
-      setUserProfile(response.data.user);
-      // set the cookie
-      storeUserSession(response.data.token, response.data.user);
-      setSignInLoading(false);
-      setAlreadyLoggedIn(true);
+    try {
+      let response = await Login(data);
+      if (response === TIMEEXCEED) {
+        setSignInLoading(false);
+        setNetworkError(true);
+        setErrorMessage('Network Error');
+        console.log('Network Error');
+      }
+      if (response === NOTFOUND) {
+        setSignInLoading(false);
+        setSignInError(true);
+        // setErrorMessage('Network Error')
+        console.log('Credentials error');
+      }
+      if (response === SIGNINERR) {
+        setSignInLoading(false);
+        setSignInError(true);
+        console.log('Credentials error');
+      }
+      if (response === UNHANDLEERR) {
+        setSignInLoading(false);
+        setUnknownError(true);
+        setErrorMessage('Unexpected Error');
+        console.log('Unexpected Error');
+      }
+      if (response.data) {
+        setUserProfile(response.data.user);
+        // set the cookie
+        storeUserSession(response.data.token, response.data.user);
+        setSignInLoading(false);
+        setAlreadyLoggedIn(true);
+      }
+    } catch (err) {
+      console.log(err);
     }
   };
 
   const processRegister = async data => {
-    //console.log(data);
-    setSignInLoading(true);
-    (data.country = registerFormData.country.name),
-      (data.tel = `${registerFormData.country.dial_code}" "${registerFormData.tel}`);
-    let response = await Register(data);
-    if (response === TIMEEXCEED) {
-      setSignInLoading(false);
-      setNetworkError(true);
-      setErrorMessage('Network Error');
-      console.log('Network Error');
-    }
-    if (response === NOTFOUND) {
-      setSignInLoading(false);
-      setSignInError(true);
-      // setErrorMessage('Network Error')
-      console.log('Credentials error');
-    }
-    if (response === SIGNINERR) {
-      setSignInLoading(false);
-      setErrorMessage('Sign Error');
-      setSignInError(true);
-      console.log('Credentials error');
-    }
-    if (response === UNHANDLEERR) {
-      setSignInLoading(false);
-      setErrorMessage('Username already available');
-      setUnknownError(true);
+    try {
+      //console.log(data);
+      setSignInLoading(true);
+      (data.country = registerFormData.country.name),
+        (data.tel = `${registerFormData.country.dial_code}" "${registerFormData.tel}`);
+      let response = await Register(data);
+      if (response === TIMEEXCEED) {
+        setSignInLoading(false);
+        setNetworkError(true);
+        setErrorMessage('Network Error');
+        console.log('Network Error');
+      }
+      if (response === NOTFOUND) {
+        setSignInLoading(false);
+        setSignInError(true);
+        // setErrorMessage('Network Error')
+        console.log('Credentials error');
+      }
+      if (response === SIGNINERR) {
+        setSignInLoading(false);
+        setErrorMessage('Sign Error');
+        setSignInError(true);
+        console.log('Credentials error');
+      }
+      if (response === UNHANDLEERR) {
+        setSignInLoading(false);
+        setErrorMessage('Username already available');
+        setUnknownError(true);
 
-      console.log('Unexpected Error');
-    }
+        console.log('Unexpected Error');
+      }
 
-    if (response === BAD_REQUEST_STATUS) {
-      setSignInLoading(false);
-      setErrorMessage('Username already taken');
-      setUsernameTaken(true);
-    }
-    if (response.data) {
-      setSignInLoading(false);
-      setUserProfile(response.data.user);
-      storeUserSession(response.data.token, response.data.user);
-      setLoading(false);
-      setAlreadyLoggedIn(true);
+      if (response === BAD_REQUEST_STATUS) {
+        setSignInLoading(false);
+        setErrorMessage('Username already taken');
+        setUsernameTaken(true);
+      }
+      if (response.data) {
+        setSignInLoading(false);
+        setUserProfile(response.data.user);
+        storeUserSession(response.data.token, response.data.user);
+        setLoading(false);
+        setAlreadyLoggedIn(true);
+      }
+    } catch (err) {
+      console.log(err);
     }
   };
 
   const processLogout = async () => {
-    removeUserSession();
-    setAlreadyLoggedIn(false);
+    try {
+      removeUserSession();
+      setAlreadyLoggedIn(false);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (

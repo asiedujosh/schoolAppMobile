@@ -32,6 +32,7 @@ const MakePayment = ({data}) => {
         onSuccess={res => {
           // handle response here
           if (res) {
+            try{
             data.premium
               ? processSubscribe({
                   id: userProfile && userProfile.id,
@@ -46,6 +47,9 @@ const MakePayment = ({data}) => {
                 });
             setLoading(prev => !prev);
             // console.log('Data transfer success');
+              } catch (err){
+                console.log(err)
+              }
           }
         }}
         ref={paystackWebViewRef}

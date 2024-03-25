@@ -23,14 +23,18 @@ const Cart = ({navigation}) => {
   const [totalAmount, setTotalAmount] = useState(0);
 
   useEffect(() => {
-    let total = 0;
-    if (cart.length > 0) {
-      total = cart.reduce(
-        (acc, item) => item && parseInt(acc) + parseInt(item.price),
-        0,
-      );
+    try {
+      let total = 0;
+      if (cart.length > 0) {
+        total = cart.reduce(
+          (acc, item) => item && parseInt(acc) + parseInt(item.price),
+          0,
+        );
+      }
+      setTotalAmount(total);
+    } catch (err) {
+      console.log(err);
     }
-    setTotalAmount(total);
   }, [cart]);
 
   let handleHomeBtn = () => {

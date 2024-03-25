@@ -30,12 +30,16 @@ const StudyMaterial = ({navigation}) => {
   const [selectedValue, setSelectedValue] = useState('');
 
   useEffect(() => {
-    if (questions) {
-      if (questions.length > 0) {
-        navigation.navigate('GameBoard');
-      } else {
-        navigation.navigate('QuestionsNotAvailable');
+    try {
+      if (questions) {
+        if (questions.length > 0) {
+          navigation.navigate('GameBoard');
+        } else {
+          navigation.navigate('QuestionsNotAvailable');
+        }
       }
+    } catch (err) {
+      console.log(err);
     }
   }, [questions]);
 
@@ -44,24 +48,28 @@ const StudyMaterial = ({navigation}) => {
   };
 
   const handleOptionAssign = item => {
-    let Option;
-    switch (item.name) {
-      case 'quizType':
-        Option = examOptions;
-        break;
-      case 'subject':
-        Option = subjectOptions;
-        break;
-      case 'year':
-        Option = yearOptions;
-        break;
-      case 'topic':
-        Option = topicOptions;
-        break;
-      default:
-        Option = ['Straight', 'Random'];
+    try {
+      let Option;
+      switch (item.name) {
+        case 'quizType':
+          Option = examOptions;
+          break;
+        case 'subject':
+          Option = subjectOptions;
+          break;
+        case 'year':
+          Option = yearOptions;
+          break;
+        case 'topic':
+          Option = topicOptions;
+          break;
+        default:
+          Option = ['Straight', 'Random'];
+      }
+      return Option;
+    } catch (err) {
+      console.log(err);
     }
-    return Option;
   };
 
   const handleSubmitQuizOptions = () => {

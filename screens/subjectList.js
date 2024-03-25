@@ -44,41 +44,45 @@ const SubjectList = ({navigation}) => {
   };
 
   const handleSubmitQuizOptions = item2 => {
-    setLoadingQuestions(true);
-    let examInfo = examsList.filter(item => item.id == infoGathered.examType);
-    let yearInfo = yearList.filter(item => item.id == infoGathered.year);
-    let subjectInfo = subjectList.filter(item => item.id == item2);
+    try {
+      setLoadingQuestions(true);
+      let examInfo = examsList.filter(item => item.id == infoGathered.examType);
+      let yearInfo = yearList.filter(item => item.id == infoGathered.year);
+      let subjectInfo = subjectList.filter(item => item.id == item2);
 
-    let quizOptions = {
-      quizType: examInfo.exam,
-      year: yearInfo.year,
-      subject: subjectInfo.subject,
-      questionNos: '100',
-      questionStyle: 'Straight',
-    };
+      let quizOptions = {
+        quizType: examInfo.exam,
+        year: yearInfo.year,
+        subject: subjectInfo.subject,
+        questionNos: '100',
+        questionStyle: 'Straight',
+      };
 
-    let entryData = {
-      examId: infoGathered.examType,
-      yearId: infoGathered.year,
-      subjectId: item2,
-    };
+      let entryData = {
+        examId: infoGathered.examType,
+        yearId: infoGathered.year,
+        subjectId: item2,
+      };
 
-    let checkPurchase = purchases.filter(
-      item =>
-        item.examId == entryData.examId &&
-        item.yearId == entryData.yearId &&
-        item.subjectId == entryData.subjectId,
-    );
-    let checkFree = freeProducts.filter(
-      item =>
-        item.examId == entryData.examId &&
-        item.yearId == entryData.yearId &&
-        item.subjectId == entryData.subjectId,
-    );
+      let checkPurchase = purchases.filter(
+        item =>
+          item.examId == entryData.examId &&
+          item.yearId == entryData.yearId &&
+          item.subjectId == entryData.subjectId,
+      );
+      let checkFree = freeProducts.filter(
+        item =>
+          item.examId == entryData.examId &&
+          item.yearId == entryData.yearId &&
+          item.subjectId == entryData.subjectId,
+      );
 
-    checkPurchase.length == 0 && checkFree.length == 0
-      ? handleNotPurchased()
-      : processGetQuestions(quizOptions);
+      checkPurchase.length == 0 && checkFree.length == 0
+        ? handleNotPurchased()
+        : processGetQuestions(quizOptions);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   //Original Verison

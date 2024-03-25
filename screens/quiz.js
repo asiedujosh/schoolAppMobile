@@ -1,5 +1,6 @@
 import {useState, useContext, useEffect} from 'react';
 import {StyleSheet, Text, View, ScrollView, Alert} from 'react-native';
+import {AuthApiData} from '../contextApi/auth/authContextApi.js';
 import {StoreApiData} from '../contextApi/store/storeContextApi';
 import {QuestionApiData} from '../contextApi/question/questionContextApi.js';
 import {Dimensions} from 'react-native';
@@ -14,6 +15,7 @@ import KeyboardAvoidingContainer from '../component/keyboardAvoidingContainer';
 const {width, height} = Dimensions.get('window');
 
 const Quiz = ({navigation}) => {
+  const {isOffline} = useContext(AuthApiData);
   const {
     examOptions,
     examsList,
@@ -84,6 +86,16 @@ const Quiz = ({navigation}) => {
     navigation.navigate('NotPurchased');
   };
 
+  const NetWorkCheck = () => {
+    Alert.alert('Network Error', 'Please connect to the internet', [
+      {
+        text: 'Ok',
+        onPress: () => null,
+        style: 'cancel',
+      },
+    ]);
+  };
+
   const ErrorPopup = () => {
     Alert.alert('Select Field', 'Select appropriate fields', [
       {
@@ -95,53 +107,58 @@ const Quiz = ({navigation}) => {
   };
 
   const handleSubmitQuizOptions = () => {
-    setLoadingQuestions(true);
-    console.log(quizOptions);
-
-    if (
-      quizOptions.quizType == examOptions[0] ||
-      quizOptions.subject == subjectOptions[0] ||
-      quizOptions.year == yearOptions[0]
-    ) {
-      setLoadingQuestions(false);
-      setFieldError(prev => !prev);
-      console.log('Select required Info');
+    if (!isOffline) {
+      NetWorkCheck();
     } else {
-      //Get convertion
-      let examId = examsList.filter(
-        item => item.exam == quizOptions.quizType,
-      )[0].id;
-      let yearId = yearList.filter(item => item.year == quizOptions.year)[0].id;
-      let subjectId = subjectList.filter(
-        item => item.subject == quizOptions.subject,
-      )[0].id;
+      setLoadingQuestions(true);
+      console.log(quizOptions);
 
-      let entryData = {
-        examId: examId,
-        yearId: yearId,
-        subjectId: subjectId,
-      };
+      if (
+        quizOptions.quizType == examOptions[0] ||
+        quizOptions.subject == subjectOptions[0] ||
+        quizOptions.year == yearOptions[0]
+      ) {
+        setLoadingQuestions(false);
+        setFieldError(prev => !prev);
+        console.log('Select required Info');
+      } else {
+        //Get convertion
+        let examId = examsList.filter(
+          item => item.exam == quizOptions.quizType,
+        )[0].id;
+        let yearId = yearList.filter(item => item.year == quizOptions.year)[0]
+          .id;
+        let subjectId = subjectList.filter(
+          item => item.subject == quizOptions.subject,
+        )[0].id;
 
-      let checkPurchase = purchases.filter(
-        item =>
-          item.examId == entryData.examId &&
-          item.yearId == entryData.yearId &&
-          item.subjectId == entryData.subjectId,
-      );
-      let checkFree = freeProducts.filter(
-        item =>
-          item.examId == entryData.examId &&
-          item.yearId == entryData.yearId &&
-          item.subjectId == entryData.subjectId,
-      );
-      console.log(checkPurchase);
-      checkPurchase.length == 0 && checkFree.length == 0
-        ? handleNotPurchased()
-        : processGetQuestions(quizOptions);
+        let entryData = {
+          examId: examId,
+          yearId: yearId,
+          subjectId: subjectId,
+        };
 
-      // setLoadingQuestions(true);
-      // console.log(quizOptions);
-      // processGetQuestions(quizOptions);
+        let checkPurchase = purchases.filter(
+          item =>
+            item.examId == entryData.examId &&
+            item.yearId == entryData.yearId &&
+            item.subjectId == entryData.subjectId,
+        );
+        let checkFree = freeProducts.filter(
+          item =>
+            item.examId == entryData.examId &&
+            item.yearId == entryData.yearId &&
+            item.subjectId == entryData.subjectId,
+        );
+        console.log(checkPurchase);
+        checkPurchase.length == 0 && checkFree.length == 0
+          ? handleNotPurchased()
+          : processGetQuestions(quizOptions);
+
+        // setLoadingQuestions(true);
+        // console.log(quizOptions);
+        // processGetQuestions(quizOptions);
+      }
     }
   };
 

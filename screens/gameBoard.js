@@ -43,37 +43,45 @@ const GameBoard = ({navigation}) => {
   const intervalIdRef = useRef(null);
 
   useEffect(() => {
-    console.log(timer);
-    if (timer) {
-      console.log('We stepped in timer');
-      if (currentQuestionNo + 1 >= questions.length) {
-        return () => clearInterval(intervalIdRef.current);
-      } else {
-        console.log('we stepped out');
-        intervalIdRef.current = setInterval(updateAndCheck, 1000);
+    try {
+      console.log(timer);
+      if (timer) {
+        console.log('We stepped in timer');
+        if (currentQuestionNo + 1 >= questions.length) {
+          return () => clearInterval(intervalIdRef.current);
+        } else {
+          console.log('we stepped out');
+          intervalIdRef.current = setInterval(updateAndCheck, 1000);
 
-        // Clean up the interval on component unmount
-        return () => clearInterval(intervalIdRef.current);
+          // Clean up the interval on component unmount
+          return () => clearInterval(intervalIdRef.current);
+        }
       }
+    } catch (err) {
+      console.log(err);
     }
   }, [timer]);
 
   const NOANSWER = 'errNoAns';
 
   const updateAndCheck = () => {
-    setTimer(prevTimer => {
-      updateTimer();
-      if (prevTimer <= 0) {
-        console.log('Time is up!');
-        handleChoosenAns(12);
-        setTimer(questionInfo.timer);
-        // You can perform actions or show alerts here
-        clearInterval(intervalIdRef.current);
-      } else {
-        setShowTimer(prevTimer - 1);
-        return prevTimer - 1;
-      }
-    });
+    try {
+      setTimer(prevTimer => {
+        updateTimer();
+        if (prevTimer <= 0) {
+          console.log('Time is up!');
+          handleChoosenAns(12);
+          setTimer(questionInfo.timer);
+          // You can perform actions or show alerts here
+          clearInterval(intervalIdRef.current);
+        } else {
+          setShowTimer(prevTimer - 1);
+          return prevTimer - 1;
+        }
+      });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const updateTimer = () => {
@@ -85,13 +93,17 @@ const GameBoard = ({navigation}) => {
   };
 
   let highLightItem = item => {
-    if (!choseAnsHighlight[currentQuestionNo]) {
-      setChoseAnsHighlight([...choseAnsHighlight, item]);
-    } else {
-      const newHighlight = [...choseAnsHighlight];
-      newHighlight.splice(currentQuestionNo, 1);
-      newHighlight.splice(currentQuestionNo, 0, item);
-      setChoseAnsHighlight(newHighlight);
+    try {
+      if (!choseAnsHighlight[currentQuestionNo]) {
+        setChoseAnsHighlight([...choseAnsHighlight, item]);
+      } else {
+        const newHighlight = [...choseAnsHighlight];
+        newHighlight.splice(currentQuestionNo, 1);
+        newHighlight.splice(currentQuestionNo, 0, item);
+        setChoseAnsHighlight(newHighlight);
+      }
+    } catch (err) {
+      console.log(err);
     }
   };
 
@@ -100,69 +112,83 @@ const GameBoard = ({navigation}) => {
   };
 
   let processAns = () => {
-    choseAnsHighlight.map(item => {
-      if (item !== NOANSWER) {
-        let options;
-        if (
-          questions[choseAnsHighlight.indexOf(item)].options !== '' &&
-          questions[choseAnsHighlight.indexOf(item)].options !== null
-        ) {
-          options =
-            questions[choseAnsHighlight.indexOf(item)].options.split('**');
-        }
+    try {
+      choseAnsHighlight.map(item => {
+        if (item !== NOANSWER) {
+          let options;
+          if (
+            questions[choseAnsHighlight.indexOf(item)].options !== '' &&
+            questions[choseAnsHighlight.indexOf(item)].options !== null
+          ) {
+            options =
+              questions[choseAnsHighlight.indexOf(item)].options.split('**');
+          }
 
-        if (
-          questions[choseAnsHighlight.indexOf(item)].imageOptions !== '' &&
-          questions[choseAnsHighlight.indexOf(item)].imageOptions !== null
-        ) {
-          options =
-            questions[choseAnsHighlight.indexOf(item)].imageOptions.split('**');
-        }
+          if (
+            questions[choseAnsHighlight.indexOf(item)].imageOptions !== '' &&
+            questions[choseAnsHighlight.indexOf(item)].imageOptions !== null
+          ) {
+            options =
+              questions[choseAnsHighlight.indexOf(item)].imageOptions.split(
+                '**',
+              );
+          }
 
-        if (
-          questions[choseAnsHighlight.indexOf(item)].optionsWithEquation !==
-            '' &&
-          questions[choseAnsHighlight.indexOf(item)].optionsWithEquation !==
-            null
-        ) {
-          options =
-            questions[
-              choseAnsHighlight.indexOf(item)
-            ].optionsWithEquation.split('**');
-        }
+          if (
+            questions[choseAnsHighlight.indexOf(item)].optionsWithEquation !==
+              '' &&
+            questions[choseAnsHighlight.indexOf(item)].optionsWithEquation !==
+              null
+          ) {
+            options =
+              questions[
+                choseAnsHighlight.indexOf(item)
+              ].optionsWithEquation.split('**');
+          }
 
-        let position = options.indexOf(item);
-        let userAns = possibleAns[position];
-        storeSolvedQuestions(
-          questions[choseAnsHighlight.indexOf(item)].id,
-          questions[choseAnsHighlight.indexOf(item)].answer,
-          userAns,
-        );
-      } else {
-        storeSolvedQuestions(
-          questions[choseAnsHighlight.indexOf(item)].id,
-          questions[choseAnsHighlight.indexOf(item)].answer,
-          (userAns = 12),
-        );
-      }
-    });
+          let position = options.indexOf(item);
+          let userAns = possibleAns[position];
+          storeSolvedQuestions(
+            questions[choseAnsHighlight.indexOf(item)].id,
+            questions[choseAnsHighlight.indexOf(item)].answer,
+            userAns,
+          );
+        } else {
+          storeSolvedQuestions(
+            questions[choseAnsHighlight.indexOf(item)].id,
+            questions[choseAnsHighlight.indexOf(item)].answer,
+            (userAns = 12),
+          );
+        }
+      });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const handleNext = () => {
-    if (currentQuestionNo + 1 == questions.length) {
-      processAns();
-      navigation.navigate('GameResult');
-    } else {
-      if (!choseAnsHighlight[currentQuestionNo]) {
-        setChoseAnsHighlight([...choseAnsHighlight, NOANSWER]);
+    try {
+      if (currentQuestionNo + 1 == questions.length) {
+        processAns();
+        navigation.navigate('GameResult');
+      } else {
+        if (!choseAnsHighlight[currentQuestionNo]) {
+          setChoseAnsHighlight([...choseAnsHighlight, NOANSWER]);
+        }
+        setCurrentQuestionNo(prev => prev + 1);
       }
-      setCurrentQuestionNo(prev => prev + 1);
+    } catch (err) {
+      console.log(err);
     }
   };
 
   const handlePrev = () => {
-    if (currentQuestionNo > 0) {
-      setCurrentQuestionNo(prev => prev - 1);
+    try {
+      if (currentQuestionNo > 0) {
+        setCurrentQuestionNo(prev => prev - 1);
+      }
+    } catch (err) {
+      console.log(err);
     }
   };
 

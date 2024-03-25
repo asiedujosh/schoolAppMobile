@@ -17,16 +17,20 @@ const ErrorModal = () => {
   const [err, setErr] = useState(false);
 
   useEffect(() => {
-    if (netWorkError === true) {
-      setErr(netWorkError);
-    }
+    try {
+      if (netWorkError === true) {
+        setErr(netWorkError);
+      }
 
-    if (unknownError === true) {
-      setErr(unknownError);
-    }
+      if (unknownError === true) {
+        setErr(unknownError);
+      }
 
-    if (usernameTaken === true) {
-      setErr(usernameTaken);
+      if (usernameTaken === true) {
+        setErr(usernameTaken);
+      }
+    } catch (err) {
+      console.log(err);
     }
   }, [netWorkError, unknownError, usernameTaken]);
 
@@ -35,15 +39,19 @@ const ErrorModal = () => {
   //Check which error it is
 
   let handleCloseModel = () => {
-    if (netWorkError) {
-      setNetworkError(prev => !prev);
-    } else if (unknownError) {
-      setUnknownError(prev => !prev);
-    } else {
-      setUsernameTaken(prev => !prev);
+    try {
+      if (netWorkError) {
+        setNetworkError(prev => !prev);
+      } else if (unknownError) {
+        setUnknownError(prev => !prev);
+      } else {
+        setUsernameTaken(prev => !prev);
+      }
+      setErr(prev => !prev);
+      setErrorMessage('');
+    } catch (err) {
+      console.log(err);
     }
-    setErr(prev => !prev);
-    setErrorMessage('');
   };
 
   return (

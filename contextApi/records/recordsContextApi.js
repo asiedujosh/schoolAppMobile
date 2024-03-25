@@ -18,46 +18,62 @@ const RecordApiDataProvider = props => {
   const [reviewId, setReviewId] = useState();
 
   let processSaveRecords = async (data1, data2) => {
-    let newData = {
-      quizId: data1.quizId,
-      userId: data1.userInfo,
-      quizInfo: data1.quizInfo,
-      solvedQuestion: data1.solvedQuestions,
-      correctAns: data2.correctAns,
-      totalQues: data2.totalQuestions,
-      status: data2.status,
-    };
+    try {
+      let newData = {
+        quizId: data1.quizId,
+        userId: data1.userInfo,
+        quizInfo: data1.quizInfo,
+        solvedQuestion: data1.solvedQuestions,
+        correctAns: data2.correctAns,
+        totalQues: data2.totalQuestions,
+        status: data2.status,
+      };
 
-    let response = await saveRecords(newData);
-    if (response) {
-      setSaveInfoAlert(true);
-      setInfoSaved(true);
+      let response = await saveRecords(newData);
+      if (response) {
+        setSaveInfoAlert(true);
+        setInfoSaved(true);
+      }
+    } catch (err) {
+      console.log(err);
     }
   };
 
   let processGetUserRecords = async data => {
-    let response = await getSavedRecordsOfUser(data);
-    if (response) {
-      // console.log(response.data);
-      setSavedRecords(response.data);
+    try {
+      let response = await getSavedRecordsOfUser(data);
+      if (response) {
+        // console.log(response.data);
+        setSavedRecords(response.data);
+      }
+    } catch (err) {
+      console.log(err);
     }
   };
 
   let processGetRecordReview = async data => {
-    let response = await getRecordReview(data);
-    if (response) {
-      setRecordReviewInfo(response.data.userInfo);
-      setRecordReviewMark(response.data.mark);
-      setRecordReviewDetail(
-        JSON.parse(response.data.questions[0].solvedQuestions),
-      );
+    try {
+      let response = await getRecordReview(data);
+      if (response) {
+        setRecordReviewInfo(response.data.userInfo);
+        setRecordReviewMark(response.data.mark);
+        setRecordReviewDetail(
+          JSON.parse(response.data.questions[0].solvedQuestions),
+        );
+      }
+    } catch (err) {
+      console.log(err);
     }
   };
 
   let processDeleteRecord = async data => {
-    let response = await deleteRecord(data);
-    if (response) {
-      processGetUserRecords({userId: data.userId});
+    try {
+      let response = await deleteRecord(data);
+      if (response) {
+        processGetUserRecords({userId: data.userId});
+      }
+    } catch (err) {
+      console.log(err);
     }
   };
 

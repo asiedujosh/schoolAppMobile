@@ -42,10 +42,14 @@ const Dashboard = ({navigation}) => {
   const [carouselData, setCarouselData] = useState([]);
 
   useEffect(() => {
-    processGetAllExams();
-    processGetAllYear();
-    processGetAllSubject();
-    processGetPurchase(userProfile.id);
+    try {
+      processGetAllExams();
+      processGetAllYear();
+      processGetAllSubject();
+      processGetPurchase(userProfile && userProfile.id);
+    } catch (err) {
+      console.log(err);
+    }
   }, [isOffline]);
 
   useEffect(() => {
@@ -55,10 +59,14 @@ const Dashboard = ({navigation}) => {
   }, [alreadyLoggedIn]);
 
   useEffect(() => {
-    let carousels = examsList.filter(item => item.position !== '0');
-    setCarouselData(
-      carousels.sort((a, b) => parseInt(a.position) - parseInt(b.position)),
-    );
+    try {
+      let carousels = examsList.filter(item => item.position !== '0');
+      setCarouselData(
+        carousels.sort((a, b) => parseInt(a.position) - parseInt(b.position)),
+      );
+    } catch (err) {
+      console.log(err);
+    }
   }, [examsList]);
 
   const NetWorkCheck = () => {

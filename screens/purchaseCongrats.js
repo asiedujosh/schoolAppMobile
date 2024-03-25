@@ -17,18 +17,22 @@ const PurchaseCongrats = ({navigation}) => {
   const {setPurchaseStatus} = useContext(StoreApiData);
 
   useEffect(() => {
-    setPurchaseStatus(prev => !prev);
-    const backAction = () => {
-      // Return true to prevent default back button behavior
-      return true;
-    };
+    try {
+      setPurchaseStatus(prev => !prev);
+      const backAction = () => {
+        // Return true to prevent default back button behavior
+        return true;
+      };
 
-    const backHandler = BackHandler.addEventListener(
-      'hardwareBackPress',
-      backAction,
-    );
+      const backHandler = BackHandler.addEventListener(
+        'hardwareBackPress',
+        backAction,
+      );
 
-    return () => backHandler.remove();
+      return () => backHandler.remove();
+    } catch (err) {
+      console.log(err);
+    }
   }, []);
 
   const goToStore = () => {

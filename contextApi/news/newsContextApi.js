@@ -12,12 +12,16 @@ const NewsApiDataProvider = props => {
   }, []);
 
   const processGettingAllNews = async () => {
+    try{
     setLoading(prev => !prev);
     let response = await getAllNews();
     if (response) {
       setLoading(prev => !prev);
       setNews(response.data.data);
     }
+  } catch (err){
+    console.log(err)
+  }
   };
 
   return (
