@@ -114,6 +114,16 @@ const GameResult = ({navigation}) => {
     }
   };
 
+  let handleOnBtnAlert = () => {
+    Alert.alert('Notice', `You have a grade of ${gradeData.comment}`, [
+      {
+        text: 'Ok',
+        onPress: () => null,
+        style: 'cancel',
+      },
+    ]);
+  };
+
   return (
     <KeyboardAvoidingContainer>
       <View style={styles.quizOptionLead}>
@@ -129,7 +139,9 @@ const GameResult = ({navigation}) => {
               style={[styles.image, styles.resultTwoImage]}
             />
             <View style={styles.markDetail}>
-              <Text style={styles.markDetailText}>{gradeData.comment}</Text>
+              <Text style={styles.markDetailText} onPress={handleOnBtnAlert}>
+                {gradeData.comment}
+              </Text>
             </View>
           </View>
           <View style={[styles.gameResultTwoCard1, styles.gameResultTwoCard2]}>
@@ -137,6 +149,11 @@ const GameResult = ({navigation}) => {
               <Text style={styles.gameResultScoreText}>STATISTICS</Text>
             </View>
             <View>
+              {!positionReady && (
+                <View>
+                  <Text style={{color: '#000000'}}>No data available yet</Text>
+                </View>
+              )}
               {positionReady && (
                 <FlatList
                   data={positionReady}

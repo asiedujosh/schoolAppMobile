@@ -89,7 +89,7 @@ const Review = ({navigation}) => {
           </Text>
         </View>
         <ScrollView style={{flex: 1}}>
-          {infoData.length > 0 &&
+          {infoData.length > 0 ? (
             infoData.map(item => (
               <View style={styles.reviewQuestionCard}>
                 <Text style={styles.reviewCardHeadSubTitle}>
@@ -139,21 +139,64 @@ const Review = ({navigation}) => {
                   }
                 </View>
               </View>
-            ))}
+            ))
+          ) : filterAnswers(review, selectedValue).length == 0 ? (
+            <View className="" style={{marginTop: '20%'}}>
+              <Text style={{color: '#ffffff', fontSize: 20}}>No Data</Text>
+            </View>
+          ) : (
+            filterAnswers(review, selectedValue).map(item => (
+              <View style={styles.reviewQuestionCard}>
+                <Text style={styles.reviewCardHeadSubTitle}>
+                  Question {item.questionNo}
+                </Text>
+
+                {item.question !== '' && item.question !== null && (
+                  <OutputQuestion
+                    data={item.question}
+                    color={'black'}
+                    fontSize={20}
+                  />
+                )}
+
+                {item.questionEquation !== '' &&
+                  item.questionEquation !== null && (
+                    <AsciiOutput data={item.questionEquation} />
+                  )}
+
+                <View style={styles.reviewAnsContainer}>
+                  <Text
+                    style={[
+                      styles.reviewCardHeadSubTitle,
+                      styles.reviewAnsText,
+                    ]}>
+                    Chose: {item.userChoice.toUpperCase()}
+                  </Text>
+                  <Text
+                    style={[
+                      styles.reviewCardHeadSubTitle,
+                      styles.reviewAnsText,
+                    ]}>
+                    Answer: {item.answer.toUpperCase()}
+                  </Text>
+                </View>
+                <View style={styles.reviewOptionsContainer}>
+                  {
+                    <ReviewOptionsContainer
+                      optionType={[
+                        item.options,
+                        item.imageOptions,
+                        item.optionsWithEquation,
+                      ]}
+                      checkColor={colorCheck}
+                      dataInfo={[item.answer, item.userChoice]}
+                    />
+                  }
+                </View>
+              </View>
+            ))
+          )}
         </ScrollView>
-        <View>
-          <SubmitBtn
-            btnText={'Retry'}
-            width={width * 0.85}
-            color={'#ffffff'}
-            textColor={'#0347A1'}
-            borderRadius={width * 0.15}
-            topMargin={0.02 * height}
-            action={() => {
-              console.log('Will retry');
-            }}
-          />
-        </View>
       </View>
     </View>
   );

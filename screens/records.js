@@ -72,23 +72,15 @@ const Records = ({navigation}) => {
       source={require('../assets/img/record.jpg')} // Replace with your image path
       style={styles.recordBackgroundImage}>
       <View style={styles.recordOverlay}>
-        <View style={[styles.dashboardHeadCard, styles.recordCardTwo]}>
-          <View style={styles.reviewSearchContainer}>
-            <View style={styles.searchWrapper}>
-              <SelectField
-                title={'Home'}
-                field={'Home'}
-                top={'0%'}
-                option={['All', 'Correct', 'Wrongs']}
-                change={[
-                  selectedValue,
-                  setSelectedValue,
-                  reviewOption,
-                  setReviewOption,
-                ]}
-              />
-            </View>
-            <View style={styles.homeBtnWrapper}>
+        <View
+          style={[
+            styles.dashboardHeadCard,
+            styles.reviewCardTwo,
+            styles.settingHeadCard,
+          ]}>
+          <View style={styles.dashboardHeadFAQ}>
+            <Text style={[styles.dashboardHeadTitle]}>Records</Text>
+            <View style={[styles.homeBtnWrapper, {marginLeft: '-10%'}]}>
               <HomeBtn handleHome={handleHomeBtn} />
             </View>
           </View>
