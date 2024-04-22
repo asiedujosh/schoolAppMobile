@@ -61,10 +61,12 @@ const styles = StyleSheet.create({
     fontSize: 22,
     textAlign: 'center',
     fontWeight: 'bold',
+    color: '#000000',
   },
   titleTextsmall: {
     marginVertical: 8,
     fontSize: 16,
+    color: '#000000',
   },
   buttonStyle: {
     justifyContent: 'center',

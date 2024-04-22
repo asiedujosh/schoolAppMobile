@@ -6,6 +6,7 @@ import {
   ScrollView,
   FlatList,
   Pressable,
+  Image,
 } from 'react-native';
 import styles from '../globalStyles/Styles';
 import Icon from 'react-native-vector-icons/FontAwesome5';
@@ -73,27 +74,6 @@ const Cart = ({navigation}) => {
           </View>
           <View style={{justifyContent: 'space-between', height: 50}}>
             <MakePayment data={{premium: false, amount: totalAmount}} />
-            {/* <Pressable
-              style={[
-                styles.loadingBtn,
-                styles.premiumBtn,
-                {
-                  backgroundColor: '#ffffff',
-
-                  paddingHorizontal: 30,
-                },
-              ]}
-              onPress={() => {
-                console.log('hi');
-              }}>
-              <Text
-                style={[
-                  styles.loadingBtnText,
-                  {color: '#0347A1', paddingHorizontal: 10},
-                ]}>
-                Pay
-              </Text>
-            </Pressable> */}
           </View>
 
           <View style={styles.scrollContainer}>

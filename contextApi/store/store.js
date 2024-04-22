@@ -4,7 +4,7 @@ import axios from 'axios';
 export const getStoreProducts = async () => {
   try {
     let responseOnGetStore = await axios.get(
-      `${URL}/api/getAllLinkedExamSubject`,
+      `${URL}/api/mobileGetAllLinkedExamSubject`,
     );
     if (responseOnGetStore.status === SUCCESS_STATUS) {
       return responseOnGetStore.data;

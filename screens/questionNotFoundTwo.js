@@ -46,7 +46,7 @@ const QuestionsNotAvailableTwo = ({navigation}) => {
           </View>
           <View style={{flex: 0.5}}>
             <SubmitBtn
-              btnText={'Try Again'}
+              btnText={'Home'}
               width={width * 0.85}
               color={'#ffffff'}
               textColor={'#0347A1'}

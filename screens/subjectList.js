@@ -51,9 +51,9 @@ const SubjectList = ({navigation}) => {
       let subjectInfo = subjectList.filter(item => item.id == item2);
 
       let quizOptions = {
-        quizType: examInfo.exam,
-        year: yearInfo.year,
-        subject: subjectInfo.subject,
+        quizType: examInfo[0] && examInfo[0].exam,
+        year: yearInfo[0] && yearInfo[0].year,
+        subject: subjectInfo[0] && subjectInfo[0].subject,
         questionNos: '100',
         questionStyle: 'Straight',
       };
@@ -76,6 +76,8 @@ const SubjectList = ({navigation}) => {
           item.yearId == entryData.yearId &&
           item.subjectId == entryData.subjectId,
       );
+
+      console.log(quizOptions);
 
       checkPurchase.length == 0 && checkFree.length == 0
         ? handleNotPurchased()

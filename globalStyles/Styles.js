@@ -450,7 +450,7 @@ export default StyleSheet.create({
 
   buttonContainer2Text: {
     color: whiteColor,
-    paddingHorizontal: 0.2 * width,
+    // paddingHorizontal: 0.2 * width,
     fontFamily: mainFamilyBody,
   },
 
@@ -601,6 +601,19 @@ export default StyleSheet.create({
     width: 250, // Set the width as needed
     height: 300, // Set the height as needed
     resizeMode: 'contain',
+  },
+
+  paymentModeImage: {
+    width: width * 0.85,
+    height: 60,
+    resizeMode: 'contain',
+    marginBottom: 10,
+  },
+
+  whatsappLogoImage: {
+    width: width * 0.1,
+    resizeMode: 'contain',
+    height: 24,
   },
 
   marksContainer: {

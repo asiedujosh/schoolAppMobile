@@ -52,32 +52,14 @@ const Free = ({navigation}) => {
                   return (
                     <View>
                       <StoreAccordionItem title={item.exam}>
-                        <FlatList
-                          data={yearList}
-                          pagingEnabled
-                          snapToAlignment="center"
-                          scrollEventThrottle={16}
-                          decelerationRate={'fast'}
-                          renderItem={({item}) => {
-                            return (
-                              <View>
-                                <StoreAccordionItem
-                                  title={item.year}
-                                  year={true}>
-                                  <AccordionList
-                                    data={
-                                      freeProducts &&
-                                      freeProducts.filter(
-                                        item2 => item2.examId == item.id,
-                                      )
-                                    }
-                                    purchase={true}
-                                  />
-                                </StoreAccordionItem>
-                              </View>
-                            );
-                          }}
-                          keyExtractor={(item, index) => index.toString()}
+                        <AccordionList
+                          data={
+                            freeProducts &&
+                            freeProducts.filter(
+                              item2 => item2.examId == item.id,
+                            )
+                          }
+                          purchase={true}
                         />
                       </StoreAccordionItem>
                     </View>

@@ -6,6 +6,7 @@ import {
   ScrollView,
   FlatList,
   Pressable,
+  Image,
 } from 'react-native';
 import styles from '../globalStyles/Styles';
 import Icon from 'react-native-vector-icons/Feather';
@@ -83,6 +84,13 @@ const Sales = ({navigation}) => {
           </Pressable>
         </View>
 
+        <View>
+          <Image
+            source={require('../assets/img/paymentMode.png')}
+            style={styles.paymentModeImage}
+          />
+        </View>
+
         <View style={styles.scrollContainer}>
           <ScrollView style={{flex: 1}}>
             <View style={{marginBottom: '15%'}}>
@@ -96,31 +104,11 @@ const Sales = ({navigation}) => {
                   return (
                     <View>
                       <StoreAccordionItem title={item.exam}>
-                        <FlatList
-                          data={yearList}
-                          pagingEnabled
-                          snapToAlignment="center"
-                          scrollEventThrottle={16}
-                          decelerationRate={'fast'}
-                          renderItem={({item}) => {
-                            return (
-                              <View>
-                                <StoreAccordionItem
-                                  title={item.year}
-                                  year={true}>
-                                  <AccordionList
-                                    data={
-                                      itemsOnSale &&
-                                      itemsOnSale.filter(
-                                        item2 => item2.examId == item.id,
-                                      )
-                                    }
-                                  />
-                                </StoreAccordionItem>
-                              </View>
-                            );
-                          }}
-                          keyExtractor={(item, index) => index.toString()}
+                        <AccordionList
+                          data={
+                            itemsOnSale &&
+                            itemsOnSale.filter(item2 => item2.examId == item.id)
+                          }
                         />
                       </StoreAccordionItem>
                     </View>

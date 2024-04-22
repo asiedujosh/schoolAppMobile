@@ -165,13 +165,17 @@ const Records = ({navigation}) => {
                   <ActivityIndicator size="large" color="#FFFFFF" />
                 </View>
               )}
-              {savedRecords && !savedRecords.records && (
-                <View style={[styles.recordCardContainer, {marginTop: '20%'}]}>
-                  <Text style={styles.recordInfoTextTitle}>
-                    No Data Available
-                  </Text>
-                </View>
-              )}
+              {savedRecords &&
+                savedRecords.records &&
+                savedRecords.records.length <= 0 && (
+                  <View
+                    style={[styles.recordCardContainer, {marginTop: '20%'}]}>
+                    <Text
+                      style={[styles.recordInfoTextTitle, {color: '#ffffff'}]}>
+                      No Data Available
+                    </Text>
+                  </View>
+                )}
             </View>
           </ScrollView>
         </View>

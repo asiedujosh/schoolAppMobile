@@ -4,6 +4,7 @@ import {
   Text,
   View,
   Pressable,
+  Image,
   ActivityIndicator,
 } from 'react-native';
 import styles from '../globalStyles/Styles';
@@ -58,9 +59,15 @@ const Upgrading = ({navigation}) => {
               </View>
             </View>
           </View>
+          <View>
+            <Image
+              source={require('../assets/img/paymentMode.png')}
+              style={styles.paymentModeImage}
+            />
+          </View>
           <View style={styles.scrollContainer}>
             <View style={[styles.analysisCard]}>
-              <Text>
+              <Text style={{color: '#000000'}}>
                 An amount of GH{packagePrice.packagePrice} will be charged to
                 upgrade your package
               </Text>

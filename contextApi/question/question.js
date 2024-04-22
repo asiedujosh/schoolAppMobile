@@ -3,7 +3,7 @@ import axios from 'axios';
 
 export const getAllExams = async () => {
   try {
-    let responseOnGetAllExams = await axios.get(`${URL}/api/getAllExam`);
+    let responseOnGetAllExams = await axios.get(`${URL}/api/mobileGetAllExam`);
     if (responseOnGetAllExams.status === SUCCESS_STATUS) {
       return responseOnGetAllExams.data;
     } else {
@@ -17,7 +17,7 @@ export const getAllExams = async () => {
 
 export const getAllYear = async () => {
   try {
-    let responseOnGetAllYear = await axios.get(`${URL}/api/getAllYear`);
+    let responseOnGetAllYear = await axios.get(`${URL}/api/mobileGetAllYear`);
     if (responseOnGetAllYear.status === SUCCESS_STATUS) {
       return responseOnGetAllYear.data;
     } else {
@@ -31,7 +31,9 @@ export const getAllYear = async () => {
 
 export const getAllSubject = async () => {
   try {
-    let responseOnGetAllSubject = await axios.get(`${URL}/api/getAllSubject`);
+    let responseOnGetAllSubject = await axios.get(
+      `${URL}/api/mobileGetAllSubject`,
+    );
     if (responseOnGetAllSubject.status === SUCCESS_STATUS) {
       return responseOnGetAllSubject.data;
     } else {
@@ -45,7 +47,7 @@ export const getAllSubject = async () => {
 
 export const getAllTopic = async () => {
   try {
-    let responseOnGetAllTopic = await axios.get(`${URL}/api/getAllTopic`);
+    let responseOnGetAllTopic = await axios.get(`${URL}/api/mobileGetAllTopic`);
     if (responseOnGetAllTopic.status === SUCCESS_STATUS) {
       return responseOnGetAllTopic.data;
     } else {

@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from 'react';
 import styles from '../globalStyles/Styles';
-import {Pressable, Text, View, Linking} from 'react-native';
+import {Pressable, Text, View, Linking, Image} from 'react-native';
 
 const WhatsappBtnContainer = ({navigation}) => {
   const goToWhatsApp = () => {
@@ -16,6 +16,10 @@ const WhatsappBtnContainer = ({navigation}) => {
           styles.whatsappBtn,
           {backgroundColor: pressed ? '#7FFF7F' : 'green'},
         ]}>
+        <Image
+          source={require('../assets/img/whatsAppLogoWhite.png')}
+          style={styles.whatsappLogoImage}
+        />
         <Text style={styles.buttonContainer2Text}>Need Help?</Text>
       </Pressable>
     </View>

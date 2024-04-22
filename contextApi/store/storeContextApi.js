@@ -28,13 +28,13 @@ const StoreApiDataProvider = props => {
             !purchases.some(
               item2 =>
                 item2.examId == item1.examId &&
-                item2.yearId == item1.yearId &&
+                // item2.yearId == item1.yearId &&
                 item2.subjecId == item1.subjectId,
             ),
         );
-        console.log(purchases);
-        console.log(saleProducts);
-        console.log(filteredArray);
+        // console.log(purchases);
+        // console.log(saleProducts);
+        // console.log(filteredArray);
         setItemsOnSale(filteredArray);
       }
     } catch (err) {

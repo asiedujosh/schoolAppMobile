@@ -6,6 +6,7 @@ import {
   ScrollView,
   FlatList,
   Pressable,
+  ActivityIndicator,
 } from 'react-native';
 import {AuthApiData} from '../contextApi/auth/authContextApi.js';
 import {QuestionApiData} from '../contextApi/question/questionContextApi.js';
@@ -57,7 +58,16 @@ const Analysis = ({navigation}) => {
 
           <View style={styles.scrollContainer}>
             <ScrollView style={{flex: 1}}>
-              {savedRecords && (
+              {savedRecords &&
+                savedRecords.records &&
+                savedRecords.records.length <= 0 && (
+                  <View className="" style={{marginTop: '20%'}}>
+                    <Text style={{color: '#ffffff', fontSize: 20}}>
+                      No Data Available
+                    </Text>
+                  </View>
+                )}
+              {savedRecords ? (
                 <FlatList
                   data={savedRecords.records}
                   pagingEnabled
@@ -122,6 +132,10 @@ const Analysis = ({navigation}) => {
                     );
                   }}
                 />
+              ) : (
+                <View style={[styles.recordCardContainer, {marginTop: '20%'}]}>
+                  <ActivityIndicator size="large" color="#FFFFFF" />
+                </View>
               )}
               {savedRecords && !savedRecords.records && (
                 <View style={[styles.recordCardContainer, {marginTop: '20%'}]}>
