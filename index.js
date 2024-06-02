@@ -12,6 +12,7 @@ import QuestionApiDataProvider from './contextApi/question/questionContextApi';
 import RecordApiDataProvider from './contextApi/records/recordsContextApi';
 import NewsApiDataProvider from './contextApi/news/newsContextApi';
 import StoreApiDataProvider from './contextApi/store/storeContextApi';
+import TrackPlayer from 'react-native-track-player';
 
 const MainApp = () => {
   return (
@@ -34,3 +35,4 @@ const MainApp = () => {
 };
 
 AppRegistry.registerComponent(appName, () => MainApp);
+TrackPlayer.registerPlaybackService(() => require('./service'));

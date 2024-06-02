@@ -6,6 +6,7 @@ import {
   getAllYear,
   getAllTopic,
   getSelectectedQuestions,
+  getSelectedOralQuestions,
 } from './question';
 // import {Login, Register} from './question';
 export const QuestionApiData = createContext();
@@ -13,17 +14,22 @@ export const QuestionApiData = createContext();
 const QuestionApiDataProvider = props => {
   const [examsList, setExamsList] = useState([]);
   const [questionInfo, setQuestionInfo] = useState();
+  const [oralQuestionInfo, setOralQuestionInfo] = useState();
   const [quizAttempt, setQuizAttempt] = useState();
+  const [oralQuizAttempt, setOralQuizAttempt] = useState();
   const [examOptions, setExamOptions] = useState();
   const [yearOptions, setYearOptions] = useState();
   const [subjectOptions, setSubjectOptions] = useState();
   const [yearList, setYearList] = useState([]);
   const [solvedQuestions, setSolvedQuestions] = useState([]);
+  const [solvedOralQuestions, setSolvedOralQuestions] = useState([]);
   const [review, setReview] = useState([]);
+  const [oralReview, setOralReview] = useState([]);
   const [subjectList, setSubjectList] = useState([]);
   const [topicList, setTopicList] = useState([]);
   const [loadingQuestions, setLoadingQuestions] = useState(false);
   const [questions, setQuestions] = useState();
+  const [oralQuestions, setOralQuestions] = useState();
   const [correctAns, setCorrectAns] = useState(0);
 
   useEffect(() => {
@@ -159,11 +165,44 @@ const QuestionApiDataProvider = props => {
 
       setQuestionInfo(info);
 
-      console.log(formData);
+      // console.log(formData);
       let response = await getSelectectedQuestions(formData);
       if (response) {
         console.log(response);
         setQuestions(response.data.data);
+        setLoadingQuestions(false);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const processGetOralQuestions = async data => {
+    try {
+      // questionStyle: data.questionStyle || null,
+      //   timer: data.timer || null,
+      let formData = {
+        examType: mapId(data.quizType, examsList, 'exam'),
+        year: mapId(data.year, yearList, 'year'),
+        subject: mapId(data.subject, subjectList, 'subject'),
+        questionNos: data.questionNos || null,
+      };
+
+      let info = {
+        examsType: data.quizType,
+        year: data.year,
+        subject: data.subject,
+        timer: data.timer || null,
+        questionStyle: data.questionStyle,
+      };
+
+      setOralQuestionInfo(info);
+
+      // console.log(formData);
+      let response = await getSelectedOralQuestions(formData);
+      if (response) {
+        // console.log(response);
+        setOralQuestions(response.data.data);
         setLoadingQuestions(false);
       }
     } catch (err) {
@@ -237,6 +276,38 @@ const QuestionApiDataProvider = props => {
     }
   };
 
+  const updateOralQuizAttempt = (id, newData) => {
+    try {
+      setOralQuizAttempt(prevQuizAttempt => {
+        // Create a copy of the state
+        const updatedSolvedOralQuestions = [
+          ...prevQuizAttempt.solvedOralQuestions,
+        ];
+
+        // Find the index of the question with the given ID
+        const oralQuestionIndex = updatedSolvedOralQuestions.findIndex(
+          oralQuestion => oralQuestion.id === id,
+        );
+
+        // Update the userChoice for the found question
+        if (oralQuestionIndex !== -1) {
+          updatedSolvedOralQuestions[oralQuestionIndex] = {
+            ...updatedSolvedOralQuestions[oralQuestionIndex],
+            userChoice: newData,
+          };
+        }
+
+        // Return the updated state
+        return {
+          ...prevOralQuizAttempt,
+          solvedOralQuestions: updatedSolvedOralQuestions,
+        };
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const processQuizAttempt = (id, ans, userAns) => {
     try {
       if (userAns) {
@@ -253,15 +324,33 @@ const QuestionApiDataProvider = props => {
     }
   };
 
+  const processOralQuizAttempt = (id, ans, userAns) => {
+    try {
+      if (userAns) {
+        if (ans.toLowerCase() === userAns.toLowerCase()) {
+          setCorrectAns(prev => prev + 1);
+        } else {
+          userAns = 'None';
+        }
+
+        updateOralQuizAttempt(id, userAns);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <QuestionApiData.Provider
       value={{
+        solvedOralQuestions,
         solvedQuestions,
         setSolvedQuestions,
         processGetAllYear,
         processGetAllExams,
         processGetAllSubject,
         processGetQuestions,
+        processGetOralQuestions,
         setQuestions,
         examsList,
         yearList,
@@ -269,16 +358,23 @@ const QuestionApiDataProvider = props => {
         yearOptions,
         examOptions,
         subjectOptions,
+        oralQuestions,
+        oralQuestionInfo,
         questions,
         questionInfo,
         loadingQuestions,
         setLoadingQuestions,
         processQuizAttempt,
+        processOralQuizAttempt,
         correctAns,
         quizAttempt,
+        oralQuizAttempt,
+        oralReview,
         review,
         setReview,
+        setOralReview,
         setSolvedQuestions,
+        setSolvedOralQuestions,
         setCorrectAns,
         topicList,
       }}>

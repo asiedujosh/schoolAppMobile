@@ -21,13 +21,13 @@ import {AuthApiData} from '../contextApi/auth/authContextApi.js';
 import {RecordApiData} from '../contextApi/records/recordsContextApi.js';
 import KeyboardAvoidingContainer from '../component/keyboardAvoidingContainer';
 
-const Records = ({navigation}) => {
+const OralRecords = ({navigation}) => {
   const {userProfile, isOffline} = useContext(AuthApiData);
   const {
-    processGetUserRecords,
-    savedRecords,
-    setReviewId,
-    processDeleteRecord,
+    processGetOralUserRecords,
+    oralSavedRecords,
+    setOralReviewId,
+    processDeleteOralRecord,
   } = useContext(RecordApiData);
   const [reviewOption, setReviewOption] = useState({
     reviewOption: STATUSOPTION.selectOptions.options[0],
@@ -35,7 +35,7 @@ const Records = ({navigation}) => {
   const [selectedValue, setSelectedValue] = useState('');
 
   useEffect(() => {
-    processGetUserRecords({userId: userProfile.username});
+    processGetOralUserRecords({userId: userProfile.username});
   }, []);
 
   // useEffect(() => {
@@ -46,30 +46,30 @@ const Records = ({navigation}) => {
     navigation.navigate('Dashboard');
   };
 
-  const goToOralRecords = () => {
+  const goToQuizRecords = () => {
     if (!isOffline) {
       NetWorkCheck();
     } else {
-      navigation.navigate('OralRecord');
+      navigation.navigate('Record');
     }
   };
 
   const goToRecordReview = item => {
-    setReviewId(item);
-    navigation.navigate('RecordView');
+    setOralReviewId(item);
+    navigation.navigate('OralRecordView');
   };
 
   const alertToDeleteRecord = item => {
     Alert.alert(
       'Delete Record',
-      'Are you sure you want to delete record?',
+      'Are you sure you want to delete oral record?',
       [
         {
           text: 'Cancel',
           onPress: () => null,
           style: 'cancel',
         },
-        {text: 'OK', onPress: () => processDeleteRecord(item)},
+        {text: 'OK', onPress: () => processDeleteOralRecord(item)},
       ],
       {cancelable: false},
     );
@@ -101,10 +101,10 @@ const Records = ({navigation}) => {
               styles.premiumBtn,
               {width: 160, marginHorizontal: 5},
             ]}
-            onPress={goToOralRecords}>
+            onPress={goToQuizRecords}>
             {/* <Icon name="shopping-cart" size={20} color="#ffffff" /> */}
             <Text style={[styles.loadingBtnText, {marginHorizontal: 5}]}>
-              Oral Records
+              Quiz Records
             </Text>
           </Pressable>
         </View>
@@ -112,9 +112,9 @@ const Records = ({navigation}) => {
         <View style={[styles.recordBody]}>
           <ScrollView style={{flex: 1}}>
             <View style={styles.recordCardContainer}>
-              {savedRecords ? (
+              {oralSavedRecords ? (
                 <FlatList
-                  data={savedRecords.records}
+                  data={oralSavedRecords.records}
                   keyExtractor={(item, index) => 'key' + item.id}
                   pagingEnabled
                   numColumns={1}
@@ -189,9 +189,9 @@ const Records = ({navigation}) => {
                   <ActivityIndicator size="large" color="#FFFFFF" />
                 </View>
               )}
-              {savedRecords &&
-                savedRecords.records &&
-                savedRecords.records.length <= 0 && (
+              {oralSavedRecords &&
+                oralSavedRecords.records &&
+                oralSavedRecords.records.length <= 0 && (
                   <View
                     style={[styles.recordCardContainer, {marginTop: '20%'}]}>
                     <Text
@@ -208,4 +208,4 @@ const Records = ({navigation}) => {
   );
 };
 
-export default Records;
+export default OralRecords;

@@ -45,7 +45,10 @@ const Home = ({navigation}) => {
             <SignUpOptions change={[registerStage, setRegisterStage]} />
           )}
           {registerStage == 2 && (
-            <SignIn change={[registerStage, setRegisterStage]} />
+            <SignIn
+              change={[registerStage, setRegisterStage]}
+              navigation={navigation}
+            />
           )}
           {registerStage >= 3 && <SignUp navigation={navigation} />}
         </View>

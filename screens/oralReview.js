@@ -11,15 +11,22 @@ import HomeBtn from '../component/homeBtn.js';
 import {QUESTIONS, OPTIONS} from '../constant/gameboardConstant.js';
 import SubmitBtn from '../component/submitBtn';
 import OutputQuestion from '../component/htmlOutput.js';
+import AudioQuestion from '../component/audioQuestion.js';
 import AsciiOutput from './asciiHtml.js';
 import {QuestionApiData} from '../contextApi/question/questionContextApi.js';
 import KeyboardAvoidingContainer from '../component/keyboardAvoidingContainer';
 
 const {width, height} = Dimensions.get('window');
 
-const Review = ({navigation}) => {
-  const {quizAttempt, correctAns, questions, questionInfo, review, setReview} =
-    useContext(QuestionApiData);
+const OralReview = ({navigation}) => {
+  const {
+    oralQuizAttempt,
+    correctAns,
+    oralQuestions,
+    oralQuestionInfo,
+    oralReview,
+    setReview,
+  } = useContext(QuestionApiData);
   const [reviewOption, setReviewOption] = useState({
     reviewOption: REVIEW.selectOptions.options[0],
   });
@@ -28,7 +35,7 @@ const Review = ({navigation}) => {
 
   useEffect(() => {
     // console.log(selectedValue);
-    setInfoData(filterAnswers(review, selectedValue));
+    setInfoData(filterAnswers(oralReview, selectedValue));
   }, [selectedValue]);
 
   let handleHomeBtn = () => {
@@ -79,13 +86,13 @@ const Review = ({navigation}) => {
         </View>
         <View style={styles.reviewCardHeadContainer}>
           <Text style={styles.reviewCardHeadTitle}>
-            {quizAttempt.quizInfo.subject.toUpperCase()}
+            {oralQuizAttempt.quizInfo.subject.toUpperCase()}
           </Text>
           <Text style={styles.reviewCardHeadTitle}>
-            {quizAttempt.quizInfo.year.toUpperCase()}
+            {oralQuizAttempt.quizInfo.year.toUpperCase()}
           </Text>
           <Text style={[styles.reviewCardHeadSubTitle, {color: '#fff'}]}>
-            {correctAns} Out of {questions && questions.length}
+            {correctAns} Out of {oralQuestions && oralQuestions.length}
           </Text>
         </View>
         <ScrollView style={{flex: 1}}>
@@ -97,17 +104,8 @@ const Review = ({navigation}) => {
                 </Text>
 
                 {item.question !== '' && item.question !== null && (
-                  <OutputQuestion
-                    data={item.question}
-                    // color={'black'}
-                    // fontSize={20}
-                  />
+                  <AudioQuestion tracks={item.audio_url} />
                 )}
-
-                {item.questionEquation !== '' &&
-                  item.questionEquation !== null && (
-                    <AsciiOutput data={item.questionEquation} />
-                  )}
 
                 <View style={styles.reviewAnsContainer}>
                   <Text
@@ -159,11 +157,6 @@ const Review = ({navigation}) => {
                   />
                 )}
 
-                {item.questionEquation !== '' &&
-                  item.questionEquation !== null && (
-                    <AsciiOutput data={item.questionEquation} />
-                  )}
-
                 <View style={styles.reviewAnsContainer}>
                   <Text
                     style={[
@@ -202,4 +195,4 @@ const Review = ({navigation}) => {
   );
 };
 
-export default Review;
+export default OralReview;

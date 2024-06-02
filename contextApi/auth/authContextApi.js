@@ -12,11 +12,14 @@ import {
   removeUserSession,
 } from '../../utils/localStore';
 import NetInfo from '@react-native-community/netinfo';
-import {Login, Register} from './auth';
+import {Login, Register, ForgotPassword, ResetPassword} from './auth';
 export const AuthApiData = createContext();
 
 const AuthApiDataProvider = props => {
   const [alreadyLoggedIn, setAlreadyLoggedIn] = useState(false);
+  const [resetPasswordPage, setResetPasswordPage] = useState(false);
+  const [resetLoader, setResetLoader] = useState(false);
+  const [resetSuccess, setResetSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
   const [userProfile, setUserProfile] = useState();
   const [isOffline, setOfflineStatus] = useState(false);
@@ -34,6 +37,7 @@ const AuthApiDataProvider = props => {
   });
   const [registerStage, setRegisterStage] = useState(0);
   const [errorMessage, setErrorMessage] = useState('');
+  const [forgotSuccessMessage, setForgotSuccessMessage] = useState('');
 
   //Handling Errors
   const [signInLoading, setSignInLoading] = useState(false);
@@ -165,6 +169,33 @@ const AuthApiDataProvider = props => {
     }
   };
 
+  const processForgotPassword = async data => {
+    try {
+      let response = await ForgotPassword(data);
+      if (response.data) {
+        setForgotSuccessMessage(response.message);
+        setResetPasswordPage(prev => !prev);
+      } else {
+        console.log('An error showed up');
+      }
+      setResetLoader(prev => !prev);
+    } catch (err) {
+      console.log(err);
+      setResetLoader(prev => !prev);
+    }
+  };
+
+  const processResetPassword = async data => {
+    try {
+      let response = await ResetPassword(data);
+      if (response.data) {
+        setResetSuccess(prev => !prev);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const processLogout = async () => {
     try {
       removeUserSession();
@@ -202,6 +233,14 @@ const AuthApiDataProvider = props => {
         setUsernameTaken,
         fetchUser,
         isOffline,
+        processForgotPassword,
+        setResetPasswordPage,
+        resetPasswordPage,
+        resetLoader,
+        setResetLoader,
+        forgotSuccessMessage,
+        processResetPassword,
+        resetSuccess,
         // selected,
         // setSelected,
         // country,

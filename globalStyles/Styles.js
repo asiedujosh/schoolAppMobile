@@ -390,6 +390,8 @@ export default StyleSheet.create({
 
   questionTextContainer: {
     paddingHorizontal: '5%',
+    paddingVertical: '2%',
+    backgroundColor: '#ffffff',
   },
 
   questionText: {
@@ -564,6 +566,10 @@ export default StyleSheet.create({
     fontFamily: mainFamilyBody,
     color: black,
     fontSize: mainTextSize * 1.1,
+  },
+
+  audioOptionItem: {
+    color: whiteColor,
   },
 
   /** Game Result View */
@@ -1108,6 +1114,11 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
 
+  audioContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+
   recordCardMarks: {
     fontFamily: mainFamilyHead,
     fontSize: 25,
@@ -1269,13 +1280,18 @@ export default StyleSheet.create({
 
   scrollViewCardText: {
     marginTop: 5,
-    fontSize: 16,
+    fontSize: 12,
   },
 
   scrollViewCardImage: {
     width: 80,
     height: 80,
     borderRadius: 10,
+  },
+
+  scrollViewCardTextContainer: {
+    alignItems: 'center',
+    width: 80,
   },
 
   analysisCard: {

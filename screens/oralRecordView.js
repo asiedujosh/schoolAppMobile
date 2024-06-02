@@ -1,43 +1,67 @@
-import {useState, useEffect, useContext} from 'react';
-import {StyleSheet, Text, View, ScrollView, Pressable} from 'react-native';
-import {Dimensions} from 'react-native';
-import styles from '../globalStyles/Styles';
+import {useState, useContext, useEffect} from 'react';
+import {Text, View, ScrollView, Pressable, FlatList, Alert} from 'react-native';
+import {QuestionApiData} from '../contextApi/question/questionContextApi.js';
+import ReviewOptionsContainer from '../component/reviewOptionContainer.js';
 import {REVIEW} from '../constant/reviewConstant';
 import filterAnswers from '../utils/filterAnswers';
-import SelectField from '../component/selectField';
-import ReviewOptionsContainer from '../component/reviewOptionContainer.js';
-import SelectFieldCorrection from '../component/selectFieldCorrection';
 import HomeBtn from '../component/homeBtn.js';
-import {QUESTIONS, OPTIONS} from '../constant/gameboardConstant.js';
-import SubmitBtn from '../component/submitBtn';
+import SelectFieldCorrection from '../component/selectFieldCorrection';
+import {OPTIONS} from '../constant/gameboardConstant.js';
+import styles from '../globalStyles/Styles';
 import OutputQuestion from '../component/htmlOutput.js';
 import AsciiOutput from './asciiHtml.js';
-import {QuestionApiData} from '../contextApi/question/questionContextApi.js';
-import KeyboardAvoidingContainer from '../component/keyboardAvoidingContainer';
+import AudioQuestion from '../component/audioQuestion.js';
+import {RecordApiData} from '../contextApi/records/recordsContextApi.js';
 
-const {width, height} = Dimensions.get('window');
-
-const Review = ({navigation}) => {
-  const {quizAttempt, correctAns, questions, questionInfo, review, setReview} =
+const OralRecordView = ({navigation}) => {
+  const {processGetOralQuestions, oralQuestions, setLoadingQuestions} =
     useContext(QuestionApiData);
+  const {
+    processGetOralRecordReview,
+    oralRecordReviewMark,
+    oralRecordReviewInfo,
+    oralRecordReviewDetail,
+    oralReviewId,
+  } = useContext(RecordApiData);
   const [reviewOption, setReviewOption] = useState({
     reviewOption: REVIEW.selectOptions.options[0],
   });
+
   const [selectedValue, setSelectedValue] = useState('All');
   const [infoData, setInfoData] = useState([]);
 
   useEffect(() => {
+    processGetOralRecordReview(oralReviewId);
+    setInfoData(filterAnswers(oralRecordReviewDetail, selectedValue));
+  }, []);
+
+  useEffect(() => {
     // console.log(selectedValue);
-    setInfoData(filterAnswers(review, selectedValue));
+    setInfoData(filterAnswers(oralRecordReviewDetail, selectedValue));
   }, [selectedValue]);
 
-  let handleHomeBtn = () => {
-    navigation.navigate('Dashboard');
-  };
+  useEffect(() => {
+    if (oralQuestions) {
+      if (oralQuestions.length > 0) {
+        navigation.navigate('OralGameBoard');
+      } else {
+        navigation.navigate('QuestionsNotAvailable');
+      }
+    }
+  }, [oralQuestions]);
 
-  // let handleRetry = () => {
-  //   console.log(quizAttempt);
-  // };
+  let handleRetry = () => {
+    setLoadingQuestions(true);
+    let questionsData = {
+      quizType: oralRecordReviewInfo && oralRecordReviewInfo[0].examsType,
+      subject: oralRecordReviewInfo && oralRecordReviewInfo[0].subject,
+      year: oralRecordReviewInfo && oralRecordReviewInfo[0].year,
+      questionNos:
+        oralRecordReviewMark && oralRecordReviewMark[0].noOfQuestions,
+      questionStyle: 'Straight',
+    };
+    processGetOralQuestions(questionsData);
+  };
 
   let colorCheck = (one, answer, choseAnswer, item) => {
     try {
@@ -62,6 +86,20 @@ const Review = ({navigation}) => {
     }
   };
 
+  const handleCompleteBtn = () => {
+    Alert.alert('Notice', 'Records show completed works', [
+      {
+        text: 'Ok',
+        onPress: () => null,
+        style: 'cancel',
+      },
+    ]);
+  };
+
+  let handleHomeBtn = () => {
+    navigation.navigate('Dashboard');
+  };
+
   return (
     <View style={{flex: 1}}>
       <View style={[styles.reviewCardTwo, styles.reviewCardThree]}>
@@ -77,17 +115,33 @@ const Review = ({navigation}) => {
             <HomeBtn handleHome={handleHomeBtn} />
           </View>
         </View>
+
         <View style={styles.reviewCardHeadContainer}>
           <Text style={styles.reviewCardHeadTitle}>
-            {quizAttempt.quizInfo.subject.toUpperCase()}
+            {oralRecordReviewInfo.length > 0 &&
+              oralRecordReviewInfo[0].examsType.toUpperCase()}{' '}
+            {oralRecordReviewInfo.length > 0 && oralRecordReviewInfo[0].subject}
           </Text>
           <Text style={styles.reviewCardHeadTitle}>
-            {quizAttempt.quizInfo.year.toUpperCase()}
+            {oralRecordReviewInfo.length > 0 && oralRecordReviewInfo[0].year}
           </Text>
           <Text style={[styles.reviewCardHeadSubTitle, {color: '#fff'}]}>
-            {correctAns} Out of {questions && questions.length}
+            {oralRecordReviewMark && oralRecordReviewMark[0].correctMark} Out of{' '}
+            {oralRecordReviewMark && oralRecordReviewMark[0].noOfQuestions}
           </Text>
         </View>
+
+        <View style={styles.recordStatusBarContainer}>
+          <View style={styles.completeBtn}>
+            <Text style={styles.recordBtnText} onPress={handleCompleteBtn}>
+              Complete
+            </Text>
+          </View>
+          <Pressable style={styles.retryBtn} onPress={handleRetry}>
+            <Text style={styles.recordBtnText}>Retry</Text>
+          </Pressable>
+        </View>
+
         <ScrollView style={{flex: 1}}>
           {infoData.length > 0 ? (
             infoData.map(item => (
@@ -97,17 +151,8 @@ const Review = ({navigation}) => {
                 </Text>
 
                 {item.question !== '' && item.question !== null && (
-                  <OutputQuestion
-                    data={item.question}
-                    // color={'black'}
-                    // fontSize={20}
-                  />
+                  <AudioQuestion tracks={item.question.audio_url} />
                 )}
-
-                {item.questionEquation !== '' &&
-                  item.questionEquation !== null && (
-                    <AsciiOutput data={item.questionEquation} />
-                  )}
 
                 <View style={styles.reviewAnsContainer}>
                   <Text
@@ -140,29 +185,21 @@ const Review = ({navigation}) => {
                 </View>
               </View>
             ))
-          ) : filterAnswers(review, selectedValue).length == 0 ? (
+          ) : filterAnswers(oralRecordReviewDetail, selectedValue).length ==
+            0 ? (
             <View className="" style={{marginTop: '20%'}}>
               <Text style={{color: '#ffffff', fontSize: 20}}>No Data</Text>
             </View>
           ) : (
-            filterAnswers(review, selectedValue).map(item => (
+            filterAnswers(oralRecordReviewDetail, selectedValue).map(item => (
               <View style={styles.reviewQuestionCard}>
                 <Text style={styles.reviewCardHeadSubTitle}>
                   Question {item.questionNo}
                 </Text>
 
                 {item.question !== '' && item.question !== null && (
-                  <OutputQuestion
-                    data={item.question}
-                    color={'black'}
-                    fontSize={20}
-                  />
+                  <AudioQuestion tracks={item.question.audio_url} />
                 )}
-
-                {item.questionEquation !== '' &&
-                  item.questionEquation !== null && (
-                    <AsciiOutput data={item.questionEquation} />
-                  )}
 
                 <View style={styles.reviewAnsContainer}>
                   <Text
@@ -202,4 +239,4 @@ const Review = ({navigation}) => {
   );
 };
 
-export default Review;
+export default OralRecordView;

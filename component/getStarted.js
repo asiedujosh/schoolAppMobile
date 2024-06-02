@@ -3,6 +3,7 @@ import {Text, View, TouchableOpacity, Linking} from 'react-native';
 import SubmitBtn from './submitBtn';
 import {Dimensions} from 'react-native';
 import {START} from '../constant/homeConstant';
+import {POLICYURL} from '../constant/httpConstant';
 // import {AuthApiData} from '../contextApi/auth/authContextApi.js';
 import styles from '../globalStyles/Styles';
 
@@ -22,7 +23,7 @@ const GetStarted = ({change}) => {
   };
 
   const handlePressLink = () => {
-    Linking.openURL('https://nunyapolicy.awesomehandsacademy.com/');
+    Linking.openURL(POLICYURL);
   };
 
   return (

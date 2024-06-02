@@ -5,10 +5,12 @@ import Dashboard from './screens/dashboard';
 import Quiz from './screens/quiz';
 import Review from './screens/review';
 import Records from './screens/records';
+import OralQuiz from './screens/oralQuiz.js';
 import RecordView from './screens/recordView';
 import EditUserInfo from './screens/editUserInfo';
 import EditPassword from './screens/editPassword';
 import GameBoard from './screens/gameBoard';
+import OralGameBoard from './screens/oralGameBoard.js';
 import Analysis from './screens/analysis';
 import News from './screens/news.js';
 import BannerAds from './googleadscomponent/adsbanner.js';
@@ -31,6 +33,7 @@ import Setting from './screens/settings';
 import QuestionsNotAvailable from './screens/questionNotFound';
 import QuestionsNotAvailableTwo from './screens/questionNotFoundTwo';
 import GameResult from './screens/gameResult';
+import OralGameResult from './screens/oralGameResult.js';
 import Pause from './screens/pause';
 import Cart from './screens/cart.js';
 import {createStackNavigator} from '@react-navigation/stack';
@@ -42,6 +45,13 @@ import SubjectList from './screens/subjectList.js';
 import ShoppingContainer from './screens/shopHistoryTab.js';
 import PurchaseCongrats from './screens/purchaseCongrats.js';
 import NotPurchased from './screens/notPurchased.js';
+import ForgetPassword from './screens/forgetPassword.js';
+import PasswordResetCorrect from './screens/passwordResetCorrect.js';
+import OralReview from './screens/oralReview.js';
+import OralAnalysisDetails from './screens/oralAnalysisDetails.js';
+import OralAnalysis from './screens/oralAnalysis.js';
+import OralRecords from './screens/oralRecords.js';
+import OralRecordView from './screens/oralRecordView.js';
 
 const Stack = createStackNavigator();
 
@@ -80,14 +90,6 @@ const App = () => {
           }}
         /> */}
 
-        {/* <Stack.Screen
-          name="BannerAds"
-          component={BannerAds}
-          options={{
-            header: () => null,
-          }}
-        /> */}
-
         {alreadyLoggedIn ? (
           <Stack.Screen
             name="Dashboard"
@@ -115,6 +117,30 @@ const App = () => {
         />
 
         <Stack.Screen
+          name="OralRecord"
+          component={OralRecords}
+          options={{
+            header: () => null,
+          }}
+        />
+
+        <Stack.Screen
+          name="ForgotPassword"
+          component={ForgetPassword}
+          options={{
+            header: () => null,
+          }}
+        />
+
+        <Stack.Screen
+          name="PasswordResetSuccess"
+          component={PasswordResetCorrect}
+          options={{
+            header: () => null,
+          }}
+        />
+
+        <Stack.Screen
           name="purchaseCongrats"
           component={PurchaseCongrats}
           options={{
@@ -125,6 +151,14 @@ const App = () => {
         <Stack.Screen
           name="RecordView"
           component={RecordView}
+          options={{
+            header: () => null,
+          }}
+        />
+
+        <Stack.Screen
+          name="OralRecordView"
+          component={OralRecordView}
           options={{
             header: () => null,
           }}
@@ -149,6 +183,14 @@ const App = () => {
         <Stack.Screen
           name="Analysis"
           component={Analysis}
+          options={{
+            header: () => null,
+          }}
+        />
+
+        <Stack.Screen
+          name="OralAnalysis"
+          component={OralAnalysis}
           options={{
             header: () => null,
           }}
@@ -195,8 +237,24 @@ const App = () => {
         />
 
         <Stack.Screen
+          name="OralAnalysisDetail"
+          component={OralAnalysisDetails}
+          options={{
+            header: () => null,
+          }}
+        />
+
+        <Stack.Screen
           name="Quiz"
           component={Quiz}
+          options={{
+            header: () => null,
+          }}
+        />
+
+        <Stack.Screen
+          name="Orals"
+          component={OralQuiz}
           options={{
             header: () => null,
           }}
@@ -259,8 +317,24 @@ const App = () => {
         />
 
         <Stack.Screen
+          name="OralGameBoard"
+          component={OralGameBoard}
+          options={{
+            header: () => null,
+          }}
+        />
+
+        <Stack.Screen
           name="Review"
           component={Review}
+          options={{
+            header: () => null,
+          }}
+        />
+
+        <Stack.Screen
+          name="OralReview"
+          component={OralReview}
           options={{
             header: () => null,
           }}
@@ -285,6 +359,14 @@ const App = () => {
         <Stack.Screen
           name="GameResult"
           component={GameResult}
+          options={{
+            header: () => null,
+          }}
+        />
+
+        <Stack.Screen
+          name="OralGameResult"
+          component={OralGameResult}
           options={{
             header: () => null,
           }}

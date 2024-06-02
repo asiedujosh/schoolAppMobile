@@ -34,7 +34,7 @@ const InputField = ({
           handleInputChange(value);
         }}
       />
-      {err && err[0].errName === field && (
+      {err && err[0] && err[0].errName === field && (
         <Text style={styles.errMsg}>{err[0].errMsg}</Text>
       )}
     </View>

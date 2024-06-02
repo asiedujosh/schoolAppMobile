@@ -74,3 +74,19 @@ export const getSelectectedQuestions = async data => {
     return false;
   }
 };
+
+export const getSelectedOralQuestions = async data => {
+  try {
+    let responseOnGetOralQuestion = await axios.get(
+      `${URL}/api/getSelectedOralQuestion?examType=${data.examType}&year=${data.year}&subject=${data.subject}&questionNos=${data.questionNos}`,
+    );
+    if (responseOnGetOralQuestion.status === SUCCESS_STATUS) {
+      return responseOnGetOralQuestion.data;
+    } else {
+      return false;
+    }
+  } catch (err) {
+    console.log(err);
+    return false;
+  }
+};

@@ -38,7 +38,14 @@ const ScrollViewCard = ({data, navigation}) => {
         source={{uri: `${data.examImage}`}}
         style={styles.scrollViewCardImage}
       />
-      <Text style={styles.scrollViewCardText}>{data.exam}</Text>
+      <View style={styles.scrollViewCardTextContainer}>
+        <Text
+          numberOfLines={1}
+          ellipsizeMode="tail"
+          style={styles.scrollViewCardText}>
+          {data.exam}
+        </Text>
+      </View>
     </Pressable>
   );
 };

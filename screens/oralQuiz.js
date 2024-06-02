@@ -14,7 +14,7 @@ import KeyboardAvoidingContainer from '../component/keyboardAvoidingContainer';
 
 const {width, height} = Dimensions.get('window');
 
-const Quiz = ({navigation}) => {
+const OralQuiz = ({navigation}) => {
   const {isOffline} = useContext(AuthApiData);
   const {
     examOptions,
@@ -24,7 +24,8 @@ const Quiz = ({navigation}) => {
     yearOptions,
     subjectOptions,
     processGetQuestions,
-    questions,
+    processgetOralQuestions,
+    oralQuestions,
     loadingQuestions,
     setLoadingQuestions,
   } = useContext(QuestionApiData);
@@ -41,14 +42,14 @@ const Quiz = ({navigation}) => {
   const [fieldError, setFieldError] = useState(false);
 
   useEffect(() => {
-    if (questions) {
-      if (questions.length > 0) {
-        navigation.navigate('GameBoard');
+    if (oralQuestions) {
+      if (oralQuestions.length > 0) {
+        navigation.navigate('OralGameBoard');
       } else {
         navigation.navigate('QuestionsNotAvailable');
       }
     }
-  }, [questions]);
+  }, [oralQuestions]);
 
   useEffect(() => {
     if (fieldError) {
@@ -157,7 +158,7 @@ const Quiz = ({navigation}) => {
 
         // setLoadingQuestions(true);
         // console.log(quizOptions);
-        processGetQuestions(quizOptions);
+        processgetOralQuestions(quizOptions);
       }
     }
   };
@@ -169,9 +170,7 @@ const Quiz = ({navigation}) => {
           <ScrollView showsVerticalScrollIndicator={false}>
             <View style={styles.quizScrollContainer}>
               <View>
-                <Text style={styles.dashboardHeadTitle}>
-                  {QUIZOPTIONS.title}
-                </Text>
+                <Text style={styles.dashboardHeadTitle}>{'Oral Quiz'}</Text>
               </View>
               {QUIZOPTIONS.field.map((item, index) => {
                 if (item.type === 'select') {
@@ -231,4 +230,4 @@ const Quiz = ({navigation}) => {
   );
 };
 
-export default Quiz;
+export default OralQuiz;

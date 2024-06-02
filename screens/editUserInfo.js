@@ -17,6 +17,7 @@ import InputField from '../component/inputField';
 import {EDITSIGNINFO} from '../constant/homeConstant';
 import KeyboardAvoidingContainer from '../component/keyboardAvoidingContainer';
 import CountrySelect from '../component/selectCountry.js';
+import {POLICYURL} from '../constant/homeConstant';
 
 const {width, height} = Dimensions.get('window');
 
@@ -36,7 +37,7 @@ const EditUserInfo = ({navigation}) => {
   };
 
   const handlePressLink = () => {
-    Linking.openURL('https://nunyapolicy.awesomehandsacademy.com/');
+    Linking.openURL(POLICYURL);
   };
 
   let handleHomeBtn = () => {

@@ -1,5 +1,5 @@
 import React, {useContext, useState, useEffect} from 'react';
-import {Text, View} from 'react-native';
+import {Text, View, Pressable} from 'react-native';
 import {SIGNIN} from '../constant/homeConstant';
 import {AuthApiData} from '../contextApi/auth/authContextApi.js';
 import ErrorModal from '../errorComponents/errorModal.js';
@@ -65,12 +65,16 @@ const SignIn = ({navigation}) => {
     }
   };
 
+  let GoToForgetPassword = () => {
+    navigation.navigate('ForgotPassword');
+  };
+
   return (
     <View>
       <View style={styles.homeHeadTextContainer}>
         <Text style={styles.textTitle}>{SIGNIN.title}</Text>
       </View>
-      <View style={{width: '100%', alignItems: 'center', marginTop: '5%'}}>
+      <View style={{width: '100%', alignItems: 'center', marginTop: '2%'}}>
         {SIGNIN.field.map((item, index) => (
           <InputField
             key={index}
@@ -91,6 +95,13 @@ const SignIn = ({navigation}) => {
           />
         ))}
       </View>
+      <Pressable
+        style={{width: '100%', alignItems: 'center', marginTop: '5%'}}
+        onPress={GoToForgetPassword}>
+        <Text style={[styles.textLabel, {marginBottom: 0}]}>
+          Forgot Password ?
+        </Text>
+      </Pressable>
       <View style={styles.homeBtnContainer}>
         {signInLoading ? (
           <LoadingBtn />
@@ -101,7 +112,7 @@ const SignIn = ({navigation}) => {
             color={'#ffffff'}
             textColor={'#0347A1'}
             borderRadius={width * 0.15}
-            topMargin={0.04 * height}
+            topMargin={0.02 * height}
             action={handleLogin}
           />
         )}

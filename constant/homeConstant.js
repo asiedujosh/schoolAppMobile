@@ -124,3 +124,41 @@ export const EDITPASSWORDINFO = {
   ],
   btnText: 'Edit',
 };
+
+export const FORGOTPASSWORD = {
+  title: 'Forgot Pass',
+  subTitle: 'A reset code will be sent to your email',
+  field: [
+    {
+      name: 'email',
+      label: 'Email',
+      type: 'text',
+      placeholder: 'Enter your email',
+    },
+  ],
+  btnText: 'Send',
+};
+
+export const RESETPASSWORD = {
+  title: 'Reset',
+  field: [
+    {
+      name: 'resetCode',
+      label: 'Reset Code',
+      type: 'text',
+      placeholder: 'Reset code',
+    },
+    {
+      name: 'password',
+      label: 'New Password',
+      type: 'text',
+      placeholder: 'Enter your new password',
+    },
+    {
+      name: 'confirmPassword',
+      label: 'Confirm Password',
+      type: 'text',
+      placeholder: 'Enter your confirm password',
+    },
+  ],
+};

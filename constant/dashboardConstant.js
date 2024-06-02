@@ -5,6 +5,7 @@ const cardThreeImg = require('../assets/img/analyze.jpg');
 const cardFourImg = require('../assets/img/setting.jpg');
 const cardFiveImg = require('../assets/img/faq.jpg');
 const cardSixImg = require('../assets/img/review.jpg');
+const cardSevenImg = require('../assets/img/orals.jpg');
 
 // export default excellentImg = require('../assets/img/review.jpg');
 
@@ -17,6 +18,11 @@ export const DASHBOARD = {
       title: 'Quiz',
       cardImage: cardOneImg,
       link: 'Quiz',
+    },
+    {
+      title: 'Orals',
+      cardImage: cardSevenImg,
+      link: 'Orals',
     },
     {
       title: 'Records',
@@ -37,11 +43,6 @@ export const DASHBOARD = {
       title: 'Faq',
       cardImage: cardFiveImg,
       link: 'Faq',
-    },
-    {
-      title: 'News',
-      cardImage: cardSixImg,
-      link: 'News',
     },
   ],
 };

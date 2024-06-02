@@ -92,3 +92,45 @@ export const Register = async data => {
     }
   }
 };
+
+export const ForgotPassword = async data => {
+  try {
+    let responseOnForgotPassword = await axios.post(
+      `${URL}/api/password/email`,
+      data,
+      TIMEOUT,
+    );
+    if (responseOnForgotPassword) {
+      if (responseOnForgotPassword.status === SUCCESS_STATUS) {
+        return responseOnForgotPassword.data;
+      } else {
+        return responseOnForgotPassword.message;
+      }
+    } else {
+      return false;
+    }
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const ResetPassword = async data => {
+  try {
+    let responseOnResetPassword = await axios.post(
+      `${URL}/api/password/reset`,
+      data,
+      TIMEOUT,
+    );
+    if (responseOnResetPassword) {
+      if (responseOnResetPassword.status === SUCCESS_STATUS) {
+        return responseOnResetPassword.data;
+      } else {
+        return responseOnResetPassword.message;
+      }
+    } else {
+      return false;
+    }
+  } catch (err) {
+    console.log(err);
+  }
+};
