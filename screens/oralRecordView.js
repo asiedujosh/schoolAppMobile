@@ -4,7 +4,7 @@ import {QuestionApiData} from '../contextApi/question/questionContextApi.js';
 import ReviewOptionsContainer from '../component/reviewOptionContainer.js';
 import {REVIEW} from '../constant/reviewConstant';
 import filterAnswers from '../utils/filterAnswers';
-import HomeBtn from '../component/homeBtn.js';
+import PageBackBtn from '../component/backPageBtn.js';
 import SelectFieldCorrection from '../component/selectFieldCorrection';
 import {OPTIONS} from '../constant/gameboardConstant.js';
 import styles from '../globalStyles/Styles';
@@ -96,10 +96,6 @@ const OralRecordView = ({navigation}) => {
     ]);
   };
 
-  let handleHomeBtn = () => {
-    navigation.navigate('Dashboard');
-  };
-
   return (
     <View style={{flex: 1}}>
       <View style={[styles.reviewCardTwo, styles.reviewCardThree]}>
@@ -112,7 +108,7 @@ const OralRecordView = ({navigation}) => {
             />
           </View>
           <View style={styles.homeBtnWrapper}>
-            <HomeBtn handleHome={handleHomeBtn} />
+            <PageBackBtn navigation={navigation} />
           </View>
         </View>
 

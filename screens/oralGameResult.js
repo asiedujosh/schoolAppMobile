@@ -2,6 +2,8 @@ import React, {useEffect, useState, useContext} from 'react';
 import {Text, View, Image, Alert, FlatList} from 'react-native';
 import styles from '../globalStyles/Styles';
 import SubmitBtn from '../component/submitBtn';
+import Share from 'react-native-share';
+import files from '../assets/base64/base64Img.js';
 import positionMap from '../utils/positionMap.js';
 import {AuthApiData} from '../contextApi/auth/authContextApi.js';
 import {QuestionApiData} from '../contextApi/question/questionContextApi.js';
@@ -14,6 +16,7 @@ const OralGameResult = ({navigation}) => {
     oralQuizAttempt,
     correctAns,
     oralQuestions,
+    oralQuestionInfo,
     review,
     setReview,
     topicList,
@@ -90,8 +93,17 @@ const OralGameResult = ({navigation}) => {
     }
   };
 
-  const handleShareInfo = () => {
-    navigation.navigate('NotAvailable');
+  const handleShareInfo = async () => {
+    const shareOptions = {
+      message: `I scored ${correctAns} Out of ${oralQuestionInfo.length} on ${oralQuestionInfo.subject} ${oralQuestionInfo.examsType} ${oralQuestionInfo.year} on the nunya exam app`,
+      url: files.logo,
+    };
+
+    try {
+      const ShareResponse = await Share.open(shareOptions);
+    } catch (error) {
+      console.log('Error => ', error);
+    }
   };
 
   let handleGrade = (noOfQuestions, marks) => {

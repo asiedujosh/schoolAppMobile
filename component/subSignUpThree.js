@@ -37,6 +37,7 @@ const SubSignUpThree = ({nav, signUpdateFunction}) => {
     } else {
       let i = signUpdateFunction[0] + 1;
       if (i > 5) {
+        // console.log(registerFormData);
         processRegister(registerFormData);
         //console.log(signUpdateFunction[2]);
       }

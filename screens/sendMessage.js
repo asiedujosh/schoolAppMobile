@@ -1,4 +1,5 @@
 import {useEffect, useState} from 'react';
+import {Dimensions} from 'react-native';
 import {
   StyleSheet,
   Text,
@@ -8,6 +9,9 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import KeyboardAvoidingContainer from '../component/keyboardAvoidingContainer';
+import PageBackBtn from '../component/backPageBtn.js';
+
+const {width, height} = Dimensions.get('window');
 
 const SendMessage = ({navigation}) => {
   const [whatsAppMsg, setWhatsAppMsg] = useState('Nunyae App support');
@@ -29,6 +33,35 @@ const SendMessage = ({navigation}) => {
 
   return (
     <KeyboardAvoidingContainer>
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: '#0347A1',
+          paddingVertical: 10,
+          justifyContent: 'center',
+        }}>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            width: width * 0.9,
+          }}>
+          <Text
+            style={[
+              styles.dashboardHeadTitle,
+              {
+                fontSize: 26,
+                color: '#ffffff',
+                fontWeight: 'bold',
+                paddingLeft: 20,
+              },
+            ]}>
+            {'Support'}
+          </Text>
+          <PageBackBtn navigation={navigation} />
+        </View>
+      </View>
       <View style={styles.container}>
         <Text style={styles.titleText}>How can we help you</Text>
         <Text style={styles.titleTextsmall}>Send A Message</Text>

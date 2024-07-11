@@ -1,5 +1,5 @@
 import React, {useState, createContext, useEffect} from 'react';
-import {subscribe, getAPackage} from './package';
+import {subscribeToPackage, subscribe, getAPackage} from './package';
 
 export const PackageApiData = createContext();
 
@@ -7,6 +7,7 @@ const PackageApiDataProvider = props => {
   const [upgrade, setUpgrade] = useState(false);
   const [packagePrice, setPackagePrice] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [confirmSubscription, setConfirmSubscription] = useState(false);
 
   useEffect(() => {
     processGettingAPackage();
@@ -35,12 +36,28 @@ const PackageApiDataProvider = props => {
     }
   };
 
+  const processSubscribeToPackage = async data => {
+    try {
+      let response = await subscribeToPackage(data);
+      if (response) {
+        if (response.data.data === true) {
+          setConfirmSubscription(prev => !prev);
+        }
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <PackageApiData.Provider
       value={{
         upgrade,
         processSubscribe,
         processGettingAPackage,
+        processSubscribeToPackage,
+        confirmSubscription,
+        setConfirmSubscription,
         packagePrice,
         loading,
         setLoading,

@@ -14,25 +14,16 @@ import {QuestionApiData} from '../contextApi/question/questionContextApi.js';
 import {StoreApiData} from '../contextApi/store/storeContextApi';
 import StoreAccordionItem from '../component/shopAccordionItem.js';
 import AccordionList from '../component/shopAccordionList.js';
-import {FaqConstants} from '../constant/faqConstant';
-import HomeBtn from '../component/homeBtn.js';
+import PageBackBtn from '../component/backPageBtn.js';
+import NoDataAvailable from '../component/noDataComponent.js';
 import KeyboardAvoidingContainer from '../component/keyboardAvoidingContainer';
 
 const Sales = ({navigation}) => {
-  const {examsList, yearList} = useContext(QuestionApiData);
-  const {processGetStoreInfo, store, cart, itemsOnSale} =
-    useContext(StoreApiData);
+  const {examsList} = useContext(QuestionApiData);
+  const {processGetStoreInfo, itemsOnSale} = useContext(StoreApiData);
   useEffect(() => {
     processGetStoreInfo();
   }, []);
-
-  let handleHomeBtn = () => {
-    navigation.navigate('Dashboard');
-  };
-
-  const goToCart = () => {
-    navigation.navigate('Cart');
-  };
 
   return (
     <View
@@ -51,44 +42,9 @@ const Sales = ({navigation}) => {
           <View style={styles.dashboardHeadFAQ}>
             <Text style={[styles.dashboardHeadTitle]}>Store</Text>
             <View style={styles.homeBtnWrapper}>
-              <HomeBtn handleHome={handleHomeBtn} />
+              <PageBackBtn navigation={navigation} />
             </View>
           </View>
-        </View>
-        <View>
-          <Pressable
-            style={[
-              styles.loadingBtn,
-              styles.premiumBtn,
-              {
-                backgroundColor: '#ffffff',
-                justifyContent: 'space-between',
-                paddingHorizontal: 30,
-              },
-            ]}
-            onPress={goToCart}>
-            <Text
-              style={[
-                styles.loadingBtnText,
-                {color: '#0347A1', paddingHorizontal: 10},
-              ]}>
-              View Cart
-            </Text>
-            <View style={{flexDirection: 'row', alignItems: 'center'}}>
-              <Icon name="shopping-cart" size={20} color="#0347A1" />
-              <Text
-                style={[styles.selectText, {marginLeft: 5, color: '#0347A1'}]}>
-                {cart.length}
-              </Text>
-            </View>
-          </Pressable>
-        </View>
-
-        <View>
-          <Image
-            source={require('../assets/img/paymentMode.png')}
-            style={styles.paymentModeImage}
-          />
         </View>
 
         <View style={styles.scrollContainer}>
@@ -105,6 +61,7 @@ const Sales = ({navigation}) => {
                     <View>
                       <StoreAccordionItem title={item.exam}>
                         <AccordionList
+                          navigation={navigation}
                           data={
                             itemsOnSale &&
                             itemsOnSale.filter(item2 => item2.examId == item.id)
@@ -117,6 +74,7 @@ const Sales = ({navigation}) => {
                 keyExtractor={(item, index) => index.toString()}
               />
             </View>
+            {NoDataAvailable(examsList)}
           </ScrollView>
         </View>
       </View>

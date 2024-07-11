@@ -40,6 +40,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import SplashScreen from 'react-native-splash-screen';
 import React, {useEffect, useContext} from 'react';
 import AnalysisDetails from './screens/analysisDetails.js';
+import SubscribeAndPay from './screens/subscribeAndPay.js';
 import YearList from './screens/yearList.js';
 import SubjectList from './screens/subjectList.js';
 import ShoppingContainer from './screens/shopHistoryTab.js';
@@ -135,6 +136,14 @@ const App = () => {
         <Stack.Screen
           name="PasswordResetSuccess"
           component={PasswordResetCorrect}
+          options={{
+            header: () => null,
+          }}
+        />
+
+        <Stack.Screen
+          name="subscribeAndPay"
+          component={SubscribeAndPay}
           options={{
             header: () => null,
           }}

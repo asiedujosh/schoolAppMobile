@@ -1,5 +1,5 @@
 export const QUIZOPTIONS = {
-  title: 'Quiz Options',
+  title: 'Quiz',
   btnText: 'Generate Quiz',
   field: [
     {
@@ -25,23 +25,23 @@ export const QUIZOPTIONS = {
         'May/June 2003',
       ],
     },
-    {
-      name: 'questionStyle',
-      label: 'Question Style',
-      type: 'select',
-      options: ['Random', 'Straight'],
-    },
-    {
-      name: 'questionNos',
-      label: 'Number of questions',
-      type: 'number',
-      placeholder: '',
-    },
-    {
-      name: 'timer',
-      label: 'Add time (Seconds)',
-      type: 'number',
-      placeholder: '',
-    },
+    // {
+    //   name: 'questionStyle',
+    //   label: 'Question Style',
+    //   type: 'select',
+    //   options: ['Random', 'Straight'],
+    // },
+    // {
+    //   name: 'questionNos',
+    //   label: 'Number of questions',
+    //   type: 'number',
+    //   placeholder: '',
+    // },
+    // {
+    //   name: 'timer',
+    //   label: 'Add time (Seconds)',
+    //   type: 'number',
+    //   placeholder: '',
+    // },
   ],
 };

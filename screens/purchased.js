@@ -1,21 +1,13 @@
-import {useState, useContext} from 'react';
-import {StyleSheet, Text, View, ScrollView, FlatList} from 'react-native';
+import {useContext} from 'react';
+import {Text, View, ScrollView, FlatList} from 'react-native';
+import PageBackBtn from '../component/backPageBtn.js';
 import styles from '../globalStyles/Styles';
-import {QuestionApiData} from '../contextApi/question/questionContextApi.js';
-import {StoreApiData} from '../contextApi/store/storeContextApi';
-import HomeBtn from '../component/homeBtn.js';
-import StoreAccordionItem from '../component/shopAccordionItem.js';
-import AccordionList from '../component/shopAccordionList.js';
-import AccordionItem from '../component/accordionItem';
-import KeyboardAvoidingContainer from '../component/keyboardAvoidingContainer';
+import ReadDate from '../utils/readDate.js';
+import NoDataAvailable from '../component/noDataComponent.js';
+import {SubscriptionApiData} from '../contextApi/subscription/subscriptionContextApi';
 
 const Purchase = ({navigation}) => {
-  const {examsList, yearList} = useContext(QuestionApiData);
-  const {purchases} = useContext(StoreApiData);
-
-  let handleHomeBtn = () => {
-    navigation.navigate('Dashboard');
-  };
+  const {mySubscriptionList} = useContext(SubscriptionApiData);
 
   return (
     <View
@@ -34,7 +26,7 @@ const Purchase = ({navigation}) => {
           <View style={styles.dashboardHeadFAQ}>
             <Text style={[styles.dashboardHeadTitle]}>Library</Text>
             <View style={styles.homeBtnWrapper}>
-              <HomeBtn handleHome={handleHomeBtn} />
+              <PageBackBtn navigation={navigation} />
             </View>
           </View>
         </View>
@@ -43,29 +35,47 @@ const Purchase = ({navigation}) => {
           <ScrollView style={{flex: 1}}>
             <View style={{marginBottom: '15%'}}>
               <FlatList
-                data={examsList}
+                data={mySubscriptionList}
                 pagingEnabled
                 snapToAlignment="center"
                 scrollEventThrottle={16}
                 decelerationRate={'fast'}
                 renderItem={({item}) => {
                   return (
-                    <View>
-                      <StoreAccordionItem title={item.exam}>
-                        <AccordionList
-                          data={
-                            purchases &&
-                            purchases.filter(item2 => item2.examId == item.id)
-                          }
-                          purchase={true}
-                        />
-                      </StoreAccordionItem>
+                    <View style={[styles.subscribeCardContainer]} key={item.id}>
+                      <Text
+                        style={[styles.homeBodyText, styles.subscribeTitle]}>
+                        {item.examSubjectId}
+                      </Text>
+                      <View style={styles.subscribeSubContainer}>
+                        <Text style={styles.subscibePrice}>
+                          GH {item.amount}
+                        </Text>
+                        <Text style={{color: '#000000'}}>
+                          per {item.durationType}
+                        </Text>
+                      </View>
+                      <View>
+                        <Text style={{color: '#000000'}}>
+                          40 minutes test time
+                        </Text>
+                      </View>
+                      <View
+                        style={[styles.subscribeSubContainer, {marginTop: 15}]}>
+                        <Text style={styles.subscribeSubDate}>
+                          Purchased on {ReadDate(item.startDate)}
+                        </Text>
+                        <Text style={styles.subscribeSubDate}>
+                          Expire on {ReadDate(item.endDate)}
+                        </Text>
+                      </View>
                     </View>
                   );
                 }}
                 keyExtractor={(item, index) => index.toString()}
               />
             </View>
+            <NoDataAvailable data={mySubscriptionList} />
           </ScrollView>
         </View>
       </View>

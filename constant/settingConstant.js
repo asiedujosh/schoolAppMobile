@@ -17,13 +17,7 @@ export const settingConstant = {
     {
       id: 3,
       icon: 'package',
-      title: 'Package',
-      link: 'NotAvailable',
-    },
-    {
-      id: 4,
-      icon: 'file',
-      title: 'Report',
+      title: 'Policy',
       link: 'NotAvailable',
     },
   ],

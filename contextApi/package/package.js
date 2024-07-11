@@ -30,3 +30,19 @@ export const subscribe = async data => {
     console.log(err);
   }
 };
+
+export const subscribeToPackage = async data => {
+  try {
+    let responseOnSubscribeToPackage = await axios.post(
+      `${URL}/api/subscribe`,
+      data,
+    );
+    if (responseOnSubscribeToPackage.status === SUCCESS_STATUS) {
+      return responseOnSubscribeToPackage.data;
+    } else {
+      return false;
+    }
+  } catch (err) {
+    console.log(err);
+  }
+};

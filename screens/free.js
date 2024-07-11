@@ -1,21 +1,17 @@
-import {useState, useContext} from 'react';
-import {StyleSheet, Text, View, ScrollView, FlatList} from 'react-native';
+import {useContext} from 'react';
+import {Text, View, ScrollView, FlatList} from 'react-native';
 import styles from '../globalStyles/Styles';
-import {QuestionApiData} from '../contextApi/question/questionContextApi.js';
-import {StoreApiData} from '../contextApi/store/storeContextApi';
-import HomeBtn from '../component/homeBtn.js';
-import StoreAccordionItem from '../component/shopAccordionItem.js';
-import AccordionList from '../component/shopAccordionList.js';
-import AccordionItem from '../component/accordionItem';
-import KeyboardAvoidingContainer from '../component/keyboardAvoidingContainer';
+import {ExamSubjectApiData} from '../contextApi/examSubjectRelation/examSubjectRelationContextApi.js';
+import PageBackBtn from '../component/backPageBtn.js';
+import NoDataAvailable from '../component/noDataComponent.js';
 
 const Free = ({navigation}) => {
-  const {examsList, yearList} = useContext(QuestionApiData);
-  const {freeProducts} = useContext(StoreApiData);
+  const {examSubjectList} = useContext(ExamSubjectApiData);
 
-  let handleHomeBtn = () => {
-    navigation.navigate('Dashboard');
-  };
+  //Get the free examList from examSubjectList
+  let freeSubscription = examSubjectList.filter(
+    item => item.offerType == 'offerType',
+  );
 
   return (
     <View
@@ -34,7 +30,7 @@ const Free = ({navigation}) => {
           <View style={styles.dashboardHeadFAQ}>
             <Text style={[styles.dashboardHeadTitle]}>Free</Text>
             <View style={styles.homeBtnWrapper}>
-              <HomeBtn handleHome={handleHomeBtn} />
+              <PageBackBtn navigation={navigation} />
             </View>
           </View>
         </View>
@@ -43,31 +39,31 @@ const Free = ({navigation}) => {
           <ScrollView style={{flex: 1}}>
             <View style={{marginBottom: '15%'}}>
               <FlatList
-                data={examsList}
+                data={freeSubscription}
                 pagingEnabled
                 snapToAlignment="center"
                 scrollEventThrottle={16}
                 decelerationRate={'fast'}
                 renderItem={({item}) => {
                   return (
-                    <View>
-                      <StoreAccordionItem title={item.exam}>
-                        <AccordionList
-                          data={
-                            freeProducts &&
-                            freeProducts.filter(
-                              item2 => item2.examId == item.id,
-                            )
-                          }
-                          purchase={true}
-                        />
-                      </StoreAccordionItem>
+                    <View style={[styles.subscribeCardContainer]} key={item.id}>
+                      <Text
+                        style={[styles.homeBodyText, styles.subscribeTitle]}>
+                        {item.examSubjectId}
+                      </Text>
+                      <View
+                        style={[styles.subscribeSubContainer, {marginTop: 15}]}>
+                        <Text style={styles.subscribeSubDate}>
+                          {`${item.examTime} Minutes Test Time`}
+                        </Text>
+                      </View>
                     </View>
                   );
                 }}
                 keyExtractor={(item, index) => index.toString()}
               />
             </View>
+            <NoDataAvailable data={freeSubscription} />
           </ScrollView>
         </View>
       </View>

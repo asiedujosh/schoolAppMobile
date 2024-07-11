@@ -1,7 +1,8 @@
 import {useState, useContext} from 'react';
-import {StyleSheet, Text, View, ScrollView} from 'react-native';
+import {StyleSheet, Alert, Text, View, ScrollView} from 'react-native';
 import styles from '../globalStyles/Styles';
-import HomeBtn from '../component/homeBtn.js';
+import LoadingBtn from '../component/loadingBtn.js';
+import PageBackBtn from '../component/backPageBtn.js';
 import {Dimensions} from 'react-native';
 import {AuthApiData} from '../contextApi/auth/authContextApi.js';
 import SubmitBtn from '../component/submitBtn';
@@ -12,8 +13,16 @@ import KeyboardAvoidingContainer from '../component/keyboardAvoidingContainer';
 const {width, height} = Dimensions.get('window');
 
 const EditPassword = ({navigation}) => {
-  const {processEditPassword, signInLoading, setSignInLoading} =
-    useContext(AuthApiData);
+  const {
+    userProfile,
+    processUpdatePassword,
+    editPasswordAlert,
+    editMessage,
+    setEditPasswordAlert,
+    signInLoading,
+    setSignInLoading,
+  } = useContext(AuthApiData);
+  const [error, setError] = useState();
   const [formData, setFormData] = useState({
     oldPassword: '',
     newPassword: '',
@@ -24,37 +33,55 @@ const EditPassword = ({navigation}) => {
     setFormData({...formData, [field]: data});
   };
 
-  let handleHomeBtn = () => {
-    navigation.navigate('Dashboard');
-  };
+  editPasswordAlert &&
+    Alert.alert('Success', editMessage, [
+      {
+        text: 'Ok',
+        onPress: () => {
+          setEditPasswordAlert(false);
+        },
+      },
+    ]);
 
   const handleSubmit = () => {
-    navigation.navigate('NotAvailable');
-    // formData.oldPassword = formData.oldPassword.trim();
-    // formData.newPassword = formData.newPassword.trim();
-    // formData.confirmPassword = formData.confirmPassword.trim();
-    // let err = [];
-    // EDITPASSWORDINFO.field.map((item, index) => {
-    //   if (
-    //     !formData.oldPassword ||
-    //     !formData.newPassword ||
-    //     !formData.confirmPassword
-    //   ) {
-    //     let errData = {
-    //       errName: item.name,
-    //       errMsg: `* ${item.label} cannot be empty`,
-    //     };
-    //     err.push(errData);
-    //   }
-    // });
+    formData.oldPassword = formData.oldPassword.trim();
+    formData.newPassword = formData.newPassword.trim();
+    formData.confirmPassword = formData.confirmPassword.trim();
+    let err = [];
+    EDITPASSWORDINFO.field.map((item, index) => {
+      if (
+        !formData.oldPassword ||
+        !formData.newPassword ||
+        !formData.confirmPassword
+      ) {
+        let errData = {
+          errName: item.name,
+          errMsg: `* ${item.label} cannot be empty`,
+        };
+        err.push(errData);
+      }
+    });
 
-    // if (err.length !== 0) {
-    //   setError(err);
-    // } else {
-    //   setError(error);
-    //   setSignInLoading(true);
-    //   processEditPassword(formData);
-    // }
+    if (err.length == 0) {
+      if (formData.newPassword !== formData.confirmPassword) {
+        let errData = {
+          errName: 'confirmPassword',
+          errMsg: `* Password does not match`,
+        };
+        err.push(errData);
+      }
+    }
+
+    if (err.length !== 0) {
+      setError(err);
+    } else {
+      setError(error);
+      setSignInLoading(true);
+      formData.username = userProfile.username;
+      formData.password = formData.oldPassword;
+      // console.log(formData);
+      processUpdatePassword(formData);
+    }
   };
 
   return (
@@ -72,7 +99,7 @@ const EditPassword = ({navigation}) => {
                 {EDITPASSWORDINFO.title}
               </Text>
               <View style={[styles.homeBtnWrapper, {marginLeft: -40}]}>
-                <HomeBtn handleHome={handleHomeBtn} />
+                <PageBackBtn navigation={navigation} />
               </View>
             </View>
           </View>
@@ -86,6 +113,7 @@ const EditPassword = ({navigation}) => {
                     title={item.label}
                     field={item.name}
                     width={width * 0.85}
+                    err={error}
                     placeholder={item.placeholder}
                     change={(data, field) => {
                       //   console.log('We are year');
@@ -94,15 +122,19 @@ const EditPassword = ({navigation}) => {
                   />
                 ))}
                 <View>
-                  <SubmitBtn
-                    btnText={EDITPASSWORDINFO.btnText}
-                    width={width * 0.85}
-                    borderRadius={30}
-                    color={'#ffffff'}
-                    textColor={'#0347A1'}
-                    topMargin={0.05 * height}
-                    action={handleSubmit}
-                  />
+                  {signInLoading ? (
+                    <LoadingBtn />
+                  ) : (
+                    <SubmitBtn
+                      btnText={EDITPASSWORDINFO.btnText}
+                      width={width * 0.85}
+                      borderRadius={30}
+                      color={'#ffffff'}
+                      textColor={'#0347A1'}
+                      topMargin={0.05 * height}
+                      action={handleSubmit}
+                    />
+                  )}
                 </View>
               </View>
             </ScrollView>

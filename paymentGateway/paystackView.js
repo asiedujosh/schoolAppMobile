@@ -32,24 +32,24 @@ const MakePayment = ({data}) => {
         onSuccess={res => {
           // handle response here
           if (res) {
-            try{
-            data.premium
-              ? processSubscribe({
-                  id: userProfile && userProfile.id,
-                  username: userProfile && userProfile.username,
-                  tel: userProfile && userProfile.tel,
-                  email: userProfile && userProfile.email,
-                  amount: price,
-                })
-              : processPurchase({
-                  userId: userProfile && userProfile.id,
-                  data: cart,
-                });
-            setLoading(prev => !prev);
-            // console.log('Data transfer success');
-              } catch (err){
-                console.log(err)
-              }
+            try {
+              data.premium
+                ? processSubscribe({
+                    id: userProfile && userProfile.id,
+                    username: userProfile && userProfile.username,
+                    tel: userProfile && userProfile.tel,
+                    email: userProfile && userProfile.email,
+                    amount: price,
+                  })
+                : processPurchase({
+                    userId: userProfile && userProfile.id,
+                    data: cart,
+                  });
+              setLoading(prev => !prev);
+              // console.log('Data transfer success');
+            } catch (err) {
+              console.log(err);
+            }
           }
         }}
         ref={paystackWebViewRef}

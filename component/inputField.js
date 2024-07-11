@@ -28,7 +28,12 @@ const InputField = ({
         selectionColor="white"
         editable={editable}
         secureTextEntry={
-          field == 'password' || field == 'confirmPassword' ? true : false
+          field == 'password' ||
+          field == 'confirmPassword' ||
+          field == 'oldPassword' ||
+          field == 'newPassword'
+            ? true
+            : false
         }
         onChangeText={value => {
           handleInputChange(value);

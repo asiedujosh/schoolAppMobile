@@ -2,9 +2,14 @@ import {useState, useContext, useEffect} from 'react';
 import {StyleSheet, Text, View, ScrollView, Alert} from 'react-native';
 import {AuthApiData} from '../contextApi/auth/authContextApi.js';
 import {StoreApiData} from '../contextApi/store/storeContextApi';
+import {SubscriptionApiData} from '../contextApi/subscription/subscriptionContextApi.js';
 import {QuestionApiData} from '../contextApi/question/questionContextApi.js';
+import {PriviledgeApiData} from '../contextApi/priviledge/priviledgeContextApi.js';
+import {ExamSubjectApiData} from '../contextApi/examSubjectRelation/examSubjectRelationContextApi.js';
 import {Dimensions} from 'react-native';
 import styles from '../globalStyles/Styles';
+import PageBackBtn from '../component/backPageBtn.js';
+import BackToDash from '../component/backToDash.js';
 import {QUIZOPTIONS} from '../constant/quizConstant';
 import SelectField from '../component/selectField';
 import NumberField from '../component/numberField';
@@ -15,7 +20,7 @@ import KeyboardAvoidingContainer from '../component/keyboardAvoidingContainer';
 const {width, height} = Dimensions.get('window');
 
 const Quiz = ({navigation}) => {
-  const {isOffline} = useContext(AuthApiData);
+  const {isOffline, userProfile} = useContext(AuthApiData);
   const {
     examOptions,
     examsList,
@@ -28,7 +33,9 @@ const Quiz = ({navigation}) => {
     loadingQuestions,
     setLoadingQuestions,
   } = useContext(QuestionApiData);
-  const {purchases, freeProducts} = useContext(StoreApiData);
+  const {getExamSubjectName} = useContext(ExamSubjectApiData);
+  const {mySubscriptionList} = useContext(SubscriptionApiData);
+  const {processCheckIfUserHasPriviledge} = useContext(PriviledgeApiData);
 
   const [quizOptions, setQuizOptions] = useState({
     quizType: examOptions && examOptions[0],
@@ -86,6 +93,32 @@ const Quiz = ({navigation}) => {
     navigation.navigate('NotPurchased');
   };
 
+  let handleNotAvailable = () => {
+    setLoadingQuestions(false);
+    navigation.navigate('QuestionsNotAvailable');
+  };
+
+  let checkIfPurchasedOrFree = data => {
+    if (data[0].offerType !== 'Paid') {
+      return true;
+    } else {
+      let filteredData = mySubscriptionList.find(
+        item => item.examSubjectId == data[0].name,
+      );
+      if (filteredData) {
+        if (filteredData.examSubjectId) {
+          return true;
+        } else {
+          setLoadingQuestions(false);
+          return false;
+        }
+      } else {
+        setLoadingQuestions(false);
+        return false;
+      }
+    }
+  };
+
   const NetWorkCheck = () => {
     Alert.alert('Network Error', 'Please connect to the internet', [
       {
@@ -106,12 +139,12 @@ const Quiz = ({navigation}) => {
     ]);
   };
 
-  const handleSubmitQuizOptions = () => {
+  const handleSubmitQuizOptions = async () => {
     if (!isOffline) {
       NetWorkCheck();
     } else {
       setLoadingQuestions(true);
-      console.log(quizOptions);
+      // console.log(quizOptions);
 
       if (
         quizOptions.quizType == examOptions[0] ||
@@ -122,42 +155,45 @@ const Quiz = ({navigation}) => {
         setFieldError(prev => !prev);
         console.log('Select required Info');
       } else {
-        //Get convertion
-        // let examId = examsList.filter(
-        //   item => item.exam == quizOptions.quizType,
-        // )[0].id;
-        // let yearId = yearList.filter(item => item.year == quizOptions.year)[0]
-        //   .id;
-        // let subjectId = subjectList.filter(
-        //   item => item.subject == quizOptions.subject,
-        // )[0].id;
+        //Check Priviledge
+        let isPriviledge = await processCheckIfUserHasPriviledge(
+          userProfile.username,
+        );
 
-        // let entryData = {
-        //   examId: examId,
-        //   yearId: yearId,
-        //   subjectId: subjectId,
-        // };
+        quizOptions.username = userProfile.username;
 
-        // let checkPurchase = purchases.filter(
-        //   item =>
-        //     item.examId == entryData.examId &&
-        //     item.yearId == entryData.yearId &&
-        //     item.subjectId == entryData.subjectId,
-        // );
-        // let checkFree = freeProducts.filter(
-        //   item =>
-        //     item.examId == entryData.examId &&
-        //     item.yearId == entryData.yearId &&
-        //     item.subjectId == entryData.subjectId,
-        // );
-        // console.log(checkPurchase);
-        // checkPurchase.length == 0 && checkFree.length == 0
-        //   ? handleNotPurchased()
-        //   : processGetQuestions(quizOptions);
+        if (isPriviledge == true) {
+          processGetQuestions(quizOptions);
+        } else {
+          //Get convertion
+          let examId = examsList.filter(
+            item => item.exam == quizOptions.quizType,
+          )[0].id;
 
-        // setLoadingQuestions(true);
-        // console.log(quizOptions);
-        processGetQuestions(quizOptions);
+          let subjectId = subjectList.filter(
+            item => item.subject == quizOptions.subject,
+          )[0].id;
+
+          let entryData = {
+            examId: examId,
+            subjectId: subjectId,
+          };
+
+          // Check and get the package Id
+          let packageId = getExamSubjectName(entryData);
+
+          // Check if package name exist
+          if (packageId.length > 0) {
+            let response = checkIfPurchasedOrFree(packageId);
+            if (response == true) {
+              processGetQuestions(quizOptions);
+            } else {
+              handleNotPurchased();
+            }
+          } else {
+            handleNotAvailable();
+          }
+        }
       }
     }
   };
@@ -168,46 +204,55 @@ const Quiz = ({navigation}) => {
         <View style={styles.quizOptionContainer}>
           <ScrollView showsVerticalScrollIndicator={false}>
             <View style={styles.quizScrollContainer}>
-              <View>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  width: width * 0.8,
+                }}>
                 <Text style={styles.dashboardHeadTitle}>
                   {QUIZOPTIONS.title}
                 </Text>
+                <PageBackBtn navigation={navigation} />
               </View>
-              {QUIZOPTIONS.field.map((item, index) => {
-                if (item.type === 'select') {
-                  return (
-                    <SelectField
-                      key={index} // Add a unique key for each rendered element
-                      title={item.label}
-                      field={item.name}
-                      top={0.04 * height}
-                      width={width * 0.85}
-                      option={handleOptionAssign(item)}
-                      change={[
-                        selectedValue,
-                        setSelectedValue,
-                        quizOptions,
-                        setQuizOptions,
-                      ]}
-                    />
-                  );
-                } else {
-                  return (
-                    <NumberField
-                      key={index}
-                      top={0.04 * height}
-                      width={width * 0.85}
-                      title={item.label}
-                      field={item.name}
-                      placeholder={item.placeholder}
-                      change={(data, field) => {
-                        handleInputChange(data, field);
-                      }}
-                    />
-                  );
-                }
-                // return null; // Return null for non-'select' types
-              })}
+              <View style={{marginTop: 50}}>
+                {QUIZOPTIONS.field.map((item, index) => {
+                  if (item.type === 'select') {
+                    return (
+                      <SelectField
+                        key={index} // Add a unique key for each rendered element
+                        title={item.label}
+                        field={item.name}
+                        top={0.04 * height}
+                        width={width * 0.85}
+                        option={handleOptionAssign(item)}
+                        change={[
+                          selectedValue,
+                          setSelectedValue,
+                          quizOptions,
+                          setQuizOptions,
+                        ]}
+                      />
+                    );
+                  } else {
+                    return (
+                      <NumberField
+                        key={index}
+                        top={0.04 * height}
+                        width={width * 0.85}
+                        title={item.label}
+                        field={item.name}
+                        placeholder={item.placeholder}
+                        change={(data, field) => {
+                          handleInputChange(data, field);
+                        }}
+                      />
+                    );
+                  }
+                  // return null; // Return null for non-'select' types
+                })}
+              </View>
               <View>
                 {loadingQuestions ? (
                   <LoadingBtn />
@@ -223,6 +268,9 @@ const Quiz = ({navigation}) => {
                   />
                 )}
               </View>
+            </View>
+            <View style={{alignItems: 'center', marginTop: 40}}>
+              <BackToDash navigation={navigation} />
             </View>
           </ScrollView>
         </View>

@@ -7,7 +7,7 @@ import filterAnswers from '../utils/filterAnswers';
 import SelectField from '../component/selectField';
 import ReviewOptionsContainer from '../component/reviewOptionContainer.js';
 import SelectFieldCorrection from '../component/selectFieldCorrection';
-import HomeBtn from '../component/homeBtn.js';
+import PageBackBtn from '../component/backPageBtn.js';
 import {QUESTIONS, OPTIONS} from '../constant/gameboardConstant.js';
 import SubmitBtn from '../component/submitBtn';
 import OutputQuestion from '../component/htmlOutput.js';
@@ -81,7 +81,7 @@ const OralReview = ({navigation}) => {
             />
           </View>
           <View style={styles.homeBtnWrapper}>
-            <HomeBtn handleHome={handleHomeBtn} />
+            <PageBackBtn navigation={navigation} />
           </View>
         </View>
         <View style={styles.reviewCardHeadContainer}>

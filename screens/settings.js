@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import styles from '../globalStyles/Styles';
-import HomeBtn from '../component/homeBtn.js';
+import PageBackBtn from '../component/backPageBtn.js';
 import {settingConstant} from '../constant/settingConstant';
 import KeyboardAvoidingContainer from '../component/keyboardAvoidingContainer';
 
@@ -32,7 +32,7 @@ const Settings = ({navigation}) => {
                 {settingConstant.title}
               </Text>
               <View style={[styles.homeBtnWrapper, {marginLeft: -25}]}>
-                <HomeBtn handleHome={handleHomeBtn} />
+                <PageBackBtn navigation={navigation} />
               </View>
             </View>
           </View>

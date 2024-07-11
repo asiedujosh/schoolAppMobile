@@ -248,6 +248,7 @@ const OralGameBoard = ({navigation}) => {
                 }}>
                 <Icon name="chevron-left" size={10} color="#0347A1" />
               </Pressable>
+              <Text style={{color: 'blue'}}>15 mins</Text>
               <Pressable
                 style={({pressed}) => [
                   {backgroundColor: pressed ? 'lightblue' : '#EBEBEC'},

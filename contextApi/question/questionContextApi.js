@@ -161,6 +161,7 @@ const QuestionApiDataProvider = props => {
         subject: data.subject,
         timer: data.timer || null,
         questionStyle: data.questionStyle,
+        username: data.username,
       };
 
       setQuestionInfo(info);
@@ -168,7 +169,6 @@ const QuestionApiDataProvider = props => {
       // console.log(formData);
       let response = await getSelectectedQuestions(formData);
       if (response) {
-        console.log(response);
         setQuestions(response.data.data);
         setLoadingQuestions(false);
       }
@@ -237,7 +237,7 @@ const QuestionApiDataProvider = props => {
       //Step 1
       setQuizAttempt({
         quizId: generateUniqueID(),
-        userInfo: 'josh',
+        userInfo: info.username,
         quizInfo: info,
         solvedQuestions: attemptQuestArray,
       });

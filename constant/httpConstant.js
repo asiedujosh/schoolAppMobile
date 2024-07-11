@@ -1,7 +1,7 @@
 export const TIMEOUT = {timeout: 10000};
 export const URL = process.env.API_URL;
 // export const URL = 'https://studentappapi.awesomehandsacademy.com';
-// export const URL = 'https://6ed7-102-214-88-12.ngrok-free.app';
+// export const URL = 'https://192f-102-214-88-11.ngrok-free.app';
 export const POLICYURL = 'http://policy.nunyaexam.com';
 
 //System Responses

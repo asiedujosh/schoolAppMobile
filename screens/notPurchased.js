@@ -8,7 +8,7 @@ const {width, height} = Dimensions.get('window');
 
 const NotPurchased = ({navigation}) => {
   const handleGoToStore = () => {
-    navigation.navigate('salesShop');
+    navigation.navigate('Dashboard');
   };
 
   return (

@@ -14,6 +14,7 @@ import Icon from 'react-native-vector-icons/Feather';
 import {AuthApiData} from '../contextApi/auth/authContextApi.js';
 import {PackageApiData} from '../contextApi/package/packageContextApi.js';
 import {QuestionApiData} from '../contextApi/question/questionContextApi.js';
+import {SubscriptionApiData} from '../contextApi/subscription/subscriptionContextApi.js';
 import {StoreApiData} from '../contextApi/store/storeContextApi';
 import {Dimensions} from 'react-native';
 import {DASHBOARD} from '../constant/dashboardConstant';
@@ -30,6 +31,7 @@ const {width, height} = Dimensions.get('window');
 const Dashboard = ({navigation}) => {
   const {processLogout, userProfile, alreadyLoggedIn, isOffline} =
     useContext(AuthApiData);
+  const {processGetMySubscription} = useContext(SubscriptionApiData);
   const {processGetPurchase} = useContext(StoreApiData);
   const {upgrade} = useContext(PackageApiData);
   const {
@@ -47,6 +49,7 @@ const Dashboard = ({navigation}) => {
       processGetAllYear();
       processGetAllSubject();
       processGetPurchase(userProfile && userProfile.id);
+      processGetMySubscription(userProfile && userProfile.id);
     } catch (err) {
       console.log(err);
     }

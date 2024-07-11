@@ -9,7 +9,7 @@ import {
   Linking,
 } from 'react-native';
 import {Dimensions} from 'react-native';
-import HomeBtn from '../component/homeBtn.js';
+import PageBackBtn from '../component/backPageBtn.js';
 import styles from '../globalStyles/Styles';
 import SubmitBtn from '../component/submitBtn';
 import LoadingBtn from '../component/loadingBtn.js';
@@ -44,10 +44,6 @@ const ForgetPassword = ({navigation}) => {
       navigation.navigate('Home');
     }
   }, [resetSuccess]);
-
-  let handleHomeBtn = () => {
-    navigation.navigate('Home');
-  };
 
   const handleInputChange = (data, field) => {
     setFormData({...formData, [field]: data});
@@ -129,7 +125,7 @@ const ForgetPassword = ({navigation}) => {
                 {FORGOTPASSWORD.title}
               </Text>
               <View style={[styles.homeBtnWrapper, {marginLeft: -70}]}>
-                <HomeBtn handleHome={handleHomeBtn} />
+                <PageBackBtn navigation={navigation} />
               </View>
             </View>
           </View>

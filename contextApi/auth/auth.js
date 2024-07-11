@@ -93,6 +93,44 @@ export const Register = async data => {
   }
 };
 
+export const UpdateUser = async data => {
+  try {
+    let responseOnUpdateUser = await axios.put(
+      `${URL}/api/updateUser/${data.username}`,
+      data,
+      TIMEOUT,
+    );
+    if (responseOnUpdateUser) {
+      if (responseOnUpdateUser.status === SUCCESS_STATUS) {
+        return responseOnUpdateUser.data;
+      }
+    } else {
+      return false;
+    }
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const UpdatePassword = async data => {
+  try {
+    let responseOnUpdatePassword = await axios.put(
+      `${URL}/api/updatePassword/${data.username}`,
+      data,
+      TIMEOUT,
+    );
+    if (responseOnUpdatePassword) {
+      if (responseOnUpdatePassword.status === SUCCESS_STATUS) {
+        return responseOnUpdatePassword.data;
+      }
+    } else {
+      return false;
+    }
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 export const ForgotPassword = async data => {
   try {
     let responseOnForgotPassword = await axios.post(

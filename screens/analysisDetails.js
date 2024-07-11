@@ -1,6 +1,6 @@
 import {Text, View, ScrollView, FlatList} from 'react-native';
 import styles from '../globalStyles/Styles';
-import HomeBtn from '../component/homeBtn.js';
+import PageBackBtn from '../component/backPageBtn.js';
 import KeyboardAvoidingContainer from '../component/keyboardAvoidingContainer';
 import AnalysisData from '../utils/analysisData.js';
 import {useRoute} from '@react-navigation/native';
@@ -9,11 +9,9 @@ const AnalysisDetails = ({navigation}) => {
   const route = useRoute();
   const receivedData = route.params?.data;
 
-  let handleHomeBtn = () => {
-    navigation.navigate('Dashboard');
-  };
-
   let postInfo = AnalysisData(receivedData);
+
+  console.log(postInfo);
   //Original Verison
 
   return (
@@ -29,14 +27,14 @@ const AnalysisDetails = ({navigation}) => {
             <View style={styles.dashboardHeadFAQ}>
               <Text style={[styles.dashboardHeadTitle]}>Details</Text>
               <View style={styles.homeBtnWrapper}>
-                <HomeBtn handleHome={handleHomeBtn} />
+                <PageBackBtn navigation={navigation} />
               </View>
             </View>
           </View>
 
           <View style={styles.scrollContainer}>
             <ScrollView style={{flex: 1}}>
-              {
+              {/* {postInfo && (
                 <FlatList
                   data={postInfo}
                   pagingEnabled
@@ -71,14 +69,14 @@ const AnalysisDetails = ({navigation}) => {
                     );
                   }}
                 />
-              }
+              )}
               {postInfo.length <= 0 && (
                 <View style={[styles.recordCardContainer, {marginTop: '20%'}]}>
                   <Text style={styles.recordInfoTextTitle}>
                     No Data Available
                   </Text>
                 </View>
-              )}
+              )} */}
             </ScrollView>
           </View>
         </View>

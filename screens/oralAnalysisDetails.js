@@ -1,6 +1,6 @@
 import {Text, View, ScrollView, FlatList} from 'react-native';
 import styles from '../globalStyles/Styles';
-import HomeBtn from '../component/homeBtn.js';
+import PageBackBtn from '../component/backPageBtn.js';
 import KeyboardAvoidingContainer from '../component/keyboardAvoidingContainer';
 import AnalysisData from '../utils/analysisData.js';
 import {useRoute} from '@react-navigation/native';
@@ -8,10 +8,6 @@ import {useRoute} from '@react-navigation/native';
 const OralAnalysisDetails = ({navigation}) => {
   const route = useRoute();
   const receivedData = route.params?.data;
-
-  let handleHomeBtn = () => {
-    navigation.navigate('Dashboard');
-  };
 
   let postInfo = AnalysisData(receivedData);
   //Original Verison
@@ -29,7 +25,7 @@ const OralAnalysisDetails = ({navigation}) => {
             <View style={styles.dashboardHeadFAQ}>
               <Text style={[styles.dashboardHeadTitle]}>Details</Text>
               <View style={styles.homeBtnWrapper}>
-                <HomeBtn handleHome={handleHomeBtn} />
+                <PageBackBtn navigation={navigation} />
               </View>
             </View>
           </View>

@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import styles from '../globalStyles/Styles';
+import {truncateText} from '../utils/truncateText';
 import {View, Text, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 
@@ -24,7 +25,7 @@ function StoreAccordionItem({children, title, year}) {
           },
         ]}
         onPress={toggleItem}>
-        <Text style={styles.accordTitle}>{title}</Text>
+        <Text style={styles.accordTitle}>{truncateText(title, 20)}</Text>
         <Icon
           name={expanded ? 'chevron-up' : 'chevron-down'}
           size={20}

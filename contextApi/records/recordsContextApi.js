@@ -83,6 +83,7 @@ const RecordApiDataProvider = props => {
   };
 
   let processGetOralUserRecords = async data => {
+    console.log(data);
     try {
       let response = await getSavedOralRecordsOfUser(data);
       if (response) {

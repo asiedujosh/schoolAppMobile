@@ -115,14 +115,14 @@ const Review = ({navigation}) => {
                       styles.reviewCardHeadSubTitle,
                       styles.reviewAnsText,
                     ]}>
-                    Chose: {item.userChoice.toUpperCase()}
+                    Chose: {item.userChoice && item.userChoice.toUpperCase()}
                   </Text>
                   <Text
                     style={[
                       styles.reviewCardHeadSubTitle,
                       styles.reviewAnsText,
                     ]}>
-                    Answer: {item.answer.toUpperCase()}
+                    Answer: {item.answer && item.answer.toUpperCase()}
                   </Text>
                 </View>
                 <View style={styles.reviewOptionsContainer}>
@@ -170,14 +170,14 @@ const Review = ({navigation}) => {
                       styles.reviewCardHeadSubTitle,
                       styles.reviewAnsText,
                     ]}>
-                    Chose: {item.userChoice.toUpperCase()}
+                    Chose: {item.userChoice && item.userChoice.toUpperCase()}
                   </Text>
                   <Text
                     style={[
                       styles.reviewCardHeadSubTitle,
                       styles.reviewAnsText,
                     ]}>
-                    Answer: {item.answer.toUpperCase()}
+                    Answer: {item.answer && item.answer.toUpperCase()}
                   </Text>
                 </View>
                 <View style={styles.reviewOptionsContainer}>

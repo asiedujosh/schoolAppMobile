@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 import styles from '../globalStyles/Styles';
 import dateFormat from '../utils/dateFormat.js';
-import HomeBtn from '../component/homeBtn.js';
+import PageBackBtn from '../component/backPageBtn.js';
 import Marks from '../utils/marksNo.js';
 import {STATUSOPTION} from '../constant/reviewConstant';
 import SelectField from '../component/selectField';
@@ -41,10 +41,6 @@ const Records = ({navigation}) => {
   // useEffect(() => {
   //   console.log(savedRecords);
   // }, [savedRecords]);
-
-  let handleHomeBtn = () => {
-    navigation.navigate('Dashboard');
-  };
 
   const goToOralRecords = () => {
     if (!isOffline) {
@@ -89,7 +85,7 @@ const Records = ({navigation}) => {
           <View style={styles.dashboardHeadFAQ}>
             <Text style={[styles.dashboardHeadTitle]}>Records</Text>
             <View style={[styles.homeBtnWrapper, {marginLeft: '-10%'}]}>
-              <HomeBtn handleHome={handleHomeBtn} />
+              <PageBackBtn navigation={navigation} />
             </View>
           </View>
         </View>

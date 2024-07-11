@@ -16,9 +16,14 @@ const StoreApiDataProvider = props => {
       let response = await getStoreProducts();
       if (response) {
         setStore(response.data.data);
+
+        // Get Products from examSubjectLink that are not free
         let saleProducts = response.data.data.filter(
           item => item.offerType !== 'Free',
         );
+
+        //
+
         let freeProducts = response.data.data.filter(
           item => item.offerType == 'Free',
         );
@@ -55,7 +60,6 @@ const StoreApiDataProvider = props => {
 
   let processPurchase = async data => {
     try {
-      console.log(data);
       let response = await purchaseSubjects(data);
       if (response) {
         setCart([]);

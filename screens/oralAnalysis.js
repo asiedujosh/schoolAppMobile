@@ -13,7 +13,7 @@ import {QuestionApiData} from '../contextApi/question/questionContextApi.js';
 import {RecordApiData} from '../contextApi/records/recordsContextApi.js';
 import styles from '../globalStyles/Styles';
 import Marks from '../utils/marksNo.js';
-import HomeBtn from '../component/homeBtn.js';
+import PageBackBtn from '../component/backPageBtn.js';
 import PieChartView from '../component/pieChart.js';
 import KeyboardAvoidingContainer from '../component/keyboardAvoidingContainer';
 import AnalysisCard from '../component/analysisCard.js';
@@ -22,15 +22,10 @@ const OralAnalysis = ({navigation}) => {
   const {userProfile} = useContext(AuthApiData);
   const {processGetOralUserRecords, oralSavedRecords, setReviewId} =
     useContext(RecordApiData);
-  const {processGetOralQuestions, oralReview} = useContext(QuestionApiData);
 
   useEffect(() => {
     processGetOralUserRecords({userId: userProfile.username});
   }, []);
-
-  let handleHomeBtn = () => {
-    navigation.navigate('Dashboard');
-  };
 
   const goToMoreDetails = item => {
     navigation.navigate('OralAnalysisDetail', {data: item});
@@ -51,7 +46,7 @@ const OralAnalysis = ({navigation}) => {
             <View style={styles.dashboardHeadFAQ}>
               <Text style={[styles.dashboardHeadTitle]}>Analysis</Text>
               <View style={[styles.homeBtnWrapper, {marginLeft: -25}]}>
-                <HomeBtn handleHome={handleHomeBtn} />
+                <PageBackBtn navigation={navigation} />
               </View>
             </View>
           </View>

@@ -8,14 +8,13 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import styles from '../globalStyles/Styles';
-import HomeBtn from '../component/homeBtn.js';
+import PageBackBtn from '../component/backPageBtn.js';
 import MakePayment from '../paymentGateway/paystackView.js';
 import KeyboardAvoidingContainer from '../component/keyboardAvoidingContainer';
 import {AuthApiData} from '../contextApi/auth/authContextApi.js';
 import {PackageApiData} from '../contextApi/package/packageContextApi.js';
 
 const Upgrading = ({navigation}) => {
-  const {userProfile, setUserProfile} = useContext(AuthApiData);
   const {packagePrice, processGettingAPackage, upgrade} =
     useContext(PackageApiData);
   const [paymentInfo, setPaymentInfo] = useState({});
@@ -55,7 +54,7 @@ const Upgrading = ({navigation}) => {
             <View style={styles.dashboardHeadFAQ}>
               <Text style={[styles.dashboardHeadTitle]}>{`Premium`}</Text>
               <View style={[styles.homeBtnWrapper, {marginLeft: -30}]}>
-                <HomeBtn handleHome={handleHomeBtn} />
+                <PageBackBtn navigation={navigation} />
               </View>
             </View>
           </View>

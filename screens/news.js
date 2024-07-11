@@ -8,7 +8,7 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import styles from '../globalStyles/Styles';
-import HomeBtn from '../component/homeBtn.js';
+import PageBackBtn from '../component/backPageBtn.js';
 import {NewsApiData} from '../contextApi/news/newsContextApi.js';
 import KeyboardAvoidingContainer from '../component/keyboardAvoidingContainer';
 
@@ -18,10 +18,6 @@ const News = ({navigation}) => {
   useEffect(() => {
     processGettingAllNews();
   }, []);
-
-  let handleHomeBtn = () => {
-    navigation.navigate('Dashboard');
-  };
 
   return (
     <KeyboardAvoidingContainer>
@@ -36,17 +32,20 @@ const News = ({navigation}) => {
             <View style={styles.dashboardHeadFAQ}>
               <Text style={[styles.dashboardHeadTitle]}>{'News'}</Text>
               <View style={styles.homeBtnWrapper}>
-                <HomeBtn handleHome={handleHomeBtn} />
+                <PageBackBtn navigation={navigation} />
               </View>
             </View>
           </View>
 
           <View style={styles.scrollContainer}>
-        
             <ScrollView style={{flex: 1}}>
-            <Text style={[styles.recordInfoTextTitle, {color: '#ffffff', marginTop: '50%', fontSize: 25}]}>
-                    No news currently available 
-                  </Text>
+              <Text
+                style={[
+                  styles.recordInfoTextTitle,
+                  {color: '#ffffff', marginTop: '50%', fontSize: 25},
+                ]}>
+                No news currently available
+              </Text>
               {/* {news ? (
                 <FlatList
                   data={news}

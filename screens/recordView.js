@@ -4,6 +4,7 @@ import {QuestionApiData} from '../contextApi/question/questionContextApi.js';
 import ReviewOptionsContainer from '../component/reviewOptionContainer.js';
 import {REVIEW} from '../constant/reviewConstant';
 import filterAnswers from '../utils/filterAnswers';
+import PageBackBtn from '../component/backPageBtn.js';
 import HomeBtn from '../component/homeBtn.js';
 import SelectFieldCorrection from '../component/selectFieldCorrection';
 import {OPTIONS} from '../constant/gameboardConstant.js';
@@ -94,10 +95,6 @@ const RecordView = ({navigation}) => {
     ]);
   };
 
-  let handleHomeBtn = () => {
-    navigation.navigate('Dashboard');
-  };
-
   return (
     <View style={{flex: 1}}>
       <View style={[styles.reviewCardTwo, styles.reviewCardThree]}>
@@ -110,7 +107,7 @@ const RecordView = ({navigation}) => {
             />
           </View>
           <View style={styles.homeBtnWrapper}>
-            <HomeBtn handleHome={handleHomeBtn} />
+            <PageBackBtn navigation={navigation} />
           </View>
         </View>
 
@@ -167,14 +164,14 @@ const RecordView = ({navigation}) => {
                       styles.reviewCardHeadSubTitle,
                       styles.reviewAnsText,
                     ]}>
-                    Chose: {item.userChoice.toUpperCase()}
+                    Chose: {item.userChoice && item.userChoice.toUpperCase()}
                   </Text>
                   <Text
                     style={[
                       styles.reviewCardHeadSubTitle,
                       styles.reviewAnsText,
                     ]}>
-                    Answer: {item.answer.toUpperCase()}
+                    Answer: {item.answer && item.answer.toUpperCase()}
                   </Text>
                 </View>
                 <View style={styles.reviewOptionsContainer}>
@@ -222,14 +219,14 @@ const RecordView = ({navigation}) => {
                       styles.reviewCardHeadSubTitle,
                       styles.reviewAnsText,
                     ]}>
-                    Chose: {item.userChoice.toUpperCase()}
+                    Chose: {item.userChoice && item.userChoice.toUpperCase()}
                   </Text>
                   <Text
                     style={[
                       styles.reviewCardHeadSubTitle,
                       styles.reviewAnsText,
                     ]}>
-                    Answer: {item.answer.toUpperCase()}
+                    Answer: {item.answer && item.answer.toUpperCase()}
                   </Text>
                 </View>
                 <View style={styles.reviewOptionsContainer}>

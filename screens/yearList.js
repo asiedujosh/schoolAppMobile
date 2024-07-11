@@ -1,8 +1,7 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext} from 'react';
 import {Text, View, ScrollView, Pressable, FlatList} from 'react-native';
-
 import styles from '../globalStyles/Styles';
-import HomeBtn from '../component/homeBtn.js';
+import PageBackBtn from '../component/backPageBtn.js';
 import KeyboardAvoidingContainer from '../component/keyboardAvoidingContainer';
 import {QuestionApiData} from '../contextApi/question/questionContextApi.js';
 import {useRoute} from '@react-navigation/native';
@@ -17,10 +16,6 @@ const YearList = ({navigation}) => {
     navigation.navigate('SubjectList', {
       data: {examType: examType, year: item},
     });
-  };
-
-  let handleHomeBtn = () => {
-    navigation.navigate('Dashboard');
   };
 
   //Original Verison
@@ -38,7 +33,7 @@ const YearList = ({navigation}) => {
             <View style={styles.dashboardHeadFAQ}>
               <Text style={[styles.dashboardHeadTitle]}>Years</Text>
               <View style={styles.homeBtnWrapper}>
-                <HomeBtn handleHome={handleHomeBtn} />
+                <PageBackBtn navigation={navigation} />
               </View>
             </View>
           </View>

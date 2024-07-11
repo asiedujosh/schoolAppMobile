@@ -1,7 +1,7 @@
 import {useState, useContext, useEffect} from 'react';
 import {QuestionApiData} from '../contextApi/question/questionContextApi.js';
 import {StoreApiData} from '../contextApi/store/storeContextApi';
-import HomeBtn from '../component/homeBtn.js';
+import PageBackBtn from '../component/backPageBtn.js';
 import {Text, View, ScrollView, Pressable, FlatList} from 'react-native';
 import styles from '../globalStyles/Styles';
 import KeyboardAvoidingContainer from '../component/keyboardAvoidingContainer';
@@ -33,10 +33,6 @@ const SubjectList = ({navigation}) => {
       }
     }
   }, [questions]);
-
-  let handleHomeBtn = () => {
-    navigation.navigate('Dashboard');
-  };
 
   let handleNotPurchased = () => {
     setLoadingQuestions(false);
@@ -102,7 +98,7 @@ const SubjectList = ({navigation}) => {
             <View style={styles.dashboardHeadFAQ}>
               <Text style={[styles.dashboardHeadTitle]}>Subject</Text>
               <View style={styles.homeBtnWrapper}>
-                <HomeBtn handleHome={handleHomeBtn} />
+                <PageBackBtn navigation={navigation} />
               </View>
             </View>
             <View style={{justifyContent: 'center', alignItems: 'center'}}>

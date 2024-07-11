@@ -1189,6 +1189,8 @@ export default StyleSheet.create({
   /** FAQ */
   accordContainer: {
     paddingBottom: 4,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   accordHeader: {
     padding: 12,
@@ -1228,6 +1230,36 @@ export default StyleSheet.create({
   },
   seperator: {
     height: 12,
+  },
+
+  /** Subscribe Table Container */
+  subscribeCardContainer: {
+    backgroundColor: whiteColor,
+    width: width * 0.9,
+    height: width * 0.7,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 10,
+  },
+
+  subscribeTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+
+  subscribeSubContainer: {
+    marginTop: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  subscribeSubDate: {
+    color: blueColor,
+  },
+
+  subscibePrice: {
+    fontSize: 30,
+    color: black,
   },
 
   /** Settings */

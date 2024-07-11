@@ -2,6 +2,8 @@ import React, {useEffect, useState, useContext} from 'react';
 import {Text, View, Image, Alert, FlatList} from 'react-native';
 import styles from '../globalStyles/Styles';
 import SubmitBtn from '../component/submitBtn';
+import Share from 'react-native-share';
+import files from '../assets/base64/base64Img.js';
 import positionMap from '../utils/positionMap.js';
 import {AuthApiData} from '../contextApi/auth/authContextApi.js';
 import {QuestionApiData} from '../contextApi/question/questionContextApi.js';
@@ -10,8 +12,15 @@ import KeyboardAvoidingContainer from '../component/keyboardAvoidingContainer';
 // import {FlatList} from 'react-native-gesture-handler';
 
 const GameResult = ({navigation}) => {
-  const {quizAttempt, correctAns, questions, review, setReview, topicList} =
-    useContext(QuestionApiData);
+  const {
+    quizAttempt,
+    correctAns,
+    questionInfo,
+    questions,
+    review,
+    setReview,
+    topicList,
+  } = useContext(QuestionApiData);
   const {userProfile} = useContext(AuthApiData);
   const {processSaveRecords, saveInfoAlert, setSaveInfoAlert} =
     useContext(RecordApiData);
@@ -83,8 +92,17 @@ const GameResult = ({navigation}) => {
     }
   };
 
-  const handleShareInfo = () => {
-    navigation.navigate('NotAvailable');
+  const handleShareInfo = async () => {
+    const shareOptions = {
+      message: `I scored ${correctAns} Out of ${questions.length} on ${questionInfo.subject} ${questionInfo.examsType} ${questionInfo.year} on the nunya exam app`,
+      url: files.logo,
+    };
+
+    try {
+      const ShareResponse = await Share.open(shareOptions);
+    } catch (error) {
+      console.log('Error => ', error);
+    }
   };
 
   let handleGrade = (noOfQuestions, marks) => {

@@ -12,7 +12,14 @@ import {
   removeUserSession,
 } from '../../utils/localStore';
 import NetInfo from '@react-native-community/netinfo';
-import {Login, Register, ForgotPassword, ResetPassword} from './auth';
+import {
+  Login,
+  Register,
+  ForgotPassword,
+  ResetPassword,
+  UpdateUser,
+  UpdatePassword,
+} from './auth';
 export const AuthApiData = createContext();
 
 const AuthApiDataProvider = props => {
@@ -20,6 +27,9 @@ const AuthApiDataProvider = props => {
   const [resetPasswordPage, setResetPasswordPage] = useState(false);
   const [resetLoader, setResetLoader] = useState(false);
   const [resetSuccess, setResetSuccess] = useState(false);
+  const [editUserAlert, setEditUserAlert] = useState(false);
+  const [editPasswordAlert, setEditPasswordAlert] = useState(false);
+  const [editMessage, setEditMessage] = useState('');
   const [loading, setLoading] = useState(false);
   const [userProfile, setUserProfile] = useState();
   const [isOffline, setOfflineStatus] = useState(false);
@@ -123,8 +133,8 @@ const AuthApiDataProvider = props => {
     try {
       //console.log(data);
       setSignInLoading(true);
-      (data.country = registerFormData.country.name),
-        (data.tel = `${registerFormData.country.dial_code}" "${registerFormData.tel}`);
+      (data.countryName = data.country.name),
+        (data.tel = `${data.country.dial_code} ${data.tel}`);
       let response = await Register(data);
       if (response === TIMEEXCEED) {
         setSignInLoading(false);
@@ -163,6 +173,39 @@ const AuthApiDataProvider = props => {
         storeUserSession(response.data.token, response.data.user);
         setLoading(false);
         setAlreadyLoggedIn(true);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const processUpdateUser = async data => {
+    try {
+      let response = await UpdateUser(data);
+      if (response.data) {
+        setEditUserAlert(prev => !prev);
+        setSignInLoading(false);
+      } else {
+        console.log();
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const processUpdatePassword = async data => {
+    try {
+      let response = await UpdatePassword(data);
+      if (response) {
+        if (response.data.data == true) {
+          setEditPasswordAlert(prev => !prev);
+          setEditMessage('Password updated successfully');
+          setSignInLoading(false);
+        } else {
+          setEditPasswordAlert(prev => !prev);
+          setEditMessage('Oops something went wrong');
+          setSignInLoading(false);
+        }
       }
     } catch (err) {
       console.log(err);
@@ -216,6 +259,7 @@ const AuthApiDataProvider = props => {
         alreadyLoggedIn,
         processLogin,
         processRegister,
+        processUpdatePassword,
         processLogout,
         loading,
         setLoading,
@@ -241,12 +285,12 @@ const AuthApiDataProvider = props => {
         forgotSuccessMessage,
         processResetPassword,
         resetSuccess,
-        // selected,
-        // setSelected,
-        // country,
-        // setCountry,
-        // phone,
-        // setPhone,
+        processUpdateUser,
+        editUserAlert,
+        setEditUserAlert,
+        setEditPasswordAlert,
+        editPasswordAlert,
+        editMessage,
       }}>
       {props.children}
     </AuthApiData.Provider>
